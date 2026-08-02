@@ -1,16 +1,24 @@
 # 0801 GitHub Code Study
 
-这是我们的第一个演示 Demo 仓库，用来研究如何把一个视觉参考快速拆解成可运行的网页体验。
-
-## 第一个项目：Finance Header - Wallet
-
-项目位于 [`wallet-finance-header`](./wallet-finance-header/)，是一个沉浸式的 Wallet 财务/加密资产 Header 原型。
+这是一个持续扩展的研究 Demo 仓库，用来记录我们如何把视觉参考拆解成可运行、可验证的网页体验。
 
 在线仓库：[yydshly/0801_githubcode_study](https://github.com/yydshly/0801_githubcode_study)
 
-## Demo 演示
+## 项目索引
 
-### 本地实时预览
+所有研究项目都放在独立的子目录中，并按创建顺序编号。
+
+| 编号 | 子项目 | 研究重点 | 状态 | Demo | 文档 |
+| --- | --- | --- | --- | --- | --- |
+| 01 | [Finance Header - Wallet](./wallet-finance-header/) | 滚动驱动的视频 Header | 已完成 | [本地预览](http://127.0.0.1:5191/) | [项目说明](./wallet-finance-header/README.md) |
+
+后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
+
+## 研究项目 01：Finance Header - Wallet
+
+项目位于 [`wallet-finance-header`](./wallet-finance-header/)，是一个沉浸式的 Wallet 财务/加密资产 Header 原型。
+
+### Demo 演示
 
 启动开发服务器后，可以直接打开：[打开 Wallet Demo](http://127.0.0.1:5191/)
 
@@ -29,15 +37,13 @@ npm run dev
 
 > 这里的链接指向本机开发服务器，只在本地启动项目后有效。若要让其他人直接访问，需要把子项目部署到静态托管服务，再将公开地址替换到这里。
 
-### 运行项目
+### 运行、构建与测试
 
 ```powershell
 cd wallet-finance-header
 npm install
 npm run dev
 ```
-
-生产构建与测试：
 
 ```powershell
 npm run build
@@ -85,6 +91,29 @@ flowchart LR
 - HTML5 Video：承载主视觉视频并响应滚动时间轴
 
 Wallet 连接和 Contact Us 是原型级模拟交互，不会访问真实链上服务或发送真实网络消息。
+
+## 仓库结构
+
+```text
+0801_codex_project/
+├─ README.md                         # 研究仓库总览与项目索引
+├─ wallet-finance-header/            # 研究项目 01
+│  ├─ README.md                      # 子项目说明与运行方式
+│  ├─ docs/                          # 子项目验证记录
+│  ├─ src/                           # React 页面与交互实现
+│  └─ tests/                         # 可自动化验证的逻辑
+└─ docs/                             # 研究过程中的设计契约与实现计划
+```
+
+## 新增研究项目约定
+
+新增子项目时：
+
+1. 在仓库根目录创建独立目录，例如 `project-02-name/`。
+2. 子项目内部必须有自己的 README，写清楚目标、运行方式和实现原理。
+3. 在本 README 的“项目索引”中追加编号、研究重点、状态、Demo 和文档链接。
+4. 如果有本地 Demo，统一说明启动命令和本地访问地址；如果部署到公开地址，再替换为公开链接。
+5. 不把多个研究项目的源码、依赖或验证记录混在同一个子目录里。
 
 ## 项目文档
 
