@@ -8,6 +8,27 @@
 
 在线仓库：[yydshly/0801_githubcode_study](https://github.com/yydshly/0801_githubcode_study)
 
+## Demo 演示
+
+### 本地实时预览
+
+启动开发服务器后，可以直接打开：[打开 Wallet Demo](http://127.0.0.1:5191/)
+
+```powershell
+cd wallet-finance-header
+npm install
+npm run dev
+```
+
+体验路径：
+
+1. 首屏看到宇宙、月球和宇航员双手，以及 `Connect your wallet`。
+2. 向下滚动，视频画面会跟随滚动位置变化，左下角时间线从 `00%` 走到 `100%`。
+3. 接近页面底部后，视频自动播放尾段，并出现 `Hold the Future in Your Hands.`。
+4. 点击右上角菜单可以打开 Portal Directory，点击 Contact Us 可以打开联系表单。
+
+> 这里的链接指向本机开发服务器，只在本地启动项目后有效。若要让其他人直接访问，需要把子项目部署到静态托管服务，再将公开地址替换到这里。
+
 ### 运行项目
 
 ```powershell
