@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Anybody:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.wallet-app-shell {
+  min-height: 100vh;
+}
+
+.wallet-section {
+  --wallet-heading-font: 'Anybody', sans-serif;
+  --wallet-body-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --wallet-mono-font: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  font-family: var(--wallet-body-font);
+  background: #050505;
+  color: #ffffff;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.wallet-section button,
+.wallet-section input,
+.wallet-section textarea {
+  font: inherit;
+}
+
+.wallet-section input,
+.wallet-section textarea {
+  user-select: text;
+}
+
+.wallet-section button:focus-visible,
+.wallet-section input:focus-visible,
+.wallet-section textarea:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 3px;
+}
+
+.anybody-heading {
+  font-family: var(--wallet-heading-font);
+  font-size: 34px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.wallet-mono {
+  font-family: var(--wallet-mono-font);
+}
+
+.wallet-contact-label {
+  font-family: var(--wallet-mono-font);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.wallet-section ::selection {
+  color: #0b3a17;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+@media (min-width: 1024px) {
+  .anybody-heading {
+    font-size: 70px !important;
+    line-height: 1.1 !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .anybody-heading {
+    font-size: 52px !important;
+    line-height: 1.1 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wallet-section *,
+  .wallet-section *::before,
+  .wallet-section *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
