@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07100c">
+  <meta name="description" content="Particle Flower Lab：实体程序化花束、360° 旋转与粒子解构实验。">
+  <title>Particle Flower Lab · Research 04</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="experience" id="experience">
+    <canvas id="flowerCanvas" aria-label="实时生成并旋转的三维花束"></canvas>
+
+    <header class="masthead">
+      <div>
+        <p class="kicker">Research 04 · Procedural 3D Botany</p>
+        <h1>Particle Flower Lab</h1>
+      </div>
+      <div class="live-state" aria-label="渲染状态">
+        <span></span>
+        <p><strong>360° WEBGL LIVE</strong><small id="particleCount">正在生成花束</small></p>
+      </div>
+    </header>
+
+    <section class="story" aria-labelledby="storyTitle">
+      <p class="chapter">02 / VOLUMETRIC STUDY</p>
+      <h2 id="storyTitle">一束不会凋零的夏天</h2>
+      <p>花瓣、花心、枝干和叶片都是实时生成的三维网格；粒子只负责边缘飞溅与解构。拖动即可从任意角度观察。</p>
+    </section>
+
+    <section class="controls" aria-label="粒子花束控制台">
+      <div class="button-row">
+        <button class="primary" id="growButton" type="button">
+          <span class="button-icon">↻</span>
+          重新绽放
+        </button>
+        <button id="scatterButton" type="button">粒子解构</button>
+        <button id="rotationButton" type="button" aria-pressed="true">自动旋转</button>
+      </div>
+      <label class="range-control" for="rotationSpeedRange">
+        <span>旋转速度</span>
+        <input id="rotationSpeedRange" type="range" min="0" max="100" value="52">
+        <output id="rotationSpeedValue">52%</output>
+      </label>
+      <p class="hint">按住拖动观察 360° 结构 · 双击恢复英雄镜头</p>
+    </section>
+
+    <p class="status-copy" id="statusCopy" aria-live="polite">三维花束正在绽放</p>
+    <div class="fallback" id="fallback" hidden>
+      <p>当前浏览器无法启动 WebGL。请使用新版 Chrome、Edge 或 Safari 查看实验。</p>
+    </div>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
