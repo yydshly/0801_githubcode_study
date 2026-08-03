@@ -41,6 +41,19 @@
       "tags": ["Three.js", "WebGL", "Spatial UI"],
       "publish": ["index.html", "styles.css", "app.js", "extended"],
       "docs": "complete-shelf-study/README.md"
+    },
+    {
+      "id": "04",
+      "name": "Particle Flower Lab",
+      "slug": "particle-flower-lab",
+      "directory": "particle-flower-lab",
+      "type": "static",
+      "enabled": true,
+      "status": "阶段归档",
+      "summary": "研究如何不用图片、视频或预制模型，以程序化三维网格和 GPU 粒子实现完整花束、360° 旋转与解构。",
+      "tags": ["WebGL", "GLSL", "Particles"],
+      "publish": ["index.html", "styles.css", "app.js"],
+      "docs": "particle-flower-lab/README.md"
     }
   ]
 }
