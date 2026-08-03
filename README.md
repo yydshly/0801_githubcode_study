@@ -15,6 +15,7 @@
 | 02 | [Prompt Master](./prompt-master-comparison-demo/) | 用户描述经过规范化后，是否更容易形成可执行目标 | 研究样例 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) | [项目 README](./prompt-master-comparison-demo/README.md) |
 | 03 | [Complete Shelf - Research Volumes](./complete-shelf-study/) | 如何用空间化书架展示精选项目及其价值 | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/complete-shelf-study/) | [项目 README](./complete-shelf-study/README.md) |
 | 04 | [Particle Flower Lab](./particle-flower-lab/) | 如何用程序化网格与粒子生成可完整旋转的三维花束 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/particle-flower-lab/) | [项目 README](./particle-flower-lab/README.md) |
+| 05 | [Glass Worlds Gallery](./glass-worlds-gallery/) | 如何不用世界模型实现包含多图场景的漂浮玻璃世界展厅 | 研究样例 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) | [项目 README](./glass-worlds-gallery/README.md) |
 
 后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
 
@@ -32,6 +33,19 @@
 后续可以沿四条路线继续优化：精修当前程序化网格；引入高质量 GLB 花束模型并保留实时 WebGL 特效（优先推荐）；使用透明花朵图片构建轻量 2.5D 分层效果；或使用 Blender 离线制作追求视频级写实质感。
 
 [查看完整实现说明](./particle-flower-lab/IMPLEMENTATION.md) · [查看阶段归档](./particle-flower-lab/ARCHIVE.md) · [查看验证记录](./particle-flower-lab/VALIDATION.md)
+
+### 子项目 05：Glass Worlds Gallery
+
+**[打开在线演示](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/)** · [进入子项目目录](./glass-worlds-gallery/) · [阅读子项目 README](./glass-worlds-gallery/README.md)
+
+这是对 Happy Oyster 式“星系中的球中世界”视觉的可运行拆解。当前版本不依赖世界模型、视频生成服务或专用 token，而是用 React、Three.js 和本地图片构建持久 WebGL 星系：8 个星球由曲面受光的图片纹理内球、双层光学玻璃壳、环境反射和动态高光组成，沿覆盖完整画面的不规则环形分区向摄影机靠近；系统根据投影尺寸实时避让，近景球向各自扇区外侧展开并从边缘自然离场。背景使用 1,790 个固定屏幕尺寸、全视锥均匀散布的圆形 GPU 星尘粒子。
+
+- **视觉结构**：持久 WebGL 画布、透明玻璃星球、内部图片世界、GPU 星尘、摄影机视差和视锥边界循环。
+- **交互结构**：Explore/Directing 模式、球体选择、详情缩略图、前后世界切换、随机探索和本地创建流程。
+- **实现结论**：只复现首页的视觉与交互属于中等复杂度，不需要大模型；只有球内画面需要根据摄像头或提示词实时改变，或要保持可操作的世界状态时，才需要进一步接入实时视频模型或世界模型。
+- **资产策略**：当前复用仓库已有真实研究封面，后续可以逐球替换专用生成图，不需要重写球体和交互逻辑。
+
+[查看实现分析](./glass-worlds-gallery/IMPLEMENTATION_ANALYSIS.md) · [查看设计契约](./glass-worlds-gallery/DESIGN_CONTRACT.md) · [查看验证记录](./glass-worlds-gallery/VALIDATION.md) · [查看设计 QA](./glass-worlds-gallery/design-qa.md)
 
 ## 待研究与参考项目
 
@@ -54,6 +68,7 @@
 ├─ 项目 02：Prompt Master
 ├─ 项目 03：Complete Shelf - Research Volumes
 ├─ 项目 04：Particle Flower Lab
+├─ 项目 05：Glass Worlds Gallery
 └─ 后续正式研究项目
 ```
 
@@ -428,6 +443,11 @@ Crucix 和 World Monitor 共同验证了我们的三个核心建设重点，但�
 │  ├─ README.md                      # 子项目说明与运行方式
 │  ├─ index.html                     # Prompt 前后对照页面
 │  └─ VALIDATION.md                  # 浏览器验收记录
+├─ glass-worlds-gallery/              # 研究项目 05
+│  ├─ README.md                      # 效果原理、复杂度与运行方式
+│  ├─ src/                           # React 舞台、球体与交互实现
+│  ├─ public/assets/scenes/          # 每个世界轮播使用的本地图片
+│  └─ VALIDATION.md                  # 构建与浏览器验收记录
 └─ docs/                             # 研究过程中的设计契约与实现计划
 ```
 
@@ -464,4 +484,5 @@ python -m http.server 4180 --directory .pages
 | --- | --- | --- | --- | --- |
 | 01 · Finance Header - Wallet | [README](./wallet-finance-header/README.md) | [验证记录](./wallet-finance-header/docs/verification-coverage.md) | [设计契约](./docs/superpowers/specs/2026-08-02-wallet-finance-header-design.md) · [实现计划](./docs/superpowers/plans/2026-08-02-wallet-finance-header.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) |
 | 02 · Prompt Master | [README](./prompt-master-comparison-demo/README.md) | [验证记录](./prompt-master-comparison-demo/VALIDATION.md) | [设计契约](./prompt-master-comparison-demo/DESIGN_CONTRACT.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) |
+| 05 · Glass Worlds Gallery | [README](./glass-worlds-gallery/README.md) | [验证记录](./glass-worlds-gallery/VALIDATION.md) | [实现分析](./glass-worlds-gallery/IMPLEMENTATION_ANALYSIS.md) · [设计契约](./glass-worlds-gallery/DESIGN_CONTRACT.md) · [设计 QA](./glass-worlds-gallery/design-qa.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) |
 | 研究展厅与部署 | [设计说明](./docs/research-pages/DESIGN_CONTRACT.md) | [验证记录](./docs/research-pages/VALIDATION.md) | [`research-projects.json`](./research-projects.json) | [研究展厅](https://yydshly.github.io/0801_githubcode_study/) |

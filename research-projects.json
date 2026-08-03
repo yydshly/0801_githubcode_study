@@ -54,6 +54,19 @@
       "tags": ["WebGL", "GLSL", "Particles"],
       "publish": ["index.html", "styles.css", "app.js"],
       "docs": "particle-flower-lab/README.md"
+    },
+    {
+      "id": "05",
+      "name": "Glass Worlds Gallery",
+      "slug": "glass-worlds-gallery",
+      "directory": "glass-worlds-gallery",
+      "type": "vite",
+      "output": "dist/client",
+      "enabled": true,
+      "status": "研究样例",
+      "summary": "研究如何用图片纹理、透明玻璃材质、GPU 粒子、摄影机穿行和视锥循环构建无需世界模型的沉浸式 AI 能力星系。",
+      "tags": ["React", "Three.js", "WebGL"],
+      "docs": "glass-worlds-gallery/README.md"
     }
   ]
 }

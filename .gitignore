@@ -1,3 +1,6 @@
 .pages/
+node_modules/
+dist/
+.tmp/
 complete-shelf-study/upstream/
 complete-shelf-study/.qa/
