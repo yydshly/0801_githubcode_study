@@ -1,50 +1,57 @@
 # 0801 GitHub Code Study
 
-这是一个持续扩展的研究 Demo 仓库，用来记录我们如何把视觉参考拆解成可运行、可验证的网页体验。
+这是一个持续扩展的研究仓库，用于记录、验证和展示 AI、Agent、信息系统与交互产品相关的研究项目。
 
-在线仓库：[yydshly/0801_githubcode_study](https://github.com/yydshly/0801_githubcode_study)
+- **[访问在线研究展厅](https://yydshly.github.io/0801_githubcode_study/)**
+- [查看 GitHub 仓库](https://github.com/yydshly/0801_githubcode_study)
 
-## 项目索引
+## 正式研究项目
 
-所有研究项目都放在独立的子目录中，并按创建顺序编号。
+已经形成独立目录、研究文档或可运行演示的项目，按创建顺序编号。
 
-| 编号 | 子项目 | 研究重点 | 状态 | Demo | 文档 |
+| 编号 | 项目 | 研究问题 | 状态 | 在线演示 | 研究文档 |
 | --- | --- | --- | --- | --- | --- |
-| 01 | [Finance Header - Wallet](./wallet-finance-header/) | 滚动驱动的视频 Header | 已完成 | [Pages（部署后）](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) | [项目说明](./wallet-finance-header/README.md) |
-| 02 | [Prompt Master](./prompt-master-comparison-demo/) | 用户意图规范化与 Codex Prompt 前后对比 | 研究样例 | [Pages（部署后）](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) | [项目说明](./prompt-master-comparison-demo/README.md) |
+| 01 | [Finance Header - Wallet](./wallet-finance-header/) | 如何实现滚动驱动的视频 Header | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) | [项目 README](./wallet-finance-header/README.md) |
+| 02 | [Prompt Master](./prompt-master-comparison-demo/) | 用户描述经过规范化后，是否更容易形成可执行目标 | 研究样例 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) | [项目 README](./prompt-master-comparison-demo/README.md) |
 
 后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
 
-## 统一研究展厅与部署
+## 待研究与参考项目
 
-仓库使用一套可扩展的 GitHub Pages 发布流程，把多个独立子项目发布到同一个研究展厅：
+这里登记已经发现价值、但尚未形成正式可运行子项目的研究方向。它们是研究资产，不会因为暂缓实施而删除。
+
+| 研究主题 | 类型 | 当前状态 | 核心价值 | 详细记录 |
+| --- | --- | --- | --- | --- |
+| Crucix | 参考项目 | 暂缓研究 | 信息源采集、变化检测、风险聚合 | [研究档案](#crucix) |
+| World Monitor | 架构参考 | 不安装 | 数据治理、事件聚合、证据链与多出口展示 | [研究档案](#world-monitor) |
+| AI「无限私人导师」 | 产品研究方向 | 待研究 | 个性化训练、知识漏洞检测和长期反馈 | [研究档案](#ai无限私人导师) |
+
+## 在线研究展厅
+
+所有正式项目通过同一套 GitHub Pages 流程发布到 **[在线研究展厅](https://yydshly.github.io/0801_githubcode_study/)**：
 
 ```text
-https://yydshly.github.io/0801_githubcode_study/
-├─ projects/wallet-finance-header/
-├─ projects/prompt-master/
-└─ projects/未来项目/
+研究展厅
+├─ 项目 01：Finance Header - Wallet
+├─ 项目 02：Prompt Master
+└─ 后续正式研究项目
 ```
 
-项目通过 [`research-projects.json`](./research-projects.json) 登记。登记表负责项目编号、公开路径、构建类型、状态和展示信息；构建器目前支持：
+## 研究档案
 
-- `static`：只复制登记表中明确列出的网页文件；
-- `vite`：在项目目录独立安装依赖和构建，并自动设置 Pages 子路径。
+以下内容保存待研究方向和外部参考项目的阶段性结论。保留完整证据、判断和当前决策，后续可以继续深化或转化为正式研究项目。
 
-本地生成完整展厅：
+### Crucix
 
-```powershell
-node scripts/build-research-pages.mjs --base=/
-python -m http.server 4180 --directory .pages
-```
+**当前状态：暂缓研究，作为架构参考保留。**
 
-新增研究项目时，不需要创建新的 Pages 工作流，只需创建独立目录并在登记表增加一项。生成结果统一写入被忽略的 `.pages/`，部署流程不会公开 `.agents`、源码草稿或仓库中的其他文件。
+<details>
+<summary>展开 Crucix 完整研究记录</summary>
 
-## 参考项目结论：Crucix（暂缓研究）
 
 [Crucix](https://github.com/calesthio/Crucix) 不是一个可以直接引入的 npm 库，而是一套本地运行的全球风险与 OSINT 情报应用。它不是只抓战争信息，而是以地缘风险为主线，连接冲突、经济、金融、供应链、舆情、健康、环境、太空和网络安全等数据。
 
-### 核心能力
+#### 核心能力
 
 Crucix 的能力可以归纳为三层：
 
@@ -52,7 +59,7 @@ Crucix 的能力可以归纳为三层：
 2. **数据治理与信号分析**：对数据做归一化、去重、来源状态判断和历史差分，识别新增、升级、缓解和异常信号，再进行跨来源关联和可选的模型分析。
 3. **汇总输出与产品展示**：通过仪表盘、地图、风险面板、API、SSE、Telegram 和 Discord 告警，把结构化信号变成摘要、风险等级和行动提示。[Delta Engine](https://github.com/calesthio/Crucix/blob/master/lib/delta/engine.mjs)
 
-### 对我们的意义
+#### 对我们的意义
 
 Crucix 对我们的主要价值不是提供战争数据，而是提供一条可参考的信息处理链路：
 
@@ -62,7 +69,7 @@ Crucix 对我们的主要价值不是提供战争数据，而是提供一条可�
 
 它可以帮助我们理解一个信息产品的核心不应只是“抓取更多内容”，而是把大量信息过滤成少量可信、可解释、可追踪的信号。
 
-### 与 AI 信息探测雷达的关系
+#### 与 AI 信息探测雷达的关系
 
 我们的 AI 信息探测雷达可以借鉴 Crucix 的：
 
@@ -75,7 +82,7 @@ Crucix 对我们的主要价值不是提供战争数据，而是提供一条可�
 
 但我们的实现不应直接复制它的“全量抓取所有源”模式，而应根据不同的监测主题或主体选择源配置。例如，竞品监测、行业风险、技术趋势和金融风险应分别拥有自己的源、指标、关联规则和提示词。
 
-### 当前决策
+#### 当前决策
 
 Crucix **具备参考价值，但暂不继续深入研究，也暂不集成到当前项目**。后续 AI 信息探测雷达优先围绕以下三个重点自行设计：
 
@@ -85,13 +92,21 @@ Crucix **具备参考价值，但暂不继续深入研究，也暂不集成到�
 
 Crucix 作为架构参考保留，不作为当前仓库的直接依赖或新的研究子项目。
 
-## 参考项目结论：World Monitor（架构参考，不安装）
+</details>
+
+### World Monitor
+
+**当前状态：作为架构参考保留，不安装。**
+
+<details>
+<summary>展开 World Monitor 完整研究记录</summary>
+
 
 [World Monitor](https://github.com/koala73/worldmonitor) 是一套比 Crucix 更完整、更重的实时全球信息与态势感知平台。它将新闻、地缘政治、军事、金融、能源、气候、航空、海事、网络安全、基础设施和自然灾害等数据聚合到统一的数据层，再通过地图、专题面板、AI 简报、风险指标、直播窗口、API 和 MCP 等方式输出。
 
 它对我们的意义不在于直接安装或复刻整个项目，而在于参考一个信息探测系统从“抓取脚本”走向“可长期运行的数据与情报平台”时，需要补齐哪些能力。
 
-### 信息来源与采集方式
+#### 信息来源与采集方式
 
 World Monitor 官方说明中列出了 65 个以上的外部数据提供方和 500 个以上的新闻源，覆盖约 15 个新闻类别以及地缘政治、金融、能源、气候、航空、网络安全、军事和基础设施等领域。[项目说明](https://github.com/koala73/worldmonitor#readme)
 
@@ -111,7 +126,7 @@ World Monitor 官方说明中列出了 65 个以上的外部数据提供方和 5
 
 对我们的 AI 信息探测雷达而言，最值得借鉴的是建立统一的“来源登记与运行治理”机制。每个来源至少需要记录覆盖主体、采集方式、认证要求、刷新频率、可信度、授权限制、失败原因和备用来源，而不是不断增加彼此孤立的抓取脚本。
 
-### 聚合、分析与数据治理
+#### 聚合、分析与数据治理
 
 World Monitor 不只是把文章堆到一个页面里，而是先把不同来源转换成统一、类型明确的数据对象，再进行去重、聚类、实体识别、地理定位、情绪分析、摘要和跨领域关联。
 
@@ -126,7 +141,7 @@ World Monitor 不只是把文章堆到一个页面里，而是先把不同来源
 
 这对我们的启发是：AI 不应该直接面对未经治理的全部原始信息自由生成结论，而应该读取已经去重、归一化、带来源和时间信息的“证据包”，最后输出结论、理由、置信度、支持证据和反向证据。
 
-### 汇总与产品展示
+#### 汇总与产品展示
 
 World Monitor 将同一套标准化数据输出到多种界面和接口，包括 3D 地球、二维地图、专题图层、事件面板、国家风险指数、金融与能源指标、AI 日报、事件简报、告警、桌面端以及 API、MCP、CLI 和 SDK。[功能概览](https://www.worldmonitor.app/docs/documentation)
 
@@ -144,7 +159,7 @@ World Monitor 将同一套标准化数据输出到多种界面和接口，包括
 
 因此，我们的业务逻辑也不应写死在某个页面里。应先形成统一的主体、事件、信号和证据模型，再根据使用场景生成雷达、地图、时间线、简报和告警。
 
-### 录像与直播源接入
+#### 录像与直播源接入
 
 World Monitor 确实支持直播内容，但它目前更接近“直播聚合与证据展示”，而不是完整的视频智能分析平台。
 
@@ -160,7 +175,7 @@ World Monitor 确实支持直播内容，但它目前更接近“直播聚合与
 
 对我们的雷达，第一阶段适合把直播和录像作为证据层：保存来源、频道、地区、时间、播放地址、健康状态和关联事件，供用户核验。后续只有在明确需要时，才增加音频转写、OCR、关键帧抽取、视觉识别和视频事件聚合；否则视频分析会显著增加算力、存储、带宽和合规成本。
 
-### 与 Crucix 的对比
+#### 与 Crucix 的对比
 
 | 对比维度 | Crucix | World Monitor | 对我们的参考价值 |
 | --- | --- | --- | --- |
@@ -173,7 +188,7 @@ World Monitor 确实支持直播内容，但它目前更接近“直播聚合与
 | 部署与运行 | 结构较简单，适合本地试验 | 依赖前端、边缘函数、Relay、Redis、模型和多个外部服务 | World Monitor 没有必要为了看效果完整安装 |
 | 直接复用风险 | 更适合阅读和局部参考 | 系统复杂，且主体源码采用 AGPL-3.0 | 优先借鉴设计思想，谨慎复制代码或形成直接依赖 |
 
-### 对 AI 信息探测雷达的统一结论
+#### 对 AI 信息探测雷达的统一结论
 
 Crucix 和 World Monitor 共同验证了我们的三个核心建设重点，但两者提供的参考层级不同：
 
@@ -194,9 +209,15 @@ Crucix 和 World Monitor 共同验证了我们的三个核心建设重点，但�
 
 当前决策是：**Crucix 和 World Monitor 都作为架构参考保留，暂不作为依赖集成，也不投入时间完整安装 World Monitor。** 后续建设应优先完成少量高价值来源、统一事件模型、来源新鲜度、变化检测、证据链和 AI 简报；直播与录像先作为辅助证据接入，视频内容理解放到后续阶段。
 
-## 后期研究方向：AI「无限私人导师」
+</details>
+
+### AI「无限私人导师」
 
 这是后续研究路线，不代表当前已经实现。目标是研究 AI 如何从“回答问题”升级为长期、个性化、可验证的能力训练系统。
+
+<details>
+<summary>展开 AI「无限私人导师」完整研究方向</summary>
+
 
 | 编号 | 能力 | 一句话总结 | 核心价值 | 演示案例 |
 | --- | --- | --- | --- | --- |
@@ -209,83 +230,7 @@ Crucix 和 World Monitor 共同验证了我们的三个核心建设重点，但�
 | 7 | **Mental Shortcut Auditor**<br>思维捷径审计员 | 检查解决方式是否基于逻辑，而不是经验、运气或套路。 | 提升底层思考和架构能力 | **代码架构评审：** 当你提出“用微服务解决性能问题”时，AI 追问瓶颈、替代方案和是否过度设计。 |
 | 8 | **Reverse Teaching Simulator**<br>反向教学模拟器 | 让学习者成为老师，AI 扮演学生，通过追问暴露理解漏洞。 | 用输出强化真正掌握 | **学习 RAG 后教学：** 让 AI 扮演初学者追问“为什么需要 Embedding？为什么不能直接搜索文本？”，检验是否真正理解。 |
 
-## 研究项目 01：Finance Header - Wallet
-
-项目位于 [`wallet-finance-header`](./wallet-finance-header/)，是一个沉浸式的 Wallet 财务/加密资产 Header 原型。
-
-### Demo 演示
-
-启动开发服务器后，可以直接打开：[打开 Wallet Demo](http://127.0.0.1:5191/)
-
-```powershell
-cd wallet-finance-header
-npm install
-npm run dev
-```
-
-体验路径：
-
-1. 首屏看到宇宙、月球和宇航员双手，以及 `Connect your wallet`。
-2. 向下滚动，视频画面会跟随滚动位置变化，左下角时间线从 `00%` 走到 `100%`。
-3. 接近页面底部后，视频自动播放尾段，并出现 `Hold the Future in Your Hands.`。
-4. 点击右上角菜单可以打开 Portal Directory，点击 Contact Us 可以打开联系表单。
-
-> 这里的链接指向本机开发服务器，只在本地启动项目后有效。若要让其他人直接访问，需要把子项目部署到静态托管服务，再将公开地址替换到这里。
-
-### 运行、构建与测试
-
-```powershell
-cd wallet-finance-header
-npm install
-npm run dev
-```
-
-```powershell
-npm run build
-npm test
-```
-
-## 实现原理
-
-这个 Demo 的本质不是实时 3D，而是：
-
-> 一段预渲染视频 + 一个由鼠标滚动控制的视频时间轴 + 叠加在视频上方的 HTML/CSS 界面。
-
-工作流程如下：
-
-1. 页面外层设置为大于一个屏幕的滚动空间，当前项目使用 `250vh`。
-2. 内层场景使用 `position: sticky` 固定在视口中，因此滚动时场景保持在屏幕上。
-3. 监听页面滚动位置，将滚动距离归一化为 `0～1` 的进度百分比。
-4. 在视频前 95% 的时间线上，根据进度修改 `video.currentTime`：
-
-   ```js
-   video.currentTime = scrollProgress * 4;
-   ```
-
-5. 页面接近底部时，让视频从指定时间点继续自动播放尾段，并循环尾部画面。
-6. 标题、按钮、滚动提示和 `Timeline / 00% → 100%` 都是叠加在视频上方的 HTML/CSS 元素。
-
-因此，用户看到的“滚动驱动宇宙场景”，本质上就是把鼠标滚轮映射成了视频播放位置；它没有在浏览器中实时计算 3D 摄像机、模型、灯光或粒子。
-
-```mermaid
-flowchart LR
-  A[鼠标滚动] --> B[计算页面滚动百分比]
-  B --> C[更新 video.currentTime]
-  B --> D[更新 Timeline 百分比]
-  B --> E[控制标题和提示语]
-  C --> F[视频画面变化]
-  E --> G[HTML/CSS 交互层]
-```
-
-## 技术组成
-
-- React：组件、状态和表单交互
-- Vite：本地开发与生产构建
-- Tailwind CSS：布局、响应式和视觉样式
-- Framer Motion：标题、提示语、抽屉和弹窗过渡
-- HTML5 Video：承载主视觉视频并响应滚动时间轴
-
-Wallet 连接和 Contact Us 是原型级模拟交互，不会访问真实链上服务或发送真实网络消息。
+</details>
 
 ## 仓库结构
 
@@ -307,6 +252,22 @@ Wallet 连接和 Contact Us 是原型级模拟交互，不会访问真实链上�
 └─ docs/                             # 研究过程中的设计契约与实现计划
 ```
 
+## 发布架构
+
+项目通过 [`research-projects.json`](./research-projects.json) 登记。登记表负责项目编号、公开路径、构建类型、状态和展示信息；构建器目前支持：
+
+- `static`：只复制登记表中明确列出的网页文件；
+- `vite`：在项目目录独立安装依赖和构建，并自动设置 Pages 子路径。
+
+本地生成完整展厅：
+
+```powershell
+node scripts/build-research-pages.mjs --base=/
+python -m http.server 4180 --directory .pages
+```
+
+新增研究项目时，不需要创建新的 Pages 工作流，只需创建独立目录并在登记表增加一项。生成结果统一写入被忽略的 `.pages/`，部署流程不会公开 `.agents`、源码草稿或仓库中的其他文件。
+
 ## 新增研究项目约定
 
 新增子项目时：
@@ -314,13 +275,14 @@ Wallet 连接和 Contact Us 是原型级模拟交互，不会访问真实链上�
 1. 在仓库根目录创建独立目录，例如 `project-03-name/`。
 2. 子项目内部必须有自己的 README，写清楚目标、运行方式和实现原理。
 3. 在 `research-projects.json` 中登记编号、slug、构建类型、状态和公开文件。
-4. 在本 README 的“项目索引”中追加研究重点、Demo 和文档链接。
+4. 在本 README 的“正式研究项目”中追加研究重点、Demo 和文档链接。
 5. 本地运行通用构建器，确认项目出现在 `.pages/projects/<slug>/`。
 6. 不把多个研究项目的源码、依赖或验证记录混在同一个子目录里。
 
-## 项目文档
+## 文档导航
 
-- [子项目说明](./wallet-finance-header/README.md)
-- [验证记录](./wallet-finance-header/docs/verification-coverage.md)
-- [设计契约](./docs/superpowers/specs/2026-08-02-wallet-finance-header-design.md)
-- [实现计划](./docs/superpowers/plans/2026-08-02-wallet-finance-header.md)
+| 项目 | 项目说明 | 验证记录 | 设计资料 | 在线页面 |
+| --- | --- | --- | --- | --- |
+| 01 · Finance Header - Wallet | [README](./wallet-finance-header/README.md) | [验证记录](./wallet-finance-header/docs/verification-coverage.md) | [设计契约](./docs/superpowers/specs/2026-08-02-wallet-finance-header-design.md) · [实现计划](./docs/superpowers/plans/2026-08-02-wallet-finance-header.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) |
+| 02 · Prompt Master | [README](./prompt-master-comparison-demo/README.md) | [验证记录](./prompt-master-comparison-demo/VALIDATION.md) | [设计契约](./prompt-master-comparison-demo/DESIGN_CONTRACT.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) |
+| 研究展厅与部署 | [设计说明](./docs/research-pages/DESIGN_CONTRACT.md) | [验证记录](./docs/research-pages/VALIDATION.md) | [`research-projects.json`](./research-projects.json) | [研究展厅](https://yydshly.github.io/0801_githubcode_study/) |

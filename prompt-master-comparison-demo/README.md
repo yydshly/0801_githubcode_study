@@ -2,6 +2,9 @@
 
 一个无依赖的静态网页，用于观察用户原始提示词经过 Prompt Master 规范化后的信息变化。
 
+- [打开在线 Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/)
+- [返回研究项目总展厅](https://yydshly.github.io/0801_githubcode_study/)
+
 ## 本地运行
 
 在本目录启动任意静态文件服务器，然后访问 `index.html`。例如：
