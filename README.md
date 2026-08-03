@@ -293,7 +293,79 @@ Crucix 和 World Monitor 共同验证了我们的三个核心建设重点，但�
 
 5. **虚拟试装、美妆与 AR：感知、几何与生成的组合**
 
-   这类产品通常需要人体/脸部关键点、分割、遮挡关系、商品版型或材质、实时渲染，再按需叠加生成式模型。重点不只是“生成得好看”，还包括尺寸/位置稳定、遮挡自然、商品一致、移动端帧率和隐私合规。
+   这类产品不是一个单独的“换衣模型”，而是一条由人体理解、商品理解、几何对齐、生成/渲染和实时传输组成的能力链。对本研究项而言，先把“模型选型和使用边界”记录清楚，比立即接入某个服务更重要。
+
+   **核心结论：这类模型大致分三类。对我们来说，最适合先研究的是 FASHN VTON v1.5；最适合快速体验实时效果的是 Decart Lucy VTON；CatVTON 和 IDM-VTON 更适合学习研究，不建议直接商用。**
+
+   | 模型/方案 | 类型 | 许可情况 | 适合场景 |
+   | --- | --- | --- | --- |
+   | **FASHN VTON v1.5** | 开放权重、本地运行 | 模型 Apache-2.0；人体解析组件需单独核对 NVIDIA 许可 | 最适合我们做图片级研究原型 |
+   | **CatVTON / CatV2TON** | 公开代码和权重 | CC BY-NC-SA 4.0，偏非商业研究 | 学习实现原理、做对比实验 |
+   | **IDM-VTON** | 公开代码和权重 | CC BY-NC-SA 4.0，非商业许可 | 研究高保真服装保持、论文复现 |
+   | **Decart Lucy VTON** | 闭源托管 API | 需要 API Key、短期 token 和 credits | 实时视频试装、快速验证产品效果 |
+   | **FASHN API** | 商业托管 API | 面向商业接入 | 电商图片试装、批量生成 |
+   | **Banuba / Snap / Perfect Corp** | 商业 AR SDK/API | 闭源、按服务协议使用 | 美妆、眼镜、首饰、实时 AR |
+
+   #### 我们最推荐的顺序
+
+   1. **FASHN VTON v1.5：作为第一研究模型**
+
+      输入是：
+
+      ```text
+      人物图片 + 服装图片 + 服装类别
+      ```
+
+      它不依赖复杂提示词，支持上衣、下装和连体衣；官方模型权重约 2GB，推理约需要 8GB 显存，适合先做本地图片级 Demo。[FASHN VTON v1.5](https://huggingface.co/fashn-ai/fashn-vton-1.5)
+
+      但要注意：FASHN 主模型是 Apache-2.0，人体解析组件继承了 NVIDIA Source Code License，未来商业化前仍要完整审核依赖许可。[FASHN Human Parser](https://github.com/fashn-AI/fashn-human-parser)
+
+   2. **Decart Lucy VTON：快速体验实时试装**
+
+      它适合：
+
+      ```text
+      摄像头视频 + 服装参考图 + 提示词
+          → 实时试装视频流
+      ```
+
+      优点是不用自己部署模型和视频推理环境；缺点是模型闭源、依赖平台接口、需要 token/credits，并且用户图像要上传到服务端。[Decart Lucy VTON 文档](https://docs.platform.decart.ai/models/realtime/virtual-try-on)
+
+   3. **CatVTON / IDM-VTON：作为原理学习样本**
+
+      这两个模型适合研究人物和服装如何编码、服装细节如何注入扩散模型、人体姿态和服装如何对齐，以及如何处理遮挡和身体身份保持。但它们的代码、权重和 Demo 都是 **CC BY-NC-SA 4.0**，不适合直接放进商业产品。[CatVTON 官方仓库](https://github.com/Zheng-Chong/CatVTON)、[IDM-VTON 官方仓库](https://github.com/yisol/IDM-VTON)
+
+   #### 我们当前不建议的方案
+
+   不建议直接用 Flux、SDXL 或其他通用图像模型加一句：
+
+   > “让这个人穿上这件衣服”
+
+   这样可以做视觉创意，但容易出现：
+
+   - Logo 和图案改变；
+   - 袖口、领口、衣摆不一致；
+   - 服装版型被模型重新设计；
+   - 人物脸部或身体变化；
+   - 多张图之间无法保持同一件衣服。
+
+   通用模型可以作为辅助层，例如自动识别服装、生成服装描述、把模特穿着图抠成干净商品图，以及生成用户的自然语言试装指令；但真正的“服装转移”最好交给专门 VTON 模型。
+
+   #### 最终建议
+
+   ```text
+   当前研究：FASHN VTON v1.5
+   原理对照：CatVTON、IDM-VTON
+   实时验证：Decart Lucy VTON
+   商业电商：FASHN API / Perfect Corp
+   美妆与 AR：Banuba / Snap Camera Kit
+   ```
+
+   暂时不需要申请专用 token，也不需要部署。后续如果真正做 Demo，第一版建议只做：
+
+   **人物照片 + 商品服装图 → 试装结果图 → 前后对比展示。**
+
+   这条路线成本最低，也最容易验证虚拟试装是否值得进入我们的正式项目。
 
 #### 是否需要专用 token
 
@@ -319,7 +391,7 @@ Crucix 和 World Monitor 共同验证了我们的三个核心建设重点，但�
 | 生成可探索的世界 | Happy Oyster、Oasis、Genie、Cosmos | 世界状态保持、动作响应、空间一致性、可探索时长 |
 | 对话数字人 | Anam、HeyGen、Tavus、ACE | 首帧/端到端延迟、口型同步、身份稳定、并发成本 |
 | 角色动作或动作数据 | Move AI、DeepMotion、Viggle | 姿态稳定、遮挡恢复、骨骼格式、可编辑性 |
-| 虚拟试装、美妆、AR | Decart VTON、Snap、Banuba、Perfect Corp | 跟踪稳定、遮挡与贴合、商品一致、端侧性能 |
+| 虚拟试装、美妆、AR | FASHN VTON、CatVTON、IDM-VTON、Decart VTON、Snap、Banuba、Perfect Corp | 服装保真、跟踪稳定、遮挡与贴合、端侧性能、许可与数据路径 |
 | 机器人/驾驶仿真 | Cosmos、GAIA-2、Oasis | 动作可控性、物理合理性、仿真覆盖、训练数据价值 |
 
 #### 当前结论
@@ -334,6 +406,8 @@ Crucix 和 World Monitor 共同验证了我们的三个核心建设重点，但�
 - [Happy Oyster](https://www.happyoyster.com/home) · [Krea Realtime 14B](https://www.krea.ai/blog/krea-realtime-14b) · [Krea Realtime 权重](https://huggingface.co/krea/krea-realtime-video)
 - [NVIDIA Cosmos](https://www.nvidia.com/en-us/ai/cosmos/) · [Google DeepMind Genie](https://deepmind.google/models/genie/) · [Wayve GAIA-2](https://wayve.ai/press/wayve-unveils-gaia2/)
 - [Anam API](https://anam.ai/api) · [HeyGen LiveAvatar 文档](https://docs.liveavatar.com/) · [Snap Camera Kit](https://developers.snap.com/camera-kit/getting-started/what-is-camera-kit)
+- [FASHN VTON v1.5](https://huggingface.co/fashn-ai/fashn-vton-1.5) · [CatVTON](https://github.com/Zheng-Chong/CatVTON) · [IDM-VTON](https://github.com/yisol/IDM-VTON)
+- [Banuba 身体分割](https://www.banuba.com/technology/body-segmentation) · [Perfect Corp Fashion API](https://www.perfectcorp.com/business/news/new-api-fashion-category)
 
 </details>
 
