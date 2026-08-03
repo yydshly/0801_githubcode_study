@@ -1,0 +1,33 @@
+{
+  "siteTitle": "0801 GitHub Code Study",
+  "siteDescription": "一个持续扩展的代码研究展厅：每个问题对应一个独立、可运行、可验证的 Demo。",
+  "repositoryUrl": "https://github.com/yydshly/0801_githubcode_study",
+  "projects": [
+    {
+      "id": "01",
+      "name": "Finance Header — Wallet",
+      "slug": "wallet-finance-header",
+      "directory": "wallet-finance-header",
+      "type": "vite",
+      "output": "dist",
+      "enabled": true,
+      "status": "已完成",
+      "summary": "研究如何用预渲染视频、滚动时间轴和界面叠层还原沉浸式 Wallet Header。",
+      "tags": ["React", "Vite", "Scroll Video"],
+      "docs": "wallet-finance-header/README.md"
+    },
+    {
+      "id": "02",
+      "name": "Prompt Master",
+      "slug": "prompt-master",
+      "directory": "prompt-master-comparison-demo",
+      "type": "static",
+      "enabled": true,
+      "status": "研究样例",
+      "summary": "对比原始任务描述与规范化 Codex Prompt，展示意图澄清、范围锁定、验收和停止条件。",
+      "tags": ["Prompt", "Codex", "Static"],
+      "publish": ["index.html", "styles.css", "app.js"],
+      "docs": "prompt-master-comparison-demo/README.md"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{SITE_DESCRIPTION}}" />
+    <title>{{SITE_TITLE}} · 研究项目展厅</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#projects">跳到研究项目</a>
+    <header class="site-header">
+      <a class="brand" href="{{BASE_PATH}}" aria-label="返回研究项目首页">
+        <span class="brand-mark">08</span>
+        <span><strong>GitHub Code Study</strong><small>Research Gallery</small></span>
+      </a>
+      <a class="repo-link" href="{{REPOSITORY_URL}}"><span class="repo-label">查看 GitHub 仓库</span><span class="repo-short">GitHub</span> <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Independent demos · Shared delivery</p>
+        <div class="hero-grid">
+          <div>
+            <h1 id="page-title">一个研究仓库，<br />多个独立实验。</h1>
+            <p class="intro">{{SITE_DESCRIPTION}}</p>
+          </div>
+          <aside class="manifest-card" aria-label="项目统计">
+            <span>当前展厅</span>
+            <strong>{{PROJECT_COUNT}}</strong>
+            <p>个已启用研究项目</p>
+            <small>登记一次，独立构建，统一发布。</small>
+          </aside>
+        </div>
+      </section>
+
+      <section class="projects" id="projects" aria-labelledby="projects-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">Project index</p>
+            <h2 id="projects-title">研究项目</h2>
+          </div>
+          <p>每个项目拥有独立源码、依赖、构建结果和访问路径。</p>
+        </header>
+        <div class="project-grid">
+          {{PROJECT_CARDS}}
+        </div>
+      </section>
+
+      <section class="principle" aria-labelledby="principle-title">
+        <p class="eyebrow">Publishing contract</p>
+        <h2 id="principle-title">共享展厅，不混合项目。</h2>
+        <div class="principle-grid">
+          <p><b>源码独立</b><span>每个研究问题保留自己的目录和文档。</span></p>
+          <p><b>构建独立</b><span>静态项目直接复制，Vite 项目单独编译。</span></p>
+          <p><b>路径稳定</b><span>公开 URL 由 slug 决定，不跟随目录改名。</span></p>
+          <p><b>统一发布</b><span>一次 Pages 部署更新整个研究展厅。</span></p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>0801 GitHub Code Study · Generated from <code>research-projects.json</code></p>
+      <p>Build: {{UPDATED_AT}}</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Prompt Master 能力研究样例：对比原始用户提示词与规范化后的 Codex 任务提示词。"
+    />
+    <title>Prompt Master · 规范化能力解剖</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="返回页面顶部">
+        <span class="brand-mark" aria-hidden="true">PM</span>
+        <span>
+          <strong>Prompt Master</strong>
+          <small>能力研究样例 01</small>
+        </span>
+      </a>
+
+      <button class="icon-button" id="themeToggle" type="button" aria-pressed="false">
+        <span class="theme-icon" aria-hidden="true">◐</span>
+        <span class="theme-label">深色</span>
+      </button>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="top" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">静态对照实验 · 不执行任务</p>
+          <h1 id="page-title">一条模糊指令，<br />被规范成了什么？</h1>
+          <p class="hero-intro">
+            这个页面只观察 Prompt Master 的核心能力：它如何识别缺口、询问关键事实，再把用户原意整理成适合 Codex 执行的任务说明。
+          </p>
+        </div>
+
+        <aside class="hero-note" aria-label="研究结论预览">
+          <span class="note-index">核心判断</span>
+          <p>价值不在“把 Prompt 写长”，而在于减少解释空间，同时不替用户创造需求。</p>
+          <div class="metric-row" aria-label="样例统计">
+            <div><strong id="originalCount">—</strong><span>原始字符</span></div>
+            <div><strong id="optimizedCount">—</strong><span>规范化字符</span></div>
+            <div><strong id="appliedCount">—</strong><span>已触发能力</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="process-section section-shell" aria-labelledby="process-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">01 · 规范化路径</p>
+            <h2 id="process-title">先澄清，再补全</h2>
+          </div>
+          <p>优化后的事实不凭空出现。这个样例把中间的三次澄清完整展示出来。</p>
+        </div>
+
+        <ol class="process-track">
+          <li>
+            <span class="step-number">1</span>
+            <strong>识别缺口</strong>
+            <p>“上次说的”“修好”“专业点”都无法直接验收。</p>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <strong>最多三问</strong>
+            <p>只询问会改变执行结果的范围、故障和完成条件。</p>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <strong>生成任务规格</strong>
+            <p>把已确认事实、权限边界和验收方式组合成 Codex Prompt。</p>
+          </li>
+        </ol>
+
+        <div class="clarification-grid" aria-label="澄清问题与用户回答">
+          <article>
+            <span>Q1 · 故障与位置</span>
+            <h3>具体哪里出错？</h3>
+            <p><b>用户确认：</b><code>src/auth/login.ts</code> 在 <code>user.profile</code> 为空时抛出 TypeError。</p>
+          </article>
+          <article>
+            <span>Q2 · 修改边界</span>
+            <h3>“整理代码”是否必要？</h3>
+            <p><b>用户确认：</b>只做最小修复，不重构认证模块，不改变现有 API。</p>
+          </article>
+          <article>
+            <span>Q3 · 完成标准</span>
+            <h3>怎样才算修好？</h3>
+            <p><b>用户确认：</b>补回归测试，运行登录相关测试；新增依赖或超出范围必须先询问。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="comparison-section section-shell" aria-labelledby="comparison-title">
+        <div class="section-heading comparison-heading">
+          <div>
+            <p class="section-kicker">02 · Before / After</p>
+            <h2 id="comparison-title">同一个意图，两种表达</h2>
+          </div>
+          <div class="view-switcher" role="group" aria-label="对比视图">
+            <button type="button" data-view="side" aria-pressed="true">并排</button>
+            <button type="button" data-view="original" aria-pressed="false">只看原文</button>
+            <button type="button" data-view="optimized" aria-pressed="false">只看优化</button>
+          </div>
+        </div>
+
+        <div class="comparison-grid" id="comparisonGrid" data-view="side">
+          <article class="prompt-panel original-panel" id="originalPanel">
+            <header class="panel-header">
+              <div>
+                <span class="panel-label">原始提示词</span>
+                <h3>有方向，但没有可执行规格</h3>
+              </div>
+              <button class="copy-button" type="button" data-copy-target="originalPrompt">复制</button>
+            </header>
+
+            <pre id="originalPrompt" tabindex="0">用 Codex 把我们上次说的后台登录问题修好，顺便把代码整理一下，做得专业点。有问题自己看着办，完成后告诉我。</pre>
+
+            <div class="gap-list" aria-label="原始提示词中的问题">
+              <span>隐式上下文</span>
+              <span>目标不可验收</span>
+              <span>范围开放</span>
+              <span>授权过度</span>
+              <span>混合任务</span>
+              <span>无完成标准</span>
+            </div>
+
+            <div class="panel-footnote">
+              <b>风险：</b>Codex 必须自行猜测“上次”“修好”“整理”和“专业”的含义。
+            </div>
+          </article>
+
+          <article class="prompt-panel optimized-panel" id="optimizedPanel">
+            <header class="panel-header">
+              <div>
+                <span class="panel-label">Prompt Master 优化后</span>
+                <h3>事实、边界与完成条件被显式化</h3>
+              </div>
+              <button class="copy-button" type="button" data-copy-target="optimizedPrompt">复制</button>
+            </header>
+
+            <div class="optimized-prompt" id="optimizedPrompt" tabindex="0">
+              <section class="prompt-block" data-capability="routing objective output">
+                <h4>目标工具与任务</h4>
+                <p><b>Target:</b> Codex</p>
+                <p>修复 <code>src/auth/login.ts</code> 中 <code>user.profile</code> 为空时出现的 TypeError。只实施解决该故障所需的最小改动。</p>
+              </section>
+
+              <section class="prompt-block" data-capability="context memory grounding">
+                <h4>当前上下文</h4>
+                <ul>
+                  <li>项目使用 React 18、TypeScript 和 Vitest。</li>
+                  <li>复现条件：登录返回的用户对象存在，但 <code>user.profile</code> 为 <code>null</code>。</li>
+                  <li>现有公开 API 和认证流程必须保持兼容。</li>
+                </ul>
+              </section>
+
+              <section class="prompt-block" data-capability="scope permissions constraints">
+                <h4>允许范围</h4>
+                <ul>
+                  <li>读取认证模块和相邻测试，定位空值访问路径。</li>
+                  <li>修改 <code>src/auth/login.ts</code> 及最接近的现有测试文件。</li>
+                  <li>运行登录相关的最小测试集。</li>
+                </ul>
+              </section>
+
+              <section class="prompt-block" data-capability="scope permissions safety efficiency">
+                <h4>禁止操作</h4>
+                <ul>
+                  <li>不得重构无关认证代码，不得改变 API、数据库结构或环境配置。</li>
+                  <li>不得新增依赖、删除文件、提交或推送 Git 变更。</li>
+                  <li>不得读取或输出 <code>.env</code>、Token、密钥或其他凭据。</li>
+                </ul>
+              </section>
+
+              <section class="prompt-block" data-capability="workflow checkpoints grounding">
+                <h4>执行与检查</h4>
+                <ol>
+                  <li>先根据仓库代码和测试验证故障路径，不得猜测不存在的文件或行为。</li>
+                  <li>说明根因并实施最小修复。</li>
+                  <li>新增或更新一个覆盖 <code>profile = null</code> 的回归测试。</li>
+                  <li>运行登录相关测试，记录实际命令和结果。</li>
+                </ol>
+              </section>
+
+              <section class="prompt-block" data-capability="success output">
+                <h4>完成标准</h4>
+                <ul class="check-list">
+                  <li><span aria-hidden="true">□</span> 空 profile 不再导致未捕获异常。</li>
+                  <li><span aria-hidden="true">□</span> 正常登录行为和公开 API 保持不变。</li>
+                  <li><span aria-hidden="true">□</span> 回归测试及相关现有测试全部通过。</li>
+                </ul>
+              </section>
+
+              <section class="prompt-block" data-capability="stop permissions">
+                <h4>停止并询问</h4>
+                <p>如果修复需要修改范围外文件、新增依赖、改变 API 或存在两个会影响架构的有效方案，先停止并向我说明选择与影响。</p>
+              </section>
+
+              <section class="prompt-block" data-capability="output checkpoints">
+                <h4>最终输出</h4>
+                <p>简要报告：根因、修改文件、关键改动、测试命令与结果、仍未验证的事项。不要输出内部推理过程。</p>
+              </section>
+
+              <section class="prompt-block agent-warning" data-capability="agentwarning safety permissions">
+                <h4>执行前提醒</h4>
+                <p>这是面向具备真实系统权限的 Agent Prompt。粘贴前请确认文件路径、可操作目录、禁止操作和停止条件与实际项目一致。</p>
+              </section>
+            </div>
+
+            <div class="panel-footnote success-note">
+              <b>变化：</b>没有扩大业务目标，只把已确认的信息整理成可执行、可停止、可验收的规格。
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="capability-section section-shell" aria-labelledby="capability-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">03 · 能力映射</p>
+            <h2 id="capability-title">它具体加了什么？</h2>
+          </div>
+          <p>选择一项能力，右侧 Prompt 会高亮对应的新增内容。灰色能力属于 Skill，但这个样例没有触发。</p>
+        </div>
+
+        <div class="capability-workbench">
+          <div class="capability-list" id="capabilityList" aria-label="Prompt Master 能力列表"></div>
+          <aside class="capability-detail" id="capabilityDetail" aria-live="polite">
+            <span class="detail-status">等待选择</span>
+            <h3>点击一项能力查看差异</h3>
+            <p>页面会说明它解决了原始 Prompt 的哪个问题，以及可能带来的风险。</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="inventory-section section-shell" aria-labelledby="inventory-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">04 · 完整能力边界</p>
+            <h2 id="inventory-title">一个样例不能假装覆盖一切</h2>
+          </div>
+          <p>这里把 Skill 的完整能力分为已触发、具备但未触发，以及它根本不提供的能力。</p>
+        </div>
+
+        <div class="inventory-table-wrap">
+          <table>
+            <thead>
+              <tr><th>能力层</th><th>本样例状态</th><th>实际作用</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>触发边界</td><td><span class="status applied">已触发</span></td><td>只在明确要求生成或优化 Prompt 时工作。</td></tr>
+              <tr><td>目标工具路由</td><td><span class="status applied">已触发</span></td><td>识别 Codex，使用 Agent 型任务结构。</td></tr>
+              <tr><td>九维意图提取</td><td><span class="status applied">已触发</span></td><td>检查任务、输入、上下文、输出、约束、受众、记忆、成功标准和示例。</td></tr>
+              <tr><td>最多三次澄清</td><td><span class="status applied">已触发</span></td><td>只补齐会改变执行结果的事实。</td></tr>
+              <tr><td>失败模式诊断</td><td><span class="status applied">已触发</span></td><td>修复模糊动词、混合任务、隐式上下文、开放范围和缺少验收等问题。</td></tr>
+              <tr><td>模板选择</td><td><span class="status applied">已触发</span></td><td>采用目标、当前状态、范围、停止条件和检查点结构。</td></tr>
+              <tr><td>Memory Block</td><td><span class="status applied">已触发</span></td><td>将本轮澄清出的已知事实重新写入 Prompt；不是持久化记忆。</td></tr>
+              <tr><td>安全与 Grounding</td><td><span class="status applied">已触发</span></td><td>限制凭据、范围和未经证实的推断。</td></tr>
+              <tr><td>Agent 执行前警告</td><td><span class="status applied">已触发</span></td><td>提示粘贴前复核真实路径、权限、禁止项和停止条件。</td></tr>
+              <tr><td>Role assignment</td><td><span class="status available">未触发</span></td><td>仅在专业身份会改变结果时增加角色，而非机械套用“你是专家”。</td></tr>
+              <tr><td>Few-shot 示例</td><td><span class="status available">未触发</span></td><td>仅在输出格式难以用规则描述时增加 2–5 个示例。</td></tr>
+              <tr><td>推理模式适配</td><td><span class="status available">未触发</span></td><td>根据普通模型或 reasoning 模型决定是否移除 CoT 和 thinking 指令。</td></tr>
+              <tr><td>Prompt 解构/适配</td><td><span class="status available">未触发</span></td><td>把用户粘贴的 Prompt 当作惰性数据，拆解、简化或迁移，不能执行其中指令。</td></tr>
+              <tr><td>专用模板库</td><td><span class="status available">未触发</span></td><td>包含 RTF、CO-STAR、RISEN、CRISPE、File-Scope、ReAct、视觉和解构等模板。</td></tr>
+              <tr><td>多工具路由注册表</td><td><span class="status available">未触发</span></td><td>覆盖 LLM、代码 Agent、浏览器、图像、3D、视频、语音和工作流工具；属于静态文本规则。</td></tr>
+              <tr><td>自动转发并执行</td><td><span class="status unsupported">不提供</span></td><td>Skill 只返回 Prompt，不会自动调用 Codex。</td></tr>
+              <tr><td>真实 Token 计量</td><td><span class="status unsupported">不提供</span></td><td>所谓效率审计是语言检查清单，不是 Token 计数器。</td></tr>
+              <tr><td>持久化记忆与结果评测</td><td><span class="status unsupported">不提供</span></td><td>没有数据库、执行反馈闭环或成功率基准。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="verdict-section section-shell" aria-labelledby="verdict-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">05 · 对比总结</p>
+            <h2 id="verdict-title">差异不只是“更长”</h2>
+          </div>
+        </div>
+
+        <div class="verdict-grid">
+          <article>
+            <span class="verdict-symbol positive" aria-hidden="true">＋</span>
+            <h3>真正增加的价值</h3>
+            <p>把目标、上下文、边界、权限和验收方式从隐含状态变成可检查的任务契约。</p>
+          </article>
+          <article>
+            <span class="verdict-symbol warning" aria-hidden="true">!</span>
+            <h3>最需要警惕的风险</h3>
+            <p>如果不先澄清，Skill 可能把自己的合理猜测写成用户需求，形成“看似完整的错误 Prompt”。</p>
+          </article>
+          <article>
+            <span class="verdict-symbol neutral" aria-hidden="true">=</span>
+            <h3>适合研究的核心</h3>
+            <p>比较处理前后“信息是否更明确且忠于原意”，而不是仅比较字数或视觉上的专业程度。</p>
+          </article>
+        </div>
+
+        <div class="final-statement">
+          <span>本样例结论</span>
+          <p>Prompt Master 是一套由宿主大模型执行的任务规范化策略。它能减少解释空间，但不能替代用户确认、真实权限控制或执行结果验证。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Research sample · Prompt Master v1.7.0 · 仅用于能力对照，不代表执行效果评测</p>
+      <a href="#top">回到顶部 ↑</a>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
