@@ -10,9 +10,35 @@
 
 | 编号 | 子项目 | 研究重点 | 状态 | Demo | 文档 |
 | --- | --- | --- | --- | --- | --- |
-| 01 | [Finance Header - Wallet](./wallet-finance-header/) | 滚动驱动的视频 Header | 已完成 | [本地预览](http://127.0.0.1:5191/) | [项目说明](./wallet-finance-header/README.md) |
+| 01 | [Finance Header - Wallet](./wallet-finance-header/) | 滚动驱动的视频 Header | 已完成 | [Pages（部署后）](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) | [项目说明](./wallet-finance-header/README.md) |
+| 02 | [Prompt Master](./prompt-master-comparison-demo/) | 用户意图规范化与 Codex Prompt 前后对比 | 研究样例 | [Pages（部署后）](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) | [项目说明](./prompt-master-comparison-demo/README.md) |
 
 后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
+
+## 统一研究展厅与部署
+
+仓库使用一套可扩展的 GitHub Pages 发布流程，把多个独立子项目发布到同一个研究展厅：
+
+```text
+https://yydshly.github.io/0801_githubcode_study/
+├─ projects/wallet-finance-header/
+├─ projects/prompt-master/
+└─ projects/未来项目/
+```
+
+项目通过 [`research-projects.json`](./research-projects.json) 登记。登记表负责项目编号、公开路径、构建类型、状态和展示信息；构建器目前支持：
+
+- `static`：只复制登记表中明确列出的网页文件；
+- `vite`：在项目目录独立安装依赖和构建，并自动设置 Pages 子路径。
+
+本地生成完整展厅：
+
+```powershell
+node scripts/build-research-pages.mjs --base=/
+python -m http.server 4180 --directory .pages
+```
+
+新增研究项目时，不需要创建新的 Pages 工作流，只需创建独立目录并在登记表增加一项。生成结果统一写入被忽略的 `.pages/`，部署流程不会公开 `.agents`、源码草稿或仓库中的其他文件。
 
 ## 参考项目结论：Crucix（暂缓研究）
 
@@ -266,11 +292,18 @@ Wallet 连接和 Contact Us 是原型级模拟交互，不会访问真实链上�
 ```text
 0801_codex_project/
 ├─ README.md                         # 研究仓库总览与项目索引
+├─ research-projects.json            # 多项目登记表和发布配置
+├─ research-site/                    # 研究展厅入口模板与样式
+├─ scripts/build-research-pages.mjs  # 静态/Vite 通用构建器
 ├─ wallet-finance-header/            # 研究项目 01
 │  ├─ README.md                      # 子项目说明与运行方式
 │  ├─ docs/                          # 子项目验证记录
 │  ├─ src/                           # React 页面与交互实现
 │  └─ tests/                         # 可自动化验证的逻辑
+├─ prompt-master-comparison-demo/    # 研究项目 02
+│  ├─ README.md                      # 子项目说明与运行方式
+│  ├─ index.html                     # Prompt 前后对照页面
+│  └─ VALIDATION.md                  # 浏览器验收记录
 └─ docs/                             # 研究过程中的设计契约与实现计划
 ```
 
@@ -278,11 +311,12 @@ Wallet 连接和 Contact Us 是原型级模拟交互，不会访问真实链上�
 
 新增子项目时：
 
-1. 在仓库根目录创建独立目录，例如 `project-02-name/`。
+1. 在仓库根目录创建独立目录，例如 `project-03-name/`。
 2. 子项目内部必须有自己的 README，写清楚目标、运行方式和实现原理。
-3. 在本 README 的“项目索引”中追加编号、研究重点、状态、Demo 和文档链接。
-4. 如果有本地 Demo，统一说明启动命令和本地访问地址；如果部署到公开地址，再替换为公开链接。
-5. 不把多个研究项目的源码、依赖或验证记录混在同一个子目录里。
+3. 在 `research-projects.json` 中登记编号、slug、构建类型、状态和公开文件。
+4. 在本 README 的“项目索引”中追加研究重点、Demo 和文档链接。
+5. 本地运行通用构建器，确认项目出现在 `.pages/projects/<slug>/`。
+6. 不把多个研究项目的源码、依赖或验证记录混在同一个子目录里。
 
 ## 项目文档
 
