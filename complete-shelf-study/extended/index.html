@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11140f">
+  <meta name="description" content="0801 Research Volumes：以交互式 3D 书架展示研究项目与产品方向。">
+  <title>0801 Research Volumes</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main class="experience" id="experience">
+    <canvas id="scene" aria-hidden="true"></canvas>
+
+    <header class="masthead chrome">
+      <a class="brand" href="../" aria-label="返回研究项目 03">
+        <span class="brand__name">0801 Research Volumes</span>
+        <span class="brand__edition">Edition 03 · 2026</span>
+      </a>
+      <p class="issue">Six studies for turning references into working products</p>
+    </header>
+
+    <div class="scene-title chrome" aria-hidden="true">Research<br>Volumes</div>
+
+    <footer class="control-deck chrome">
+      <section class="selection" aria-label="当前卷册">
+        <div class="selection__meta">
+          <p class="selection__index"><span id="selectionNumber">03</span> / 06</p>
+          <p class="selection__kind" id="selectionKind">当前研究</p>
+        </div>
+        <div class="selection__copy">
+          <h1 id="selectionTitle">Complete Shelf</h1>
+          <p id="selectionSubtitle">把精选项目变成空间目录</p>
+        </div>
+        <button class="open-button" id="openDetail" type="button">打开研究</button>
+      </section>
+
+      <nav class="browse" aria-label="浏览研究卷册">
+        <button id="previousBook" type="button">上一册</button>
+        <div class="markers" id="markers" aria-label="卷册位置"></div>
+        <button id="nextBook" type="button">下一册</button>
+      </nav>
+      <p class="interaction-hint">滚轮 / 方向键 / 点击封面</p>
+    </footer>
+
+    <section class="detail-panel chrome" id="detailPanel" aria-hidden="true" aria-labelledby="detailTitle">
+      <button class="close-button" id="closeDetail" type="button">关闭</button>
+      <p class="detail-index" id="detailIndex">Volume 01 · Interface Motion</p>
+      <h2 id="detailTitle">Finance Header</h2>
+      <p class="detail-summary" id="detailSummary"></p>
+      <dl class="meta-list">
+        <div><dt>研究问题</dt><dd id="detailQuestion"></dd></div>
+        <div><dt>对我们的价值</dt><dd id="detailValue"></dd></div>
+        <div><dt>状态</dt><dd id="detailStatus"></dd></div>
+        <div><dt>表达方式</dt><dd id="detailForm"></dd></div>
+      </dl>
+      <div class="detail-actions">
+        <button class="secondary-button" id="openBook" type="button">展开封面</button>
+        <a class="primary-link" id="projectLink" href="#">打开项目 →</a>
+      </div>
+      <p class="detail-hint">拖动画面查看装帧 · Escape 返回书架</p>
+    </section>
+
+    <div class="live-region" id="liveRegion" aria-live="polite"></div>
+
+    <section class="fallback" aria-labelledby="fallbackTitle">
+      <div class="fallback__head">
+        <p>0801 Research Volumes · Static catalog</p>
+        <h1 id="fallbackTitle">六册研究，一套把参考变成产品的方法。</h1>
+        <p>当前环境未启用 3D 场景，但所有项目内容和链接仍然可用。</p>
+      </div>
+      <div class="fallback__grid">
+        <article><img src="./assets/covers/finance-header.webp" alt="" loading="lazy"><span>01 · 已完成</span><h2>Finance Header</h2><p>研究滚动驱动的视频时间轴与沉浸式界面叠层。</p><a href="../../wallet-finance-header/">打开项目 →</a></article>
+        <article><img src="./assets/covers/prompt-master.webp" alt="" loading="lazy"><span>02 · 研究样例</span><h2>Prompt Master</h2><p>把模糊需求转化为带范围、约束和验收条件的执行契约。</p><a href="../../prompt-master/">打开项目 →</a></article>
+        <article><img src="./assets/covers/complete-shelf.webp" alt="" loading="lazy"><span>03 · 当前研究</span><h2>Complete Shelf</h2><p>把精选产品与研究项目转化成可探索的空间目录。</p><a href="../">阅读研究说明 →</a></article>
+        <article><img src="./assets/covers/signal-radar.webp" alt="" loading="lazy"><span>04 · 概念方向</span><h2>Signal Radar</h2><p>从多来源信息中提取少量、可信、可解释的变化信号。</p></article>
+        <article><img src="./assets/covers/infinite-mentor.webp" alt="" loading="lazy"><span>05 · 概念方向</span><h2>Infinite Mentor</h2><p>通过模拟、追问和长期反馈训练真实能力。</p></article>
+        <article><img src="./assets/covers/evidence-loop.webp" alt="" loading="lazy"><span>06 · 研究方法</span><h2>Evidence Loop</h2><p>每次实现都经过真实浏览器观察、修正与回归验证。</p></article>
+      </div>
+      <a class="fallback__back" href="../">返回研究项目 03</a>
+    </section>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

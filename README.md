@@ -13,6 +13,7 @@
 | --- | --- | --- | --- | --- | --- |
 | 01 | [Finance Header - Wallet](./wallet-finance-header/) | 如何实现滚动驱动的视频 Header | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) | [项目 README](./wallet-finance-header/README.md) |
 | 02 | [Prompt Master](./prompt-master-comparison-demo/) | 用户描述经过规范化后，是否更容易形成可执行目标 | 研究样例 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) | [项目 README](./prompt-master-comparison-demo/README.md) |
+| 03 | [Complete Shelf - Research Volumes](./complete-shelf-study/) | 如何用空间化书架展示精选项目及其价值 | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/complete-shelf-study/) | [项目 README](./complete-shelf-study/README.md) |
 
 后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
 
@@ -34,6 +35,7 @@
 研究展厅
 ├─ 项目 01：Finance Header - Wallet
 ├─ 项目 02：Prompt Master
+├─ 项目 03：Complete Shelf - Research Volumes
 └─ 后续正式研究项目
 ```
 

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Complete Shelf 原作研究与 0801 Research Volumes 扩展演示。">
+  <title>Research 03 · Complete Shelf</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main>
+    <nav class="topbar" aria-label="页面导航">
+      <a href="../../">0801 GitHub Code Study</a>
+      <span>Research 03</span>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">Reference → Interpretation → Product Value</p>
+      <h1>Complete Shelf<br><em>从视觉样板到研究产品</em></h1>
+      <p class="lede">这个子项目保留原作的观看入口，同时给出一套独立实现的扩展演示：用“书架”组织我们的研究项目、产品方向与验证方法。</p>
+    </header>
+
+    <section class="demo-grid" aria-labelledby="demo-heading">
+      <div class="section-heading">
+        <p>Two demonstrations</p>
+        <h2 id="demo-heading">先理解原作，再看它如何为我们所用。</h2>
+      </div>
+
+      <article class="demo-card demo-card--original">
+        <div class="card-index">01</div>
+        <div class="shelf-illustration" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="card-copy">
+          <p class="label">Original study</p>
+          <h3>上游原版 Demo</h3>
+          <p>体验七本布面精装书、连续书架、详情查看、封面打开与曲面翻页。原版由 Meng To 创作，此处指向作者发布的官方体验。</p>
+          <div class="actions">
+            <a class="button button--primary" href="https://mengto.github.io/complete-shelf/" target="_blank" rel="noreferrer">打开官方原版 ↗</a>
+            <a class="button" href="https://github.com/mengto/complete-shelf" target="_blank" rel="noreferrer">查看上游仓库</a>
+            <a class="button local-upstream" href="./upstream/" hidden>打开本地快照</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="demo-card demo-card--applied">
+        <div class="card-index">02</div>
+        <div class="volume-mark" aria-hidden="true">
+          <span>0801</span>
+          <strong>Research<br>Volumes</strong>
+          <small>Edition 03</small>
+        </div>
+        <div class="card-copy">
+          <p class="label">Applied demonstration</p>
+          <h3>我们的研究项目书架</h3>
+          <p>把静态目录转化成可探索的空间入口：现有项目、未来产品方向和验证方法各自成为一册“研究卷”，同时保留清晰的状态与详情链接。</p>
+          <div class="actions">
+            <a class="button button--primary" href="./extended/">进入扩展演示 →</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="value" aria-labelledby="value-heading">
+      <div class="section-heading">
+        <p>Why it matters</p>
+        <h2 id="value-heading">我们借鉴的是表达结构，而不是业务数据。</h2>
+      </div>
+      <div class="value-grid">
+        <article><span>01</span><h3>空间化目录</h3><p>让少量精选项目拥有位置、材质与记忆点，比普通卡片更适合品牌化展示。</p></article>
+        <article><span>02</span><h3>状态化叙事</h3><p>浏览、选中、打开、返回，每次动画都对应一个明确的认知状态。</p></article>
+        <article><span>03</span><h3>静态数据即可</h3><p>产品名称、简介、状态和链接足以驱动演示；后端、实时接口和用户系统不是前置条件。</p></article>
+      </div>
+    </section>
+
+    <footer>
+      <p>Upstream snapshot: <code>6ef16625</code> · Research use only</p>
+      <a href="./README.md">阅读项目说明</a>
+    </footer>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

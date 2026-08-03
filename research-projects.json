@@ -28,6 +28,19 @@
       "tags": ["Prompt", "Codex", "Static"],
       "publish": ["index.html", "styles.css", "app.js"],
       "docs": "prompt-master-comparison-demo/README.md"
+    },
+    {
+      "id": "03",
+      "name": "Complete Shelf — Research Volumes",
+      "slug": "complete-shelf-study",
+      "directory": "complete-shelf-study",
+      "type": "static",
+      "enabled": true,
+      "status": "已完成",
+      "summary": "研究如何用 Three.js 书架、材质与状态化动画展示精选项目，并独立实现 0801 Research Volumes 扩展演示。",
+      "tags": ["Three.js", "WebGL", "Spatial UI"],
+      "publish": ["index.html", "styles.css", "app.js", "extended"],
+      "docs": "complete-shelf-study/README.md"
     }
   ]
 }
