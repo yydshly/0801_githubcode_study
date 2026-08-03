@@ -159,3 +159,15 @@ Reduced-motion runtime emulation remains deferred: the available browser exposes
 - Adjacent runtime state remained stable: 0–1 near worlds, `2/2/2/2` quadrant allocation, 8 unique active scenes and unchanged scene signature. Runtime logs contained no warning or error.
 - The evidence supports the bounded single-corridor experiment. It does not yet justify replacing all seven control paths without a separate multi-corridor spacing and scheduling revision.
 - Final production build passed, all 4 Sites worker tests passed, and the repository gallery rebuilt all 5 projects. The only build notice remains the known Three.js chunk-size warning.
+
+## Revision 18 evidence
+
+- The v23 comparison keeps the v22 particle and glass systems unchanged and expands physical perspective from one world to exactly four: Realtime Visuals/DL, World Models/UR, Live Avatars/DR and Motion Capture/UL. The other four worlds remain screen-directed controls.
+- The first multi-corridor pass exposed real same-quadrant overlaps: the runtime minimum projected gap reached `-0.063` for Realtime Visuals/Evidence Systems and `-0.047` for Live Avatars/Virtual Try-On. This evidence led to wider paired angles and a new uniform eight-slot schedule in which same-quadrant partners are separated by one-quarter or three-eighths of a lifecycle.
+- Two consecutive 14-second post-fix samples collected 112 observations across 14 total recycle events. Each physical corridor recycled 2–3 times with zero sampled distance reversal, radius regression or quadrant change.
+- Corridor minimum camera distances ranged from `7.477` to `7.675`; maximum projected radii ranged from `0.337` to `0.371`. Maximum edge-clearance values ranged from `1.411` to `1.509`, so every world fully left its assigned side before recycling.
+- The post-fix minimum readable projected gap remained positive at `0.071`. Near occupancy stayed at 0–1, depth roles stayed within `1–2 / 5–6 / 0–1`, quadrant allocation stayed `2/2/2/2`, and all 8 active scenes remained unique.
+- Hovering the physical-corridor Live Avatars world produced the anchored label and a protected motion multiplier of `0.457`; clicking opened the matching detail and cleared hover. This avoids the previous 0.2 near-stop behavior that could disrupt multi-world spacing.
+- Wheel input raised the common sphere/particle motion scale from `1.000` to `1.084`, then returned to `1.000`. Particle mode stayed `continuous-depth-wheel-synced` with 1,450/340 points at shared `1.18/1.18` sizes.
+- Browser logs contained only Vite connection and React development notices, with no warning or error. The 1280x720 document remained exactly 1280x720 with no overflow.
+- Final production build passed and all 4 Sites worker tests passed. The generated JavaScript is 790.90 kB raw / 214.11 kB gzip; the only build notice remains the known Three.js chunk-size warning.

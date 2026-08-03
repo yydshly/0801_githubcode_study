@@ -4,40 +4,40 @@ import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment
 
 const compositionTemplates = [
   [
-    { angle: -2.55, entryRadius: 0.21 }, { angle: 0.68, entryRadius: 0.17 },
-    { angle: -0.42, entryRadius: 0.23 }, { angle: 2.35, entryRadius: 0.19 },
+    { angle: -2.78, entryRadius: 0.21 }, { angle: 0.45, entryRadius: 0.17 },
+    { angle: -0.38, entryRadius: 0.23 }, { angle: 2.68, entryRadius: 0.19 },
     { angle: -1.08, entryRadius: 0.29 }, { angle: -2.16, entryRadius: 0.22 },
     { angle: 1.88, entryRadius: 0.18 }, { angle: 1.12, entryRadius: 0.15 },
   ],
   [
-    { angle: -2.72, entryRadius: 0.22 }, { angle: 0.92, entryRadius: 0.18 },
-    { angle: -0.62, entryRadius: 0.25 }, { angle: 2.18, entryRadius: 0.17 },
+    { angle: -2.82, entryRadius: 0.22 }, { angle: 0.5, entryRadius: 0.18 },
+    { angle: -0.3, entryRadius: 0.25 }, { angle: 2.72, entryRadius: 0.17 },
     { angle: -0.9, entryRadius: 0.3 }, { angle: -1.96, entryRadius: 0.21 },
     { angle: 2.08, entryRadius: 0.2 }, { angle: 1.34, entryRadius: 0.16 },
   ],
   [
-    { angle: -2.38, entryRadius: 0.2 }, { angle: 0.52, entryRadius: 0.16 },
-    { angle: -0.28, entryRadius: 0.24 }, { angle: 2.58, entryRadius: 0.2 },
+    { angle: -2.92, entryRadius: 0.2 }, { angle: 0.38, entryRadius: 0.16 },
+    { angle: -0.2, entryRadius: 0.24 }, { angle: 2.74, entryRadius: 0.2 },
     { angle: -1.28, entryRadius: 0.28 }, { angle: -2.32, entryRadius: 0.23 },
     { angle: 1.72, entryRadius: 0.18 }, { angle: 0.98, entryRadius: 0.15 },
   ],
   [
-    { angle: -2.62, entryRadius: 0.21 }, { angle: 0.82, entryRadius: 0.17 },
-    { angle: -0.52, entryRadius: 0.24 }, { angle: 2.42, entryRadius: 0.18 },
+    { angle: -2.82, entryRadius: 0.21 }, { angle: 0.42, entryRadius: 0.17 },
+    { angle: -0.35, entryRadius: 0.24 }, { angle: 2.72, entryRadius: 0.18 },
     { angle: -1.18, entryRadius: 0.3 }, { angle: -2.05, entryRadius: 0.22 },
     { angle: 1.98, entryRadius: 0.19 }, { angle: 1.22, entryRadius: 0.16 },
   ],
 ];
 
 const flightSeeds = [
-  { slot: 0, progress: 0.68, speed: 1.02, drift: 0.016, phase: 0.2, frameOffset: 0, hueShift: -0.025 },
-  { slot: 1, progress: 0.06, speed: 0.98, drift: 0.014, phase: 1.4, frameOffset: 1, hueShift: 0.018 },
-  { slot: 2, progress: 0.46, speed: 1.04, drift: 0.016, phase: 2.8, frameOffset: 2, hueShift: 0.03 },
-  { slot: 3, progress: 0.28, speed: 0.95, drift: 0.014, phase: 4.1, frameOffset: 0, hueShift: -0.018 },
-  { slot: 4, progress: 0.9, speed: 1, drift: 0.016, phase: 5.2, frameOffset: 1, hueShift: 0.024 },
-  { slot: 5, progress: 0.16, speed: 0.93, drift: 0.013, phase: 6.4, frameOffset: 2, hueShift: -0.03 },
-  { slot: 6, progress: 0.78, speed: 1.03, drift: 0.014, phase: 7.5, frameOffset: 0, hueShift: 0.014 },
-  { slot: 7, progress: 0.56, speed: 0.97, drift: 0.015, phase: 8.7, frameOffset: 1, hueShift: -0.022 },
+  { slot: 0, scheduleRank: 1, speed: 1.02, drift: 0.016, phase: 0.2, frameOffset: 0, hueShift: -0.025 },
+  { slot: 1, scheduleRank: 0, speed: 0.98, drift: 0.014, phase: 1.4, frameOffset: 1, hueShift: 0.018 },
+  { slot: 2, scheduleRank: 5, speed: 1.04, drift: 0.016, phase: 2.8, frameOffset: 2, hueShift: 0.03 },
+  { slot: 3, scheduleRank: 3, speed: 0.95, drift: 0.014, phase: 4.1, frameOffset: 0, hueShift: -0.018 },
+  { slot: 4, scheduleRank: 7, speed: 1, drift: 0.016, phase: 5.2, frameOffset: 1, hueShift: 0.024 },
+  { slot: 5, scheduleRank: 4, speed: 0.93, drift: 0.013, phase: 6.4, frameOffset: 2, hueShift: -0.03 },
+  { slot: 6, scheduleRank: 6, speed: 1.03, drift: 0.014, phase: 7.5, frameOffset: 0, hueShift: 0.014 },
+  { slot: 7, scheduleRank: 2, speed: 0.97, drift: 0.015, phase: 8.7, frameOffset: 1, hueShift: -0.022 },
 ];
 
 const BASE_FLIGHT_RATE = 1 / 17;
@@ -56,6 +56,7 @@ const FAR_DISTANCE = 54;
 const NEAR_DISTANCE = 10.5;
 const PILOT_NEAR_DISTANCE = 7.4;
 const PILOT_PHYSICAL_RADIUS = 1.18;
+const PHYSICAL_CORRIDOR_SLOTS = new Set([0, 1, 2, 3]);
 
 const defaultSceneCalibration = {
   focal: [0, -0.012],
@@ -407,14 +408,9 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
     canvas.dataset.sharedSphereGeometryCount = "4";
     const planetStates = [];
     const initialAssignments = resolveSceneAssignments(0);
-    const flightOrder = flightSeeds
-      .map((seed, index) => ({ index, progress: seed.progress }))
-      .sort((a, b) => a.progress - b.progress);
-    const flightRank = new Map(flightOrder.map((entry, rank) => [entry.index, rank]));
-
     worlds.forEach((world, index) => {
       const seed = flightSeeds[index];
-      const travelPhase = ((flightRank.get(index) ?? index) + 0.38) / worlds.length;
+      const travelPhase = (seed.scheduleRank + 0.38) / worlds.length;
       const initialProgress = travelPhaseToProgress(travelPhase);
       const initialSlot = compositionTemplates[0][seed.slot];
       const firstScene = textures[index][initialAssignments[index]];
@@ -530,7 +526,7 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
         compositionSlot: seed.slot,
         heroLane,
         heroStrength,
-        corridorPilot: seed.slot === 2,
+        corridorPilot: PHYSICAL_CORRIDOR_SLOTS.has(seed.slot),
         corridorReady: false,
         corridorStart: new THREE.Vector3(),
         corridorEnd: new THREE.Vector3(),
@@ -553,6 +549,13 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       });
     });
     canvas.dataset.pilotCorridorCount = String(planetStates.filter((state) => state.corridorPilot).length);
+    canvas.dataset.controlPathCount = String(planetStates.filter((state) => !state.corridorPilot).length);
+    canvas.dataset.corridorPathMode = "four-quadrant-physical-lines";
+    canvas.dataset.corridorQuadrants = planetStates
+      .filter((state) => state.corridorPilot)
+      .map((state) => state.exitQuadrant)
+      .sort()
+      .join("/");
     canvas.dataset.glassOpticsMode = "parallax-dispersion-seeded-highlight";
 
     const particleLayerConfigs = [
@@ -701,7 +704,7 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
     resizeObserver.observe(canvas);
     resize();
 
-    const buildPilotCorridor = (state) => {
+    const buildPhysicalCorridor = (state) => {
       const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5));
       const cosAngle = Math.cos(state.laneAngle);
       const sinAngle = Math.sin(state.laneAngle);
@@ -830,7 +833,10 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
 
       planetStates.forEach((state) => {
         if (!reducedMotionRef.current) {
-          const hoverTarget = hoveredId === state.group.userData.worldId ? 0.2 : 1;
+          const hoverDepthProtection = smoothstep(0.5, 0.9, state.progress);
+          const hoverTarget = hoveredId === state.group.userData.worldId
+            ? THREE.MathUtils.lerp(0.38, 0.88, hoverDepthProtection)
+            : 1;
           const motionEase = 1 - Math.exp(-delta * 5.5);
           state.motionMultiplier += (hoverTarget - state.motionMultiplier) * motionEase;
           state.travelPhase += BASE_FLIGHT_RATE * state.motionMultiplier * delta * motionScale;
@@ -891,7 +897,7 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
         const progress = THREE.MathUtils.clamp(state.progress, 0, 1);
         const flightProgress = THREE.MathUtils.clamp(state.travelPhase, 0, 1);
         if (state.corridorPilot) {
-          if (!state.corridorReady) buildPilotCorridor(state);
+          if (!state.corridorReady) buildPhysicalCorridor(state);
           const corridorT = Math.pow(flightProgress, 1.02);
           state.group.position.lerpVectors(state.corridorStart, state.corridorEnd, corridorT);
           state.group.scale.setScalar(state.corridorPhysicalScale * state.visualScale);
@@ -949,19 +955,46 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
         .filter((state) => state.heroLane)
         .map((state) => `${state.group.userData.worldId}:${state.progress.toFixed(2)},${state.screenX.toFixed(2)},${state.screenY.toFixed(2)},${state.screenRadius.toFixed(3)},${state.travelPhase.toFixed(3)}`)
         .join("|");
-      const pilotState = planetStates.find((state) => state.corridorPilot);
-      if (pilotState) {
-        pilotViewPosition.copy(pilotState.group.position).applyMatrix4(camera.matrixWorldInverse);
-        canvas.dataset.pilotCorridorSnapshot = [
-          pilotState.group.userData.worldId,
-          pilotState.travelPhase.toFixed(3),
-          pilotState.screenX.toFixed(3),
-          pilotState.screenY.toFixed(3),
-          pilotState.screenRadius.toFixed(3),
-          Math.max(0, -pilotViewPosition.z).toFixed(3),
-          pilotState.exitQuadrant,
-        ].join(":");
+      const corridorSnapshots = planetStates
+        .filter((state) => state.corridorPilot)
+        .map((state) => {
+          pilotViewPosition.copy(state.group.position).applyMatrix4(camera.matrixWorldInverse);
+          return [
+            state.group.userData.worldId,
+            state.travelPhase.toFixed(3),
+            state.screenX.toFixed(3),
+            state.screenY.toFixed(3),
+            state.screenRadius.toFixed(3),
+            Math.max(0, -pilotViewPosition.z).toFixed(3),
+            state.exitQuadrant,
+          ].join(":");
+        });
+      canvas.dataset.physicalCorridorSnapshots = corridorSnapshots.join("|");
+      canvas.dataset.pilotCorridorSnapshot = corridorSnapshots[0] ?? "";
+
+      let minimumProjectedGap = Number.POSITIVE_INFINITY;
+      let minimumProjectedGapPair = "";
+      for (let firstIndex = 0; firstIndex < planetStates.length; firstIndex += 1) {
+        const first = planetStates[firstIndex];
+        if (first.screenRadius < 0.07) continue;
+        for (let secondIndex = firstIndex + 1; secondIndex < planetStates.length; secondIndex += 1) {
+          const second = planetStates[secondIndex];
+          if (second.screenRadius < 0.07) continue;
+          const centerDistance = Math.hypot(
+            (first.screenX - second.screenX) * camera.aspect,
+            first.screenY - second.screenY,
+          );
+          const projectedGap = centerDistance - first.screenRadius - second.screenRadius;
+          if (projectedGap < minimumProjectedGap) {
+            minimumProjectedGap = projectedGap;
+            minimumProjectedGapPair = `${first.group.userData.worldId}/${second.group.userData.worldId}`;
+          }
+        }
       }
+      canvas.dataset.minimumProjectedGap = Number.isFinite(minimumProjectedGap)
+        ? minimumProjectedGap.toFixed(3)
+        : "n/a";
+      canvas.dataset.minimumProjectedGapPair = minimumProjectedGapPair;
       const depthOpticsValues = planetStates.map((state) => state.imageMaterial.uniforms.uDepthOptics.value);
       canvas.dataset.glassDepthOpticsRange = `${Math.min(...depthOpticsValues).toFixed(3)}-${Math.max(...depthOpticsValues).toFixed(3)}`;
 
@@ -1058,6 +1091,12 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       delete canvas.dataset.heroLaneSnapshot;
       delete canvas.dataset.pilotCorridorCount;
       delete canvas.dataset.pilotCorridorSnapshot;
+      delete canvas.dataset.controlPathCount;
+      delete canvas.dataset.corridorPathMode;
+      delete canvas.dataset.corridorQuadrants;
+      delete canvas.dataset.physicalCorridorSnapshots;
+      delete canvas.dataset.minimumProjectedGap;
+      delete canvas.dataset.minimumProjectedGapPair;
       delete canvas.dataset.glassOpticsMode;
       delete canvas.dataset.glassDepthOpticsRange;
       delete canvas.dataset.particleLayerCount;

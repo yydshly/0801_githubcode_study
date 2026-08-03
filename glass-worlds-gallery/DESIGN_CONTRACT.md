@@ -145,6 +145,18 @@ The user explicitly confirmed a core-WebGL refinement focused on particles, glas
 - preserve one close-pass world, 2/2/2/2 quadrant allocation, eight unique scenes, hover selection, wheel synchronization and no runtime allocation growth;
 - validate at least one full 1280x720 lifecycle with pilot radial/size/direction samples, material readability, particle response, scheduler metrics, interaction, logs and builds before deciding whether to extend the corridor to all spheres.
 
+## Revision 18: four-quadrant physical corridor comparison
+
+The user confirmed the next trajectory study after the single v22 corridor passed. This remains a desktop-only, local-asset WebGL revision. Particle density, fixed point size, continuous depth response, glass shaders, foreground UI and the eight-scene allocator stay unchanged. The experiment expands physical perspective to exactly four worlds—one in each quadrant—while retaining four screen-directed worlds as a simultaneous control group. Acceptance is:
+
+- assign one fixed world-space corridor to each of UR, UL, DR and DL, with no quadrant reassignment during a visible pass;
+- keep the four physical corridors phase-staggered and pair each with one control path in the same quadrant at roughly one-quarter to three-eighths of a lifecycle separation;
+- preserve fixed physical scale for corridor worlds so apparent growth comes from perspective, with a bounded near plane and complete edge clearance before recycling;
+- prevent hover from effectively parking a late middle/near world and breaking the temporal spacing schedule;
+- expose corridor count, control count, per-corridor trajectory snapshots and minimum projected sphere gap for sustained runtime validation;
+- retain `2/2/2/2` quadrant allocation, `0–1` near worlds, two to three readable middle worlds, eight unique scenes, continuous fixed-size particles, adaptive glass optics and working hover/click selection;
+- validate a full 1280x720 lifecycle with no late turn, camera entry, recycle flash or near overlap before deciding whether physical corridors should replace the remaining four control paths.
+
 ## Spatial-stage architecture
 
 ```text
@@ -194,6 +206,7 @@ Fallback: Semantic keyboard world list and DOM details remain available when mot
 | Continuous particle depth field | Fixed-size dust accelerates and brightens smoothly with proximity while retaining sparse uniform distribution | 1280x720 desktop default and wheel travel | Shader/runtime mode plus timed visual evidence | Stage 2 | pass | Runtime reports continuous-depth-wheel-synced motion at shared 1.18/1.18 sizes; proximity luminance remains restrained and wheel response rises and settles with the sphere field |
 | Adaptive glass optics | Sphere imagery reads inside a distinct glass volume with individual highlights and edge-only dispersion | 1280x720 middle and close passes | Timed browser frames plus source/runtime optical state | Stage 2 | pass | Browser frames retain clear image centers while runtime depth optics span 0.720–1.080; edge dispersion, view parallax and seeded highlight directions vary the glass without obscuring scenes |
 | Pilot 3D corridor | One priority sphere follows a bounded world-space line and grows through perspective without a turn or camera entry | 1280x720 complete lifecycle | Pilot trajectory samples, full exit/recycle and control-lane comparison | Stage 2 | pass | The Live Avatars pilot decreased from 53.72 to 7.63 camera units while radius rose from 0.051 to 0.358 with no sampled reversal; it fully cleared the right edge before safe far-field recycling |
+| Four-quadrant corridor comparison | Four phase-staggered worlds use fixed-scale physical corridors, one per quadrant, while four old paths remain as controls | 1280x720 sustained lifecycle | Per-corridor distance/radius/direction samples, minimum projected gap, exits, interactions and logs | Stage 2 | pass | Twenty-eight seconds and 112 samples covered 2–3 recycles per corridor with zero direction, distance or radius regression, a positive 0.071 minimum projected gap and at most one near world |
 | Multi-image spheres | Three images per world | Default and selected states | Timed transition plus selected-world observation | Stage 5 | pass | Eight worlds each reference three local raster scenes |
 | Primary interaction | Browse, select, close, compose | Mouse and keyboard | Interaction observations and focus return | Stage 5 | pass | Browser verified world selection, detail state, composer open, Escape close, and focus return to the opener |
 | Responsive behavior | Preserve spatial experience | Desktop and 390px mobile | Browser screenshots and interaction | Stage 7 | pass | 1280×720 and 390×844 captures show no document overflow; portrait size cap removes near-field overlap while preserving the stage |

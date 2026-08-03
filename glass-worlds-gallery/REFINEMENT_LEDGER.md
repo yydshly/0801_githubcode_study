@@ -14,6 +14,25 @@ Theme: Dark only; the reference is a dark spatial stage
 
 ## Entries
 
+### 2026-08-04 — Four-quadrant physical-corridor comparison
+
+```text
+Current stage: Stage 2 — Primary visual calibration
+User phase: Confirmed the recommended next trajectory step
+Coverage item: Four phase-staggered physical corridors with four simultaneous control paths
+User goal: Make approaching spheres feel like a coherent high-speed camera flight while retaining balanced coverage and avoiding overlap, late turns or oversized center holds.
+Browser environment: Canonical 1280x720 desktop stage, dark theme
+Observed evidence: The v22 Live Avatars pilot completes a monotonic fixed-scale world-space pass, but only one of eight worlds uses physical perspective. The other seven still reconstruct position and size from screen-space curves, so a single frame cannot yet show whether the physical method improves the whole composition.
+Problem category: Spatial trajectory comparison and multi-object scheduling
+Root cause: Physical corridor selection is hard-coded to one slot and the runtime exposes only one pilot snapshot.
+Minimal intervention: Select slots 0–3 as one corridor per quadrant, preserve slots 4–7 as matched controls, reuse the bounded line builder, separate same-quadrant paths by angle and one-quarter to three-eighths of a lifecycle, constrain hover slowdown near the exit, and add multi-corridor plus projected-gap diagnostics.
+Adjacent regression surfaces: Four-quadrant allocation, near-role occupancy, same-quadrant spacing, full-edge exits, particle cadence, glass readability, eight-scene uniqueness, hover/click raycasting, recycling and runtime allocation.
+Observed result: Slots 0–3 now provide one fixed-scale physical line in each of DL, UR, DR and UL, while slots 4–7 retain the previous screen-directed path. An initial half-cycle pairing produced measured overlaps of -0.063 in DL and -0.047 in DR; widening paired angles and rescheduling same-quadrant partners to one-quarter or three-eighths of a lifecycle removed the defect. Two consecutive 14-second browser samples produced 112 observations and 14 recycle events. Every physical corridor recycled 2–3 times with zero sampled distance reversal, radius regression or quadrant change. Minimum camera distance stayed between 7.477 and 7.675, maximum radius stayed between 0.337 and 0.371, and every path cleared its relevant frame boundary before recycling. The minimum readable projected gap remained positive at 0.071, near occupancy stayed at 0–1, quadrant allocation stayed 2/2/2/2 and all 8 scenes remained unique. Hovering Live Avatars slowed it only to 0.457 at middle depth, click opened the matching detail, and the hover state cleared. Wheel input raised the shared particle/sphere motion scale from 1.000 to 1.084 and it settled to 1.000. Runtime logs contained no warning or error.
+Decision: pass
+Next executable action: None inside the four-corridor comparison scope; keep the four control paths until a later all-corridor decision is explicitly authorized.
+New authority required: No; the user explicitly confirmed the recommended next step.
+```
+
 ### 2026-08-04 — Core WebGL optical and corridor baseline
 
 ```text
