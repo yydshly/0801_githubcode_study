@@ -168,6 +168,16 @@ The user ended open-ended visual refinement and explicitly requested a complete 
 - mark the project as `阶段归档` in the root gallery and research registry;
 - keep unrelated `.agents/` content untouched, rerun project build, Sites tests, research-gallery build, browser smoke checks and diff validation, then commit and push the archive to `master`.
 
+## Revision 20: GitHub Pages base-path repair
+
+The archived runtime remains unchanged, but the published route rendered an empty React root because its HTML referenced `/assets/...` while the files were deployed below `/0801_githubcode_study/projects/glass-worlds-gallery/assets/...`. The user explicitly authorized repair. Acceptance is:
+
+- pass the gallery-provided `--base` argument directly to Vite while preserving the Sites packaging post-build step;
+- trigger the Pages workflow when any enabled research project changes, including `glass-worlds-gallery/**`;
+- fail the gallery build when a Vite project's generated root-relative asset references escape its assigned project base;
+- preserve the archived WebGL runtime, visual composition and interaction behavior without unrelated changes;
+- verify the project build, Sites tests, full gallery build, GitHub Actions deployment and production route in a real 1280×720 browser with loaded assets, a rendered canvas and no console warnings or errors.
+
 ## Spatial-stage architecture
 
 ```text
@@ -219,6 +229,7 @@ Fallback: Semantic keyboard world list and DOM details remain available when mot
 | Pilot 3D corridor | One priority sphere follows a bounded world-space line and grows through perspective without a turn or camera entry | 1280x720 complete lifecycle | Pilot trajectory samples, full exit/recycle and control-lane comparison | Stage 2 | pass | The Live Avatars pilot decreased from 53.72 to 7.63 camera units while radius rose from 0.051 to 0.358 with no sampled reversal; it fully cleared the right edge before safe far-field recycling |
 | Four-quadrant corridor comparison | Four phase-staggered worlds use fixed-scale physical corridors, one per quadrant, while four old paths remain as controls | 1280x720 sustained lifecycle | Per-corridor distance/radius/direction samples, minimum projected gap, exits, interactions and logs | Stage 2 | pass | Twenty-eight seconds and 112 samples covered 2–3 recycles per corridor with zero direction, distance or radius regression, a positive 0.071 minimum projected gap and at most one near world |
 | Scenario-driven archive | Complete implementation record, two comparison narratives, demo/reference linkage and scenario-gated backlog | Repository docs, project chrome and gallery registry | Files, links, build/test output, browser link state and clean scoped diff | Stage 9 | pass | Archive and comparison documents are linked from the project/root READMEs; build, all 4 Sites tests, gallery build and 1280×720 browser smoke checks pass; the original-reference link is visible and runtime logs are clean |
+| GitHub Pages base-path repair | Production HTML loads its JavaScript and CSS from the repository project path and renders the archived experience | Published project route at 1280×720 | Generated HTML, HTTP asset status, Actions deployment, DOM/canvas state and browser logs | Stage 9 | continue | Correct build argument forwarding and workflow triggers, add a gallery base-path guard, deploy the exact commit, then verify the production route |
 | Multi-image spheres | Three images per world | Default and selected states | Timed transition plus selected-world observation | Stage 5 | pass | Eight worlds each reference three local raster scenes |
 | Primary interaction | Browse, select, close, compose | Mouse and keyboard | Interaction observations and focus return | Stage 5 | pass | Browser verified world selection, detail state, composer open, Escape close, and focus return to the opener |
 | Responsive behavior | Preserve spatial experience | Desktop and 390px mobile | Browser screenshots and interaction | Stage 7 | pass | 1280×720 and 390×844 captures show no document overflow; portrait size cap removes near-field overlap while preserving the stage |

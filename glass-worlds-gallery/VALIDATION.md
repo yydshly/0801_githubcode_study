@@ -180,3 +180,11 @@ Reduced-motion runtime emulation remains deferred: the available browser exposes
 - Root `README.md` and `research-projects.json` now mark project 05 as `阶段归档`; the root project section and publishing matrix link both archive documents.
 - Final project build passed with CSS `19.83 kB` raw / `5.18 kB` gzip and JavaScript `793.41 kB` raw / `214.70 kB` gzip; the expected Three.js chunk-size notice is the only build warning. All 4 Sites worker tests and the root research-gallery build passed.
 - The final 1280×720 browser smoke check confirmed a visible `Original reference` link to `https://www.happyoyster.com/home` with `_blank`/`noreferrer`, 8 active scenes, 4 physical corridors plus 4 control paths, 1,450 background plus 340 foreground particles at fixed `1.18/1.18` point sizes, changing trajectory state over time, no document overflow, and no console warnings or errors.
+
+## Revision 20 deployment repair evidence
+
+- Production baseline at `https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/` loaded an empty React root with no canvas. Its HTML referenced `/assets/index-BJFsXVMt.js` and `/assets/index-rWEwENZP.css`; both returned 404, while the same files returned 200 below the repository project path.
+- Root cause was npm argument placement: `npm run build -- --base=...` expanded the former combined script so `--base` reached `prepare-sites-build.mjs` instead of Vite. Splitting Sites preparation into `postbuild` makes Vite receive the gallery-provided base directly.
+- The Pages workflow now watches all five enabled research project directories. The gallery builder now rejects Vite output whose root-relative script or stylesheet references escape the assigned project base.
+- A production-base build generated `/0801_githubcode_study/projects/glass-worlds-gallery/assets/...` references, all 4 Sites tests passed, and the complete five-project gallery build passed with the new base-path guard.
+- Local production preview at the exact repository base rendered one 1280×720 canvas with 8 scenes, 4 physical corridors, 4 control paths and 1,450/340 particles, with no overflow or browser warnings/errors. Production deployment verification remains pending for the exact repair commit.

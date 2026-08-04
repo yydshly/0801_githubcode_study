@@ -10,6 +10,9 @@ on:
       - "scripts/build-research-pages.mjs"
       - "wallet-finance-header/**"
       - "prompt-master-comparison-demo/**"
+      - "complete-shelf-study/**"
+      - "particle-flower-lab/**"
+      - "glass-worlds-gallery/**"
   workflow_dispatch:
 
 permissions:

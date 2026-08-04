@@ -75,6 +75,21 @@ async function buildViteProject(project, sourceRoot, destinationRoot, projectBas
   const buildOutput = resolveInside(sourceRoot, project.output || "dist");
   await ensureExists(buildOutput, `Build output for ${project.slug}`);
   await cp(buildOutput, destinationRoot, { recursive: true });
+
+  const indexPath = resolveInside(destinationRoot, "index.html");
+  await ensureExists(indexPath, `Built index for ${project.slug}`);
+  const indexHtml = await readFile(indexPath, "utf8");
+  const rootRelativeReferences = [...indexHtml.matchAll(/\b(?:src|href)="(\/[^"\s]+)"/g)]
+    .map((match) => match[1])
+    .filter((reference) => !reference.startsWith("//"));
+  const invalidReferences = [...new Set(rootRelativeReferences)]
+    .filter((reference) => !reference.startsWith(projectBase));
+
+  if (invalidReferences.length > 0) {
+    throw new Error(
+      `Vite project ${project.slug} emitted assets outside ${projectBase}: ${invalidReferences.join(", ")}`,
+    );
+  }
 }
 
 function renderCard(project, repositoryUrl) {
