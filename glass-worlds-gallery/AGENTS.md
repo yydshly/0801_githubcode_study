@@ -14,3 +14,4 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - Each glass sphere must cycle through three real raster scene images.
 - Keep the project frontend-only. Do not introduce an AI API, token, authentication, persistence, or backend.
 - Preserve the spatial stage on mobile through a compact horizontal composition rather than turning it into a long card page.
+- In Content mode, keep particles sparse, circular, uniformly distributed, and fixed-size; improve visibility through restrained luminance and opacity rather than particle count, center concentration, or size growth.

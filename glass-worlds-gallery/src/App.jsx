@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { GalaxyCanvas } from "./GalaxyCanvas";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -15,7 +14,15 @@ import {
   X,
 } from "@phosphor-icons/react";
 
+const GalaxyCanvas = lazy(() => import("./GalaxyCanvas").then((module) => ({ default: module.GalaxyCanvas })));
+
 const scene = (name) => `${import.meta.env.BASE_URL}assets/scenes/${name}`;
+const experienceValues = new Set(["atmosphere", "content"]);
+
+function readExperienceFromUrl() {
+  const value = new URLSearchParams(window.location.search).get("experience");
+  return experienceValues.has(value) ? value : "atmosphere";
+}
 
 const worlds = [
   {
@@ -279,6 +286,9 @@ export function App() {
   const [hoveredWorldInfo, setHoveredWorldInfo] = useState(null);
   const [manualFrames, setManualFrames] = useState({});
   const [mode, setMode] = useState("explore");
+  const [experience, setExperience] = useState(readExperienceFromUrl);
+  const [focusWorldInfo, setFocusWorldInfo] = useState(null);
+  const [stageLoad, setStageLoad] = useState({ ready: false, loaded: 0, total: 8, error: false });
   const [composerOpen, setComposerOpen] = useState(false);
   const reducedMotion = useReducedMotion();
 
@@ -287,6 +297,7 @@ export function App() {
   const hoveredWorld = hoveredWorldInfo
     ? worlds.find((world) => world.id === hoveredWorldInfo.id)
     : null;
+  const focusWorld = worlds.find((world) => world.id === focusWorldInfo?.id) ?? null;
 
   useEffect(() => {
     if (reducedMotion || selectedWorld) return undefined;
@@ -306,6 +317,18 @@ export function App() {
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [selectedId, composerOpen]);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("experience", experience);
+    window.history.replaceState(window.history.state, "", url);
+  }, [experience]);
+
+  useEffect(() => {
+    const syncExperienceFromHistory = () => setExperience(readExperienceFromUrl());
+    window.addEventListener("popstate", syncExperienceFromHistory);
+    return () => window.removeEventListener("popstate", syncExperienceFromHistory);
+  }, []);
 
   const frames = useMemo(() => Object.fromEntries(
     worlds.map((world, index) => [world.id, manualFrames[world.id] ?? ((frameTick + index) % world.images.length)]),
@@ -330,7 +353,7 @@ export function App() {
   };
 
   return (
-    <main className={`app-shell mode-${mode}${selectedWorld ? " has-selection" : ""}`}>
+    <main className={`app-shell mode-${mode} experience-${experience}${selectedWorld ? " has-selection" : ""}`}>
       <div
         className="ambient-backdrop"
         style={{
@@ -352,6 +375,26 @@ export function App() {
             <SlidersHorizontal size={18} />Directing
           </button>
         </nav>
+        <div className="experience-switch" role="group" aria-label="Experience version">
+          <button
+            className={experience === "atmosphere" ? "is-active" : ""}
+            type="button"
+            aria-pressed={experience === "atmosphere"}
+            onClick={() => setExperience("atmosphere")}
+          >
+            <span>Atmosphere</span>
+            <small>Flight</small>
+          </button>
+          <button
+            className={experience === "content" ? "is-active" : ""}
+            type="button"
+            aria-pressed={experience === "content"}
+            onClick={() => setExperience("content")}
+          >
+            <span>Content</span>
+            <small>Readable</small>
+          </button>
+        </div>
         <div className="topbar-meta">
           <span>Research 05</span>
           <a
@@ -368,13 +411,24 @@ export function App() {
       </header>
 
       <section className="stage-scroll" id="world-stage" aria-label="Interactive research worlds">
-        <GalaxyCanvas
-          worlds={worlds}
-          selectedId={selectedId}
-          reducedMotion={reducedMotion}
-          onSelect={selectWorld}
-          onHoverChange={setHoveredWorldInfo}
-        />
+        <Suspense fallback={null}>
+          <GalaxyCanvas
+            worlds={worlds}
+            experience={experience}
+            selectedId={selectedId}
+            reducedMotion={reducedMotion}
+            onSelect={selectWorld}
+            onHoverChange={setHoveredWorldInfo}
+            onFocusWorldChange={setFocusWorldInfo}
+            onLoadProgress={setStageLoad}
+          />
+        </Suspense>
+        {!stageLoad.ready && (
+          <div className={`stage-loading${stageLoad.error ? " has-error" : ""}`} role="status" aria-live="polite">
+            <span style={{ "--load-progress": `${stageLoad.total ? (stageLoad.loaded / stageLoad.total) * 100 : 0}%` }} />
+            {stageLoad.error ? "Some scenes could not load" : `Loading worlds ${stageLoad.loaded}/${stageLoad.total}`}
+          </div>
+        )}
         <div className="keyboard-worlds" aria-label="World selection shortcuts">
           {worlds.map((world) => (
             <button key={world.id} type="button" onClick={() => selectWorld(world.id)}>
@@ -383,6 +437,20 @@ export function App() {
           ))}
         </div>
       </section>
+
+      {experience === "content" && focusWorld && !selectedWorld && (
+        <aside
+          className={`content-focus-card${focusWorldInfo.screenX > 0.16 ? " is-left" : ""}`}
+          aria-label="Current featured world"
+        >
+          <p>Featured world · {focusWorld.index}</p>
+          <h2>{focusWorld.title}</h2>
+          <span>{focusWorld.description}</span>
+          <button type="button" onClick={() => selectWorld(focusWorld.id)}>
+            Enter world <ArrowRight size={16} />
+          </button>
+        </aside>
+      )}
 
       {hoveredWorld && hoveredWorldInfo && !selectedWorld && (
         <div

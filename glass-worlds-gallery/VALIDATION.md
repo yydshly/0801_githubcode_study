@@ -181,6 +181,35 @@ Reduced-motion runtime emulation remains deferred: the available browser exposes
 - Final project build passed with CSS `19.83 kB` raw / `5.18 kB` gzip and JavaScript `793.41 kB` raw / `214.70 kB` gzip; the expected Three.js chunk-size notice is the only build warning. All 4 Sites worker tests and the root research-gallery build passed.
 - The final 1280×720 browser smoke check confirmed a visible `Original reference` link to `https://www.happyoyster.com/home` with `_blank`/`noreferrer`, 8 active scenes, 4 physical corridors plus 4 control paths, 1,450 background plus 340 foreground particles at fixed `1.18/1.18` point sizes, changing trajectory state over time, no document overflow, and no console warnings or errors.
 
+## Revision 21 dual-experience evidence
+
+- The desktop foreground now exposes a semantic `Atmosphere / Content` switch. Direct entry through `?experience=atmosphere|content` selects the matching pressed state and updates the URL through history state without a reload.
+- Both profiles run in one persistent canvas. A live Atmosphere → Content → Atmosphere → Content sequence kept renderer mount id `2`; profile mix reached `0.000` and `1.000` in both directions, while the switch counter advanced normally.
+- Equal-lifecycle browser sampling measured the intended content emphasis: readable worlds increased from 4 to 6, centrally readable worlds from 1 to 3, largest visible normalized radius from `0.239` to `0.330`, and average readable radius from `0.179` to `0.200`.
+- Content optics reduce the sampled depth-optics range from `0.720–1.080` to `0.504–0.749`, suppress broad color dispersion and image-edge shading, lift the image core, and reduce the physical shell, inner shell and Fresnel strength without removing the glass silhouette.
+- Particle geometry and point sizes remain unchanged at 1,450/340 and `1.18/1.18`. Content mode only scales background/foreground opacity to `0.58/0.46`, preserving motion and parallax while lowering competition with the images.
+- The sampled content layout retained a positive `0.032` minimum projected gap after enlargement. It kept the same deterministic image assignment and continuous lifecycle instead of randomizing the comparison.
+- Direct content entry, two-way switching, URL state, zero page overflow, world-detail open/close, composer open/Escape close and semantic pressed states all passed in a 1280×720 browser run.
+- A missing favicon was the only 404 observed during the first regression pass. An inline local SVG favicon removed that unrelated browser request; no external asset, API, token or runtime model dependency was added.
+
+## Revision 22 Content v2 evidence
+
+- The desktop Content profile now uses weighted content roles rather than giving all eight worlds equal visual priority. Ten consecutive runtime samples retained `3–5` primary readable worlds and `1–2` smaller support worlds; all sampled projected gaps remained positive, with the observed sequence covering three, four and five primary-world compositions.
+- Each content world starts a pass with its own semantic primary image. The live scene signature covered all eight topics—neon, underwater, alpine, desert, fashion, evidence, robot and forest—without changing the shared eight-texture cache or adding a runtime model/API dependency.
+- If fewer than three static primary worlds are currently readable, the scheduler smoothly promotes the largest support candidates. Promotion is interpolated independently from the validated trajectory, so it does not introduce a late turn, camera intersection, full-frame scale jump or recycle flash.
+- Content image cores report proxy mode `luma-detail-parallax` with strength `0.920`. Pointer movement changed the sampled view shift from approximately `0.0001/0.0012` to `0.0216/0.0095`; Atmosphere mode keeps this proxy disabled. This is a bounded brightness/detail heuristic, not a generated depth map and not evidence of geometry-correct foreground occlusion.
+- Content glass further reduces broad environment competition and inner-shell wash while preserving the Fresnel rim, shell thickness and localized highlights. The information core remains brighter and more readable without turning the worlds into flat circular cards.
+- A throttled semantic focus card exposes the current world category, title, description and `Enter world` action in DOM. The card moves to the opposite side when a focused sphere crosses the right-side threshold. Enter opened the matching Virtual Try-On detail; Escape closed the detail and restored the card without remounting the canvas.
+- Atmosphere → Content → Atmosphere checks retained the same renderer mount and fixed particle sizes of `1.18/1.18 CSS px`. Content proxy state switched on/off with the profile, while URL state, detail interaction, composer open/Escape close and zero document overflow remained intact.
+- The Three.js stage is now lazy-loaded and reports texture progress through one foreground loading state. The gallery build splits the former combined entry into a `236.75 kB raw / 72.45 kB gzip` base entry and a `565.17 kB raw / 144.43 kB gzip` WebGL feature chunk. The dynamic chunk still produces the expected Vite size notice, but the readable DOM shell no longer depends on parsing the full Three.js stage first.
+- A final 1280×720 content-mode browser check reported one visible canvas, no loading overlay after startup, a visible focus card, all eight semantic scene families, positive sphere spacing, no document overflow and no application warning/error logs.
+
+## Content particle visibility calibration
+
+- Content particle opacity scales increased from `0.58/0.46` to `0.72/0.78` after the live 809×898 view showed that the earlier information-first suppression made the sparse field too dark.
+- Geometry remains unchanged at 1,450 background and 340 foreground points with shared fixed `1.18/1.18 CSS px` sizes. Color, circular masking, uniform frustum distribution, continuous depth speed and far-in/near-out lifecycle are unchanged.
+- The post-change browser frame shows a readable sparse field without a central knot, enlarged points or interference with sphere imagery. Runtime data reports a positive `0.044` minimum projected sphere gap.
+
 ## Revision 20 deployment repair evidence
 
 - Production baseline at `https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/` loaded an empty React root with no canvas. Its HTML referenced `/assets/index-BJFsXVMt.js` and `/assets/index-rWEwENZP.css`; both returned 404, while the same files returned 200 below the repository project path.

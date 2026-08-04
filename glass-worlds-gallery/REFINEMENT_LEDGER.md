@@ -14,6 +14,25 @@ Theme: Dark only; the reference is a dark spatial stage
 
 ## Entries
 
+### 2026-08-04 — Content 粒子可见度校准
+
+```text
+Current stage: Stage 2 — Primary visual calibration
+User phase: Content 模式粒子亮度反馈
+Coverage item: 固定尺寸粒子的可见度与信息竞争
+User goal: 让星尘在暗色背景中清楚可见，同时避免增加数量、放大粒子或恢复中心聚集。
+Browser environment: http://127.0.0.1:4174/?experience=content at 809x898, dark theme
+Observed evidence: Content 模式原先使用 0.58/0.46 的背景/前景透明度系数，实机截图中多数星尘接近不可见；粒子数量、分布和 1.18/1.18 CSS px 固定尺寸本身没有问题。
+Problem category: Particle luminance and visual hierarchy
+Root cause: Content 配置为了降低粒子与球内图片的竞争，将两层透明度压得过低，叠加远景淡入后在侧栏视口中进一步变暗。
+Minimal intervention: 仅将背景/前景透明度系数调整为 0.72/0.78；保持粒子数量、颜色、尺寸、圆形遮罩、均匀视锥分布、速度和生命周期不变。
+Adjacent regression surfaces: 球内信息清晰度、中心粒子聚集、粒子尺寸膨胀、滚轮同步、生命周期闪烁和球体间距。
+Observed result: 809x898 运行截图中星尘明显可见但仍保持稀疏；运行数据报告 Content 透明度 0.720/0.780、固定尺寸 1.18/1.18、continuous-depth-wheel-synced 速度和 far-in-near-out 生命周期。球体最小投影间距仍为正值 0.044。
+Decision: pass
+Next executable action: 按具体使用场景观察录屏压缩后的亮度；不要继续增加数量或尺寸。
+New authority required: No; the user explicitly requested the particle adjustment.
+```
+
 ### 2026-08-04 — Four-quadrant physical-corridor comparison
 
 ```text

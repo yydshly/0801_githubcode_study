@@ -41,22 +41,66 @@ const flightSeeds = [
 ];
 
 const BASE_FLIGHT_RATE = 1 / 17;
-const FAR_PROGRESS_END = 0.26;
-const MID_PROGRESS_END = 0.78;
-const FAR_PACE = 1.32;
-const MID_PACE = 0.72;
-const NEAR_PACE = 1.9;
-const FAR_TRAVEL = FAR_PROGRESS_END / FAR_PACE;
-const MID_TRAVEL = (MID_PROGRESS_END - FAR_PROGRESS_END) / MID_PACE;
-const NEAR_TRAVEL = (1 - MID_PROGRESS_END) / NEAR_PACE;
-const TOTAL_TRAVEL = FAR_TRAVEL + MID_TRAVEL + NEAR_TRAVEL;
-const MIN_SCREEN_RADIUS = 0.038;
-const MAX_SCREEN_RADIUS = 0.44;
 const FAR_DISTANCE = 54;
 const NEAR_DISTANCE = 10.5;
-const PILOT_NEAR_DISTANCE = 7.4;
-const PILOT_PHYSICAL_RADIUS = 1.18;
 const PHYSICAL_CORRIDOR_SLOTS = new Set([0, 1, 2, 3]);
+const contentPriorityWeights = [1.08, 1.02, 1.12, 1, 1.06, 0.96, 0.62, 0.64];
+
+const atmosphereProfile = {
+  farProgressEnd: 0.26,
+  midProgressEnd: 0.78,
+  farPace: 1.32,
+  midPace: 0.72,
+  nearPace: 1.9,
+  minScreenRadius: 0.038,
+  maxScreenRadius: 0.44,
+  pilotNearDistance: 7.4,
+  pilotPhysicalRadius: 1.18,
+  pathExponent: 1.02,
+  controlPathExponent: 1.08,
+  exposureScale: 1,
+  saturationScale: 1,
+  refractionScale: 1,
+  contentClarity: 0,
+  glassOpacityScale: 1,
+  innerGlassOpacityScale: 1,
+  rimScale: 1,
+  backgroundParticleOpacityScale: 1,
+  foregroundParticleOpacityScale: 1,
+};
+
+const contentProfile = {
+  farProgressEnd: 0.2,
+  midProgressEnd: 0.86,
+  farPace: 1.42,
+  midPace: 0.58,
+  nearPace: 1.65,
+  minScreenRadius: 0.052,
+  maxScreenRadius: 0.53,
+  pilotNearDistance: 6.8,
+  pilotPhysicalRadius: 1.38,
+  pathExponent: 1.22,
+  controlPathExponent: 1.28,
+  exposureScale: 1.08,
+  saturationScale: 1.025,
+  refractionScale: 0.58,
+  contentClarity: 1,
+  glassOpacityScale: 0.72,
+  innerGlassOpacityScale: 0.58,
+  rimScale: 0.78,
+  backgroundParticleOpacityScale: 0.72,
+  foregroundParticleOpacityScale: 0.78,
+};
+
+const profileKeys = Object.keys(atmosphereProfile);
+let rendererMountCounter = 0;
+
+function blendExperienceProfile(mix) {
+  return Object.fromEntries(profileKeys.map((key) => [
+    key,
+    THREE.MathUtils.lerp(atmosphereProfile[key], contentProfile[key], mix),
+  ]));
+}
 
 const defaultSceneCalibration = {
   focal: [0, -0.012],
@@ -106,6 +150,9 @@ const imageFragmentShader = `
   uniform float uSaturation;
   uniform float uRefractionStrength;
   uniform float uDepthOptics;
+  uniform float uContentClarity;
+  uniform float uProxyDepthStrength;
+  uniform vec2 uViewShift;
   varying vec2 vUv;
   varying vec3 vLocalPosition;
   varying vec3 vNormal;
@@ -138,6 +185,19 @@ const imageFragmentShader = `
     vec2 refraction = normal.xy * (0.0015 + opticalEdge * 0.038) * uRefractionStrength * uDepthOptics;
     vec2 viewParallax = viewDirection.xy * (0.0035 + opticalEdge * 0.0025) * uDepthOptics;
     vec2 lensUv = clamp((projectedUv - 0.5) * 0.94 + 0.5 + uLensOffset + refraction + viewParallax, 0.012, 0.988);
+    vec4 proxyA = texture2D(uTextureA, lensUv);
+    vec4 proxyB = texture2D(uTextureB, lensUv);
+    vec3 proxyColor = mix(proxyA.rgb, proxyB.rgb, smoothstep(0.0, 1.0, uMix));
+    float proxyLuma = dot(proxyColor, vec3(0.2126, 0.7152, 0.0722));
+    vec3 proxyNeighbor = mix(
+      texture2D(uTextureA, clamp(lensUv + vec2(0.006, -0.004), 0.012, 0.988)).rgb,
+      texture2D(uTextureB, clamp(lensUv + vec2(0.006, -0.004), 0.012, 0.988)).rgb,
+      smoothstep(0.0, 1.0, uMix)
+    );
+    float proxyDetail = length(proxyColor - proxyNeighbor);
+    float proxyDepth = clamp((proxyLuma - 0.5) * 0.52 + proxyDetail * 0.82, -0.24, 0.34);
+    float centerProtection = 1.0 - opticalEdge * 0.34;
+    lensUv = clamp(lensUv + uViewShift * proxyDepth * uProxyDepthStrength * centerProtection, 0.012, 0.988);
     vec4 colorA = texture2D(uTextureA, lensUv);
     vec4 colorB = texture2D(uTextureB, lensUv);
     vec2 chromaOffset = normal.xy * opticalEdge * 0.0024 * uDepthOptics;
@@ -151,24 +211,25 @@ const imageFragmentShader = `
       colorB.g,
       texture2D(uTextureB, clamp(lensUv - chromaOffset, 0.012, 0.988)).b
     );
-    colorA.rgb = mix(colorA.rgb, dispersedA, opticalEdge * 0.42);
-    colorB.rgb = mix(colorB.rgb, dispersedB, opticalEdge * 0.42);
+    float dispersionStrength = mix(0.42, 0.14, uContentClarity);
+    colorA.rgb = mix(colorA.rgb, dispersedA, opticalEdge * dispersionStrength);
+    colorB.rgb = mix(colorB.rgb, dispersedB, opticalEdge * dispersionStrength);
     vec4 color = mix(colorA, colorB, smoothstep(0.0, 1.0, uMix));
     float luminance = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
     color.rgb = hueRotate(mix(vec3(luminance), color.rgb, uSaturation), uHueShift);
-    color.rgb = mix(color.rgb, sqrt(max(color.rgb, vec3(0.0))), 0.16);
+    color.rgb = mix(color.rgb, sqrt(max(color.rgb, vec3(0.0))), mix(0.16, 0.1, uContentClarity));
     color.rgb *= uExposure;
     float imageEdge = smoothstep(0.27, 0.58, distance(projectedUv, vec2(0.5)));
-    color.rgb *= mix(1.055, 0.92, imageEdge);
+    color.rgb *= mix(mix(1.055, 1.025, uContentClarity), mix(0.92, 0.985, uContentClarity), imageEdge);
     float diffuse = max(dot(normal, normalize(vec3(-0.42, 0.68, 0.58))), 0.0);
     float lowerShade = smoothstep(-0.85, 0.4, normal.y);
     float sideVolume = smoothstep(-1.05, 0.78, normal.x * -0.7 + normal.y * 0.26);
     float innerGlow = pow(max(dot(reflect(normalize(vec3(0.48, -0.72, -0.36)), normal), viewDirection), 0.0), 14.0);
-    color.rgb *= 0.88 + diffuse * 0.2;
-    color.rgb *= mix(0.93, 1.04, lowerShade);
-    color.rgb *= mix(0.96, 1.03, sideVolume);
-    color.rgb *= 1.0 - curvature * 0.11;
-    color.rgb += vec3(0.12, 0.17, 0.23) * innerGlow * 0.24;
+    color.rgb *= mix(0.88 + diffuse * 0.2, 0.965 + diffuse * 0.07, uContentClarity);
+    color.rgb *= mix(mix(0.93, 1.04, lowerShade), mix(0.985, 1.015, lowerShade), uContentClarity);
+    color.rgb *= mix(mix(0.96, 1.03, sideVolume), mix(0.99, 1.01, sideVolume), uContentClarity);
+    color.rgb *= 1.0 - curvature * mix(0.11, 0.045, uContentClarity);
+    color.rgb += vec3(0.12, 0.17, 0.23) * innerGlow * mix(0.24, 0.12, uContentClarity);
     gl_FragColor = color;
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
@@ -261,14 +322,22 @@ function smoothstep(min, max, value) {
   return x * x * (3 - 2 * x);
 }
 
-function travelPhaseToProgress(phase) {
+function travelPhaseToProgress(phase, profile = atmosphereProfile) {
   const normalizedPhase = ((phase % 1) + 1) % 1;
-  const travel = normalizedPhase * TOTAL_TRAVEL;
-  if (travel < FAR_TRAVEL) return travel * FAR_PACE;
-  if (travel < FAR_TRAVEL + MID_TRAVEL) {
-    return FAR_PROGRESS_END + (travel - FAR_TRAVEL) * MID_PACE;
+  const farTravel = profile.farProgressEnd / profile.farPace;
+  const midTravel = (profile.midProgressEnd - profile.farProgressEnd) / profile.midPace;
+  const nearTravel = (1 - profile.midProgressEnd) / profile.nearPace;
+  const travel = normalizedPhase * (farTravel + midTravel + nearTravel);
+  if (travel < farTravel) return travel * profile.farPace;
+  if (travel < farTravel + midTravel) {
+    return profile.farProgressEnd + (travel - farTravel) * profile.midPace;
   }
-  return MID_PROGRESS_END + (travel - FAR_TRAVEL - MID_TRAVEL) * NEAR_PACE;
+  return profile.midProgressEnd + (travel - farTravel - midTravel) * profile.nearPace;
+}
+
+function seededUnit(seed) {
+  const value = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
+  return value - Math.floor(value);
 }
 
 function angleToQuadrant(angle) {
@@ -277,16 +346,32 @@ function angleToQuadrant(angle) {
   return `${vertical}${horizontal}`;
 }
 
-export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHoverChange }) {
+export function GalaxyCanvas({
+  worlds,
+  experience,
+  selectedId,
+  reducedMotion,
+  onSelect,
+  onHoverChange,
+  onFocusWorldChange,
+  onLoadProgress,
+}) {
   const canvasRef = useRef(null);
+  const experienceRef = useRef(experience);
   const selectedIdRef = useRef(selectedId);
   const reducedMotionRef = useRef(reducedMotion);
   const onSelectRef = useRef(onSelect);
   const onHoverChangeRef = useRef(onHoverChange);
+  const onFocusWorldChangeRef = useRef(onFocusWorldChange);
+  const onLoadProgressRef = useRef(onLoadProgress);
 
   useEffect(() => {
     selectedIdRef.current = selectedId;
   }, [selectedId]);
+
+  useEffect(() => {
+    experienceRef.current = experience;
+  }, [experience]);
 
   useEffect(() => {
     reducedMotionRef.current = reducedMotion;
@@ -301,8 +386,19 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
   }, [onHoverChange]);
 
   useEffect(() => {
+    onFocusWorldChangeRef.current = onFocusWorldChange;
+  }, [onFocusWorldChange]);
+
+  useEffect(() => {
+    onLoadProgressRef.current = onLoadProgress;
+  }, [onLoadProgress]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
+    canvas.dataset.rendererMountId = String(++rendererMountCounter);
+    canvas.dataset.experienceProfile = experienceRef.current;
+    let disposed = false;
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
@@ -329,7 +425,21 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
     blueLight.position.set(8, -2, 4);
     scene.add(blueLight);
 
-    const textureLoader = new THREE.TextureLoader();
+    const loadingManager = new THREE.LoadingManager();
+    loadingManager.onStart = (_url, loaded, total) => {
+      if (!disposed) onLoadProgressRef.current?.({ ready: false, loaded, total, error: false });
+    };
+    loadingManager.onProgress = (_url, loaded, total) => {
+      if (!disposed) onLoadProgressRef.current?.({ ready: false, loaded, total, error: false });
+    };
+    loadingManager.onLoad = () => {
+      if (!disposed) onLoadProgressRef.current?.({ ready: true, loaded: textureCache.size, total: textureCache.size, error: false });
+    };
+    loadingManager.onError = () => {
+      if (!disposed) onLoadProgressRef.current?.((current) => ({ ...current, error: true }));
+    };
+    onLoadProgressRef.current?.({ ready: false, loaded: 0, total: 8, error: false });
+    const textureLoader = new THREE.TextureLoader(loadingManager);
     const textureCache = new Map();
     const getTexture = (url) => {
       if (textureCache.has(url)) return textureCache.get(url);
@@ -406,12 +516,19 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
     const innerShellGeometry = new THREE.SphereGeometry(1.018, 56, 56);
     const shadeGeometry = new THREE.SphereGeometry(1.012, 40, 40);
     canvas.dataset.sharedSphereGeometryCount = "4";
+    let experienceMix = experienceRef.current === "content" ? 1 : 0;
+    let trajectoryMix = experienceMix;
+    let lastExperienceTarget = experienceRef.current;
+    let profileSwitchCount = 0;
+    const initialExperienceProfile = blendExperienceProfile(experienceMix);
     const planetStates = [];
-    const initialAssignments = resolveSceneAssignments(0);
+    const initialAssignments = experienceRef.current === "content"
+      ? worlds.map(() => 0)
+      : resolveSceneAssignments(0);
     worlds.forEach((world, index) => {
       const seed = flightSeeds[index];
       const travelPhase = (seed.scheduleRank + 0.38) / worlds.length;
-      const initialProgress = travelPhaseToProgress(travelPhase);
+      const initialProgress = travelPhaseToProgress(travelPhase, initialExperienceProfile);
       const initialSlot = compositionTemplates[0][seed.slot];
       const firstScene = textures[index][initialAssignments[index]];
       const group = new THREE.Group();
@@ -428,6 +545,9 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
           uSaturation: { value: firstScene.calibration.saturation },
           uRefractionStrength: { value: firstScene.calibration.refraction },
           uDepthOptics: { value: 0.78 },
+          uContentClarity: { value: 0 },
+          uProxyDepthStrength: { value: 0 },
+          uViewShift: { value: new THREE.Vector2() },
         },
         vertexShader,
         fragmentShader: imageFragmentShader,
@@ -519,9 +639,13 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
         glassMaterial,
         innerGlassMaterial,
         rimMaterial,
+        shadeMaterial,
         textures: textures[index],
         currentScene: firstScene,
         sizeFactor,
+        contentPriorityWeight: contentPriorityWeights[index] ?? 0.8,
+        contentPromotion: 0,
+        contentPromotionTarget: 0,
         speed: seed.speed,
         compositionSlot: seed.slot,
         heroLane,
@@ -641,6 +765,9 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
     let previousTime = performance.now();
     let elapsed = 0;
     let speedBoost = 0;
+    let currentFocusId = null;
+    let currentFocusOnRight = null;
+    let lastFocusUpdate = 0;
 
     const findPlanet = (object) => {
       let current = object;
@@ -704,12 +831,12 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
     resizeObserver.observe(canvas);
     resize();
 
-    const buildPhysicalCorridor = (state) => {
+    const buildPhysicalCorridor = (state, profile) => {
       const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5));
       const cosAngle = Math.cos(state.laneAngle);
       const sinAngle = Math.sin(state.laneAngle);
-      const physicalScale = PILOT_PHYSICAL_RADIUS * state.sizeFactor;
-      const nearScreenRadius = physicalScale / (PILOT_NEAR_DISTANCE * tanHalfFov);
+      const physicalScale = profile.pilotPhysicalRadius * state.sizeFactor;
+      const nearScreenRadius = physicalScale / (profile.pilotNearDistance * tanHalfFov);
       const nearRadiusX = nearScreenRadius / camera.aspect;
       const exitX = Math.abs(cosAngle) > 0.001
         ? (1 + nearRadiusX + 0.08) / Math.abs(cosAngle)
@@ -720,7 +847,7 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       const exitDistance = Math.min(exitX, exitY);
       const farHalfHeight = tanHalfFov * FAR_DISTANCE;
       const farHalfWidth = farHalfHeight * camera.aspect;
-      const nearHalfHeight = tanHalfFov * PILOT_NEAR_DISTANCE;
+      const nearHalfHeight = tanHalfFov * profile.pilotNearDistance;
       const nearHalfWidth = nearHalfHeight * camera.aspect;
 
       state.corridorStart.set(
@@ -731,7 +858,7 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       state.corridorEnd.set(
         camera.position.x + cosAngle * exitDistance * nearHalfWidth,
         camera.position.y + sinAngle * exitDistance * nearHalfHeight,
-        camera.position.z - PILOT_NEAR_DISTANCE,
+        camera.position.z - profile.pilotNearDistance,
       );
       state.corridorPhysicalScale = physicalScale;
       state.corridorReady = true;
@@ -779,19 +906,22 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       state.compositionCycle += 1;
       const template = compositionTemplates[state.compositionCycle % compositionTemplates.length];
       const slot = template[state.compositionSlot];
-      state.laneAngle = slot.angle + (Math.random() - 0.5) * 0.024;
+      const recycleSeed = (state.index + 1) * 1000 + state.compositionCycle * 3;
+      state.laneAngle = slot.angle + (seededUnit(recycleSeed) - 0.5) * 0.024;
       state.exitQuadrant = angleToQuadrant(state.laneAngle);
       if (state.corridorPilot) state.corridorReady = false;
       state.entryRadius = state.heroLane
         ? THREE.MathUtils.clamp(
-          slot.entryRadius * THREE.MathUtils.lerp(0.42, 0.28, state.heroStrength) + (Math.random() - 0.5) * 0.012,
+          slot.entryRadius * THREE.MathUtils.lerp(0.42, 0.28, state.heroStrength) + (seededUnit(recycleSeed + 1) - 0.5) * 0.012,
           0.055,
           0.115,
         )
-        : THREE.MathUtils.clamp(slot.entryRadius + (Math.random() - 0.5) * 0.018, 0.14, 0.31);
+        : THREE.MathUtils.clamp(slot.entryRadius + (seededUnit(recycleSeed + 2) - 0.5) * 0.018, 0.14, 0.31);
       state.screenX = Math.cos(state.laneAngle) * state.entryRadius;
       state.screenY = Math.sin(state.laneAngle) * state.entryRadius;
-      const nextScene = chooseRecycleScene(state);
+      const nextScene = experienceRef.current === "content"
+        ? state.textures[0]
+        : chooseRecycleScene(state);
       if (nextScene.url !== state.currentScene.url) {
         applySceneToState(state, nextScene);
         recycleSceneChanges += 1;
@@ -806,6 +936,29 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       speedBoost *= 0.94;
       const motionScale = reducedMotionRef.current ? 0 : 1 + speedBoost * 0.32;
       canvas.dataset.particleMotionScale = motionScale.toFixed(3);
+      const experienceTarget = experienceRef.current;
+      if (experienceTarget !== lastExperienceTarget) {
+        lastExperienceTarget = experienceTarget;
+        profileSwitchCount += 1;
+      }
+      const targetExperienceMix = experienceTarget === "content" ? 1 : 0;
+      const experienceEase = reducedMotionRef.current ? 1 : 1 - Math.exp(-delta * 5.8);
+      experienceMix += (targetExperienceMix - experienceMix) * experienceEase;
+      if (Math.abs(targetExperienceMix - experienceMix) < 0.001) experienceMix = targetExperienceMix;
+      const trajectoryEase = reducedMotionRef.current ? 1 : 1 - Math.exp(-delta * 1.65);
+      trajectoryMix += (targetExperienceMix - trajectoryMix) * trajectoryEase;
+      if (Math.abs(targetExperienceMix - trajectoryMix) < 0.001) trajectoryMix = targetExperienceMix;
+      const profile = blendExperienceProfile(experienceMix);
+      const trajectoryProfile = blendExperienceProfile(trajectoryMix);
+      const activeProxyDepthStrength = reducedMotionRef.current ? 0 : profile.contentClarity * 0.92;
+      canvas.dataset.experienceProfile = experienceTarget;
+      canvas.dataset.experienceMix = experienceMix.toFixed(3);
+      canvas.dataset.trajectoryMix = trajectoryMix.toFixed(3);
+      canvas.dataset.profileSwitchCount = String(profileSwitchCount);
+      canvas.dataset.contentClarity = profile.contentClarity.toFixed(3);
+      canvas.dataset.particleOpacityScale = `${profile.backgroundParticleOpacityScale.toFixed(3)}/${profile.foregroundParticleOpacityScale.toFixed(3)}`;
+      particleLayers[0].material.uniforms.uOpacity.value = particleLayers[0].opacity * profile.backgroundParticleOpacityScale;
+      particleLayers[1].material.uniforms.uOpacity.value = particleLayers[1].opacity * profile.foregroundParticleOpacityScale;
 
       camera.position.x += ((pointer.x * 0.22 + Math.sin(elapsed * 0.08) * 0.16) - camera.position.x) * 0.025;
       camera.position.y += ((pointer.y * 0.12 + Math.cos(elapsed * 0.07) * 0.1) - camera.position.y) * 0.025;
@@ -844,22 +997,41 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
             state.travelPhase -= 1;
             recyclePlanet(state);
           }
-          state.progress = travelPhaseToProgress(state.travelPhase);
           state.group.rotation.y += delta * 0.025;
           state.group.rotation.x = Math.sin(elapsed * 0.07 + state.lanePhase) * 0.018;
         }
+        state.progress = travelPhaseToProgress(state.travelPhase, trajectoryProfile);
 
         state.hover += ((hoveredId === state.group.userData.worldId ? 1 : 0) - state.hover) * 0.1;
         const selected = selectedIdRef.current === state.group.userData.worldId;
         const breath = 1 + Math.sin(elapsed * (selected || state.hover > 0.1 ? 4.33 : 2.24) + state.index) * 0.018;
         const interactionScale = 1 + state.hover * 0.052 + (selected ? 0.035 : 0);
         const opticalDepth = smoothstep(0.18, 0.92, state.progress);
+        const promotionEase = reducedMotionRef.current ? 1 : 1 - Math.exp(-delta * 4.2);
+        state.contentPromotion += (state.contentPromotionTarget - state.contentPromotion) * promotionEase;
         state.visualScale = breath * interactionScale;
-        state.imageMaterial.uniforms.uDepthOptics.value = THREE.MathUtils.lerp(0.72, 1.08, opticalDepth);
-        state.rimMaterial.uniforms.uStrength.value = 0.7 + opticalDepth * 0.18 + state.hover * 0.38 + (selected ? 0.28 : 0);
+        state.imageMaterial.uniforms.uDepthOptics.value = THREE.MathUtils.lerp(0.72, 1.08, opticalDepth)
+          * THREE.MathUtils.lerp(1, 0.7, profile.contentClarity);
+        state.imageMaterial.uniforms.uContentClarity.value = profile.contentClarity;
+        state.imageMaterial.uniforms.uProxyDepthStrength.value = activeProxyDepthStrength;
+        state.imageMaterial.uniforms.uViewShift.value.set(
+          pointer.x * 0.032 + camera.position.x * 0.012,
+          pointer.y * 0.026 + camera.position.y * 0.012,
+        );
+        state.imageMaterial.uniforms.uExposure.value = state.currentScene.calibration.exposure * profile.exposureScale;
+        state.imageMaterial.uniforms.uSaturation.value = state.currentScene.calibration.saturation * profile.saturationScale;
+        state.imageMaterial.uniforms.uRefractionStrength.value = state.currentScene.calibration.refraction * profile.refractionScale;
+        state.rimMaterial.uniforms.uStrength.value = (0.7 + opticalDepth * 0.18) * profile.rimScale
+          + state.hover * 0.38 + (selected ? 0.28 : 0);
         state.rimMaterial.uniforms.uTime.value = elapsed + state.lanePhase;
-        state.glassMaterial.opacity = 0.068 + opticalDepth * 0.022 + state.hover * 0.028 + (selected ? 0.02 : 0);
-        state.innerGlassMaterial.opacity = 0.014 + opticalDepth * 0.014 + state.hover * 0.012 + (selected ? 0.01 : 0);
+        state.glassMaterial.opacity = (0.068 + opticalDepth * 0.022) * profile.glassOpacityScale
+          + state.hover * 0.028 + (selected ? 0.02 : 0);
+        state.innerGlassMaterial.opacity = (0.014 + opticalDepth * 0.014) * profile.innerGlassOpacityScale
+          + state.hover * 0.012 + (selected ? 0.01 : 0);
+        state.shadeMaterial.opacity = 0.035 * THREE.MathUtils.lerp(1, 0.55, profile.contentClarity);
+        state.glassMaterial.envMapIntensity = THREE.MathUtils.lerp(0.68, 0.48, profile.contentClarity);
+        state.glassMaterial.roughness = THREE.MathUtils.lerp(0.035, 0.06, profile.contentClarity);
+        state.innerGlassMaterial.envMapIntensity = THREE.MathUtils.lerp(0.24, 0.13, profile.contentClarity);
       });
 
       const activeUrls = new Set(planetStates.map((state) => state.currentScene.url));
@@ -867,8 +1039,8 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
         .filter((state) => state.progress >= 0.18 && state.progress <= 0.94)
         .map((state) => state.currentScene.url));
       const depthRoleCounts = planetStates.reduce((counts, state) => {
-        if (state.progress < FAR_PROGRESS_END) counts.far += 1;
-        else if (state.progress < MID_PROGRESS_END) counts.mid += 1;
+        if (state.progress < trajectoryProfile.farProgressEnd) counts.far += 1;
+        else if (state.progress < trajectoryProfile.midProgressEnd) counts.mid += 1;
         else counts.near += 1;
         return counts;
       }, { far: 0, mid: 0, near: 0 });
@@ -877,7 +1049,7 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       canvas.dataset.recyclePassCount = String(recyclePasses);
       canvas.dataset.recycleSceneChangeCount = String(recycleSceneChanges);
       canvas.dataset.depthRoleCounts = `${depthRoleCounts.far}/${depthRoleCounts.mid}/${depthRoleCounts.near}`;
-      const nearStates = planetStates.filter((state) => state.progress >= MID_PROGRESS_END);
+      const nearStates = planetStates.filter((state) => state.progress >= trajectoryProfile.midProgressEnd);
       const quadrantCounts = planetStates.reduce((counts, state) => {
         counts[state.exitQuadrant] += 1;
         return counts;
@@ -896,26 +1068,33 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       planetStates.forEach((state) => {
         const progress = THREE.MathUtils.clamp(state.progress, 0, 1);
         const flightProgress = THREE.MathUtils.clamp(state.travelPhase, 0, 1);
+        const trajectoryProgress = THREE.MathUtils.lerp(flightProgress, progress, trajectoryProfile.contentClarity);
+        const promotedWeight = THREE.MathUtils.lerp(
+          state.contentPriorityWeight,
+          Math.max(0.96, state.contentPriorityWeight),
+          state.contentPromotion,
+        );
+        const contentPresentationScale = THREE.MathUtils.lerp(1, promotedWeight, trajectoryMix);
         if (state.corridorPilot) {
-          if (!state.corridorReady) buildPhysicalCorridor(state);
-          const corridorT = Math.pow(flightProgress, 1.02);
+          buildPhysicalCorridor(state, trajectoryProfile);
+          const corridorT = Math.pow(trajectoryProgress, trajectoryProfile.pathExponent);
           state.group.position.lerpVectors(state.corridorStart, state.corridorEnd, corridorT);
-          state.group.scale.setScalar(state.corridorPhysicalScale * state.visualScale);
+          state.group.scale.setScalar(state.corridorPhysicalScale * state.visualScale * contentPresentationScale);
           pilotProjectedPosition.copy(state.group.position).project(camera);
           pilotViewPosition.copy(state.group.position).applyMatrix4(camera.matrixWorldInverse);
           const pilotDistanceToCamera = Math.max(0.5, -pilotViewPosition.z);
           state.screenX = pilotProjectedPosition.x;
           state.screenY = pilotProjectedPosition.y;
-          state.screenRadius = (state.corridorPhysicalScale * state.visualScale) / (pilotDistanceToCamera * tanHalfFov);
+          state.screenRadius = (state.corridorPhysicalScale * state.visualScale * contentPresentationScale) / (pilotDistanceToCamera * tanHalfFov);
         } else {
           const sizeCurve = progress < 0.72
             ? Math.pow(progress / 0.72, 0.9) * 0.68
             : 0.68 + smoothstep(0.72, 1, progress) * 0.32;
-          const pathCurve = Math.pow(flightProgress, 1.08);
+          const pathCurve = Math.pow(trajectoryProgress, trajectoryProfile.controlPathExponent);
           const depthCurve = Math.pow(progress, 1.18);
           const viewportRadiusScale = THREE.MathUtils.clamp(camera.aspect / 1.08, 0.56, 1);
-          const screenRadius = (MIN_SCREEN_RADIUS + (MAX_SCREEN_RADIUS * state.sizeFactor * viewportRadiusScale - MIN_SCREEN_RADIUS) * sizeCurve)
-            * state.visualScale;
+          const screenRadius = (trajectoryProfile.minScreenRadius + (trajectoryProfile.maxScreenRadius * state.sizeFactor * viewportRadiusScale - trajectoryProfile.minScreenRadius) * sizeCurve)
+            * state.visualScale * contentPresentationScale;
           state.screenRadius = screenRadius;
           const angle = state.laneAngle + Math.sin(elapsed * 0.12 + state.lanePhase) * state.laneDrift * (1 - progress * 0.72);
           const cosAngle = Math.cos(angle);
@@ -946,11 +1125,86 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
         }
       });
       canvas.dataset.centralReadableWorldCount = String(planetStates.filter((state) => (
-        state.progress >= FAR_PROGRESS_END
+        state.progress >= trajectoryProfile.farProgressEnd
         && state.progress <= 0.88
         && state.screenRadius >= 0.09
         && Math.hypot(state.screenX, state.screenY) <= 0.48
       )).length);
+      const readableStates = planetStates.filter((state) => (
+        state.progress >= trajectoryProfile.farProgressEnd
+        && state.progress <= 0.94
+        && state.screenRadius >= 0.085
+        && Math.abs(state.screenX) <= 1 + state.screenRadius / camera.aspect
+        && Math.abs(state.screenY) <= 1 + state.screenRadius
+      ));
+      canvas.dataset.readableWorldCount = String(readableStates.length);
+      canvas.dataset.largestVisibleWorldRadius = Math.max(0, ...readableStates.map((state) => state.screenRadius)).toFixed(3);
+      canvas.dataset.averageReadableWorldRadius = readableStates.length
+        ? (readableStates.reduce((total, state) => total + state.screenRadius, 0) / readableStates.length).toFixed(3)
+        : "0.000";
+      const staticContentReadableStates = readableStates.filter((state) => state.contentPriorityWeight >= 0.95);
+      const promotionNeeded = Math.max(0, 3 - staticContentReadableStates.length);
+      const promotionCandidates = readableStates
+        .filter((state) => state.contentPriorityWeight < 0.95)
+        .sort((first, second) => (
+          second.screenRadius - first.screenRadius
+          - (Math.hypot(second.screenX, second.screenY) - Math.hypot(first.screenX, first.screenY)) * 0.06
+        ));
+      const promotedIds = new Set(promotionCandidates.slice(0, promotionNeeded).map((state) => state.group.userData.worldId));
+      planetStates.forEach((state) => {
+        state.contentPromotionTarget = promotedIds.has(state.group.userData.worldId) ? 1 : 0;
+      });
+      const contentReadableStates = readableStates.filter((state) => (
+        state.contentPriorityWeight >= 0.95 || state.contentPromotion >= 0.5
+      ));
+      canvas.dataset.contentReadableWorldCount = String(contentReadableStates.length);
+      canvas.dataset.contentSupportWorldCount = String(readableStates.length - contentReadableStates.length);
+      canvas.dataset.contentCompositionSnapshot = planetStates
+        .map((state) => [
+          state.group.userData.worldId,
+          state.contentPriorityWeight.toFixed(2),
+          state.contentPromotion.toFixed(2),
+          state.progress.toFixed(2),
+          state.screenRadius.toFixed(3),
+          state.screenX.toFixed(2),
+          state.screenY.toFixed(2),
+        ].join(":"))
+        .join("|");
+      if (experienceTarget === "content" && now - lastFocusUpdate >= 320) {
+        const focusCandidates = contentReadableStates.filter((state) => (
+          state.progress <= 0.9
+          && Math.abs(state.screenX) <= 0.86
+          && Math.abs(state.screenY) <= 0.82
+        ));
+        const scoreFocus = (state) => (
+          state.screenRadius * 2.25
+          - Math.hypot(state.screenX * camera.aspect, state.screenY) * 0.18
+          + state.contentPriorityWeight * 0.04
+        );
+        focusCandidates.sort((first, second) => scoreFocus(second) - scoreFocus(first));
+        const bestFocus = focusCandidates[0] ?? null;
+        const existingFocus = focusCandidates.find((state) => state.group.userData.worldId === currentFocusId);
+        const nextFocus = existingFocus && bestFocus && scoreFocus(existingFocus) >= scoreFocus(bestFocus) * 0.84
+          ? existingFocus
+          : bestFocus;
+        const nextFocusId = nextFocus?.group.userData.worldId ?? null;
+        const nextFocusOnRight = nextFocus ? nextFocus.screenX > 0.16 : null;
+        if (nextFocusId !== currentFocusId || nextFocusOnRight !== currentFocusOnRight) {
+          currentFocusId = nextFocusId;
+          currentFocusOnRight = nextFocusOnRight;
+          onFocusWorldChangeRef.current?.(nextFocus ? { id: nextFocusId, screenX: nextFocus.screenX } : null);
+        }
+        lastFocusUpdate = now;
+      } else if (experienceTarget !== "content" && currentFocusId) {
+        currentFocusId = null;
+        currentFocusOnRight = null;
+        onFocusWorldChangeRef.current?.(null);
+      }
+      canvas.dataset.contentFocusWorldId = currentFocusId ?? "";
+      canvas.dataset.proxyDepthMode = profile.contentClarity > 0.5 ? "luma-detail-parallax" : "off";
+      canvas.dataset.proxyDepthStrength = activeProxyDepthStrength.toFixed(3);
+      const proxyShift = planetStates[0].imageMaterial.uniforms.uViewShift.value;
+      canvas.dataset.proxyDepthViewShift = `${proxyShift.x.toFixed(4)}/${proxyShift.y.toFixed(4)}`;
       canvas.dataset.heroLaneSnapshot = planetStates
         .filter((state) => state.heroLane)
         .map((state) => `${state.group.userData.worldId}:${state.progress.toFixed(2)},${state.screenX.toFixed(2)},${state.screenY.toFixed(2)},${state.screenRadius.toFixed(3)},${state.travelPhase.toFixed(3)}`)
@@ -1045,6 +1299,7 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
     animationFrame = window.requestAnimationFrame(render);
 
     return () => {
+      disposed = true;
       window.cancelAnimationFrame(animationFrame);
       resizeObserver.disconnect();
       canvas.removeEventListener("pointermove", updatePointer);
@@ -1052,6 +1307,7 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       canvas.removeEventListener("click", handleClick);
       canvas.removeEventListener("wheel", handleWheel);
       onHoverChangeRef.current?.(null);
+      onFocusWorldChangeRef.current?.(null);
       planetStates.forEach((state) => {
         state.imageMaterial.dispose();
         state.glassMaterial.dispose();
@@ -1106,8 +1362,33 @@ export function GalaxyCanvas({ worlds, selectedId, reducedMotion, onSelect, onHo
       delete canvas.dataset.particleLifecycleFade;
       delete canvas.dataset.particleSpeedMode;
       delete canvas.dataset.particleMotionScale;
+      delete canvas.dataset.rendererMountId;
+      delete canvas.dataset.experienceProfile;
+      delete canvas.dataset.experienceMix;
+      delete canvas.dataset.trajectoryMix;
+      delete canvas.dataset.profileSwitchCount;
+      delete canvas.dataset.contentClarity;
+      delete canvas.dataset.particleOpacityScale;
+      delete canvas.dataset.readableWorldCount;
+      delete canvas.dataset.largestVisibleWorldRadius;
+      delete canvas.dataset.averageReadableWorldRadius;
+      delete canvas.dataset.contentReadableWorldCount;
+      delete canvas.dataset.contentSupportWorldCount;
+      delete canvas.dataset.contentCompositionSnapshot;
+      delete canvas.dataset.contentFocusWorldId;
+      delete canvas.dataset.proxyDepthMode;
+      delete canvas.dataset.proxyDepthStrength;
+      delete canvas.dataset.proxyDepthViewShift;
     };
   }, [worlds]);
 
-  return <canvas ref={canvasRef} className="galaxy-canvas" aria-label="Moving glass worlds in a particle galaxy" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="galaxy-canvas"
+      aria-label={experience === "content"
+        ? "Readable glass worlds moving through a particle galaxy"
+        : "Moving glass worlds in a particle galaxy"}
+    />
+  );
 }
