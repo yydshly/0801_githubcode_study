@@ -9,15 +9,17 @@
 
 已经形成独立目录、研究文档或可运行演示的项目，按创建顺序编号。
 
-| 编号 | 项目 | 研究问题 | 状态 | 在线演示 | 研究文档 |
-| --- | --- | --- | --- | --- | --- |
-| 01 | [Finance Header - Wallet](./wallet-finance-header/) | 如何实现滚动驱动的视频 Header | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) | [项目 README](./wallet-finance-header/README.md) |
-| 02 | [Prompt Master](./prompt-master-comparison-demo/) | 用户描述经过规范化后，是否更容易形成可执行目标 | 研究样例 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) | [项目 README](./prompt-master-comparison-demo/README.md) |
-| 03 | [Complete Shelf - Research Volumes](./complete-shelf-study/) | 如何用空间化书架展示精选项目及其价值 | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/complete-shelf-study/) | [项目 README](./complete-shelf-study/README.md) |
-| 04 | [Particle Flower Lab](./particle-flower-lab/) | 如何用程序化网格与粒子生成可完整旋转的三维花束 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/particle-flower-lab/) | [项目 README](./particle-flower-lab/README.md) |
-| 05 | [Glass Worlds Gallery](./glass-worlds-gallery/) | 如何不用世界模型实现包含多图场景的漂浮玻璃世界展厅 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) | [项目 README](./glass-worlds-gallery/README.md) |
-| 06 | [Three.js Graphics Agent Skills Lab](./starfield-process-demo/) | 24 个 Skill 如何约束大模型生成高级 Three.js 代码并进入产品场景 | 完整研究子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-graphics-agent-skills/project.html) | [项目 README](./starfield-process-demo/README.md) |
-| 07 | [Awesome DESIGN.md Lab](./awesome-design-md-lab/) | 如何把公开网页的视觉规律整理成 Agent 可读取的 DESIGN.md | 资源型子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) | [项目 README](./awesome-design-md-lab/README.md) |
+| 编号 | 项目 | 原始项目 / 参考来源 | 研究问题 | 状态 | 在线演示 | 研究文档 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 01 | [Finance Header - Wallet](./wallet-finance-header/) | 本仓库原创实现 · [Jiro Wallet 视觉素材](https://cdn.jiro.build/Wallet/Astro.mp4) | 如何实现滚动驱动的视频 Header | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) | [项目 README](./wallet-finance-header/README.md) |
+| 02 | [Prompt Master](./prompt-master-comparison-demo/) | 本仓库原创研究，无外部上游仓库 | 用户描述经过规范化后，是否更容易形成可执行目标 | 研究样例 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) | [项目 README](./prompt-master-comparison-demo/README.md) |
+| 03 | [Complete Shelf - Research Volumes](./complete-shelf-study/) | [mengto/complete-shelf](https://github.com/mengto/complete-shelf) | 如何用空间化书架展示精选项目及其价值 | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/complete-shelf-study/) | [项目 README](./complete-shelf-study/README.md) |
+| 04 | [Particle Flower Lab](./particle-flower-lab/) | 本仓库原创研究，无外部上游仓库 | 如何用程序化网格与粒子生成可完整旋转的三维花束 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/particle-flower-lab/) | [项目 README](./particle-flower-lab/README.md) |
+| 05 | [Glass Worlds Gallery](./glass-worlds-gallery/) | 公开视觉参考：[Happy Oyster](https://www.happyoyster.com/home) | 如何不用世界模型实现包含多图场景的漂浮玻璃世界展厅 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) | [项目 README](./glass-worlds-gallery/README.md) |
+| 06 | [Three.js Graphics Agent Skills Lab](./starfield-process-demo/) | [scottstts/Threejs-Awesome-Graphics-Agent-Skills](https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills) | 24 个 Skill 如何约束大模型生成高级 Three.js 代码并进入产品场景 | 完整研究子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-graphics-agent-skills/project.html) | [项目 README](./starfield-process-demo/README.md) |
+| 07 | [Awesome DESIGN.md Lab](./awesome-design-md-lab/) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | 如何把公开网页的视觉规律整理成 Agent 可读取的 DESIGN.md | 资源型子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) | [项目 README](./awesome-design-md-lab/README.md) |
+
+“原始项目 / 参考来源”列会明确区分上游代码仓库、公开视觉参考和本仓库原创研究；没有可验证外部仓库的项目不会补写推测性链接。
 
 后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
 
