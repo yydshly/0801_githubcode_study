@@ -1,0 +1,58 @@
+{
+  "id": "06",
+  "name": "Three.js Graphics Agent Skills 研究实验室",
+  "shortName": "Three.js Skill Lab",
+  "status": "完整研究子项目",
+  "updatedAt": "2026-08-04",
+  "researchQuestion": "一个 Three.js Agent Skill 库如何约束大模型生成高级 3D 代码，并进一步转化为可验证的产品场景？",
+  "conclusion": "Skill 提供专家方法、实现参考、失败边界和验收规则；大模型负责理解、选择与生成代码；Three.js、WebGL/WebGPU 和 GPU 负责运行并呈现实时 3D。",
+  "canonicalUrl": "http://127.0.0.1:4180/project.html",
+  "upstream": {
+    "name": "scottstts/Threejs-Awesome-Graphics-Agent-Skills",
+    "repository": "https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills",
+    "localMirror": "../threejs-awesome-graphics-agent-skills-upstream",
+    "packageVersion": "0.6.0",
+    "commit": "ba164002ebac362588436b2c833cd72caf1e2277",
+    "licenseExpression": "MIT AND GPL-3.0-only",
+    "skillCount": 24,
+    "skillsWithExamples": 14,
+    "exampleCount": 31,
+    "nodeRequirement": ">=18"
+  },
+  "local": {
+    "projectDirectory": "starfield-process-demo",
+    "skillDirectory": ".codex/skills",
+    "installedVersion": "0.6.0",
+    "installedSkillCount": 24,
+    "installScope": "project",
+    "pages": [
+      { "id": "overview", "label": "研究总览", "href": "./project.html" },
+      { "id": "skills", "label": "24 Skill 能力地图", "href": "./skills.html" },
+      { "id": "skill-lab", "label": "Skill 控制实验", "href": "./skill-lab.html" },
+      { "id": "effects", "label": "效果实验室", "href": "./index.html" },
+      { "id": "applications", "label": "应用展厅", "href": "./applications.html" }
+    ],
+    "demos": {
+      "direct": 2,
+      "composed": 4,
+      "product": 6,
+      "total": 12
+    }
+  },
+  "truthLevels": [
+    { "id": "direct", "label": "直接实现", "description": "直接导入项目内 Skill 随附代码，或采用上游示例核心实现。" },
+    { "id": "composed", "label": "机制组合", "description": "由我们编写 Three.js 代码，但采用明确的 Skill 方法与约束。" },
+    { "id": "product", "label": "产品原型", "description": "Skill 提供图形能力，产品代码负责交互、任务、数据和业务意义。" }
+  ],
+  "verification": {
+    "audit": "npm run audit",
+    "build": "npm run build",
+    "dev": "npm run dev",
+    "upstreamGallery": "在相邻上游镜像中运行 npm run dev:examples:no-open",
+    "upstreamContentValidation": "pass after LF normalization of a temporary copy",
+    "upstreamRoutingValidation": "pass: 35 forward / 15 boundary / 23 atomic",
+    "upstreamReferenceParity": "pass after LF normalization of a temporary copy",
+    "upstreamAssetOrigins": "pass",
+    "upstreamInstallerTest": "not accepted: test attempts a user-level universal install, outside this project's local-only policy"
+  }
+}

@@ -67,6 +67,19 @@
       "summary": "阶段归档：研究如何用图片纹理、透明玻璃材质、GPU 粒子、混合空间轨迹和视锥循环构建无需世界模型的沉浸式 AI 能力星系。",
       "tags": ["React", "Three.js", "WebGL"],
       "docs": "glass-worlds-gallery/README.md"
+    },
+    {
+      "id": "06",
+      "name": "Three.js Graphics Agent Skills Lab",
+      "slug": "threejs-graphics-agent-skills",
+      "directory": "starfield-process-demo",
+      "type": "vite",
+      "output": "dist",
+      "enabled": true,
+      "status": "完整研究子项目",
+      "summary": "研究 24 个 Three.js Agent Skill 如何约束大模型生成高级图形代码，并用 12 个分级演示验证其与产品场景的关系。",
+      "tags": ["Agent Skills", "Three.js", "WebGL", "Procedural Graphics"],
+      "docs": "starfield-process-demo/README.md"
     }
   ]
 }

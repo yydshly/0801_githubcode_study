@@ -16,6 +16,7 @@
 | 03 | [Complete Shelf - Research Volumes](./complete-shelf-study/) | 如何用空间化书架展示精选项目及其价值 | 已完成 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/complete-shelf-study/) | [项目 README](./complete-shelf-study/README.md) |
 | 04 | [Particle Flower Lab](./particle-flower-lab/) | 如何用程序化网格与粒子生成可完整旋转的三维花束 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/particle-flower-lab/) | [项目 README](./particle-flower-lab/README.md) |
 | 05 | [Glass Worlds Gallery](./glass-worlds-gallery/) | 如何不用世界模型实现包含多图场景的漂浮玻璃世界展厅 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) | [项目 README](./glass-worlds-gallery/README.md) |
+| 06 | [Three.js Graphics Agent Skills Lab](./starfield-process-demo/) | 24 个 Skill 如何约束大模型生成高级 Three.js 代码并进入产品场景 | 完整研究子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-graphics-agent-skills/project.html) | [项目 README](./starfield-process-demo/README.md) |
 
 后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
 
@@ -49,6 +50,20 @@
 
 [查看阶段归档](./glass-worlds-gallery/ARCHIVE.md) · [查看演示对比](./glass-worlds-gallery/DEMO_COMPARISON.md) · [查看实现分析](./glass-worlds-gallery/IMPLEMENTATION_ANALYSIS.md) · [查看设计契约](./glass-worlds-gallery/DESIGN_CONTRACT.md) · [查看验证记录](./glass-worlds-gallery/VALIDATION.md) · [查看设计 QA](./glass-worlds-gallery/design-qa.md)
 
+### 子项目 06：Three.js Graphics Agent Skills Lab
+
+**[进入子项目目录](./starfield-process-demo/)** · [研究总览](./starfield-process-demo/project.html) · [24 Skill 能力档案](./starfield-process-demo/docs/02-SKILL_CAPABILITY_MAP.md) · [演示追踪矩阵](./starfield-process-demo/docs/03-DEMO_TRACEABILITY.md) · [产品影响分析](./starfield-process-demo/docs/04-PRODUCT_IMPACT.md)
+
+这个子项目研究 [scottstts/Threejs-Awesome-Graphics-Agent-Skills](https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills) 的真实定位、全部 24 个 Skill、31 个原始示例，以及它们如何影响大模型生成 Three.js 代码。核心结论是：Skill 提供专家方法、参考实现、失败边界和验收规则；大模型负责理解与生成代码；Three.js、WebGL/WebGPU 和 GPU 负责真正运行 3D 效果。
+
+- **原仓库证据**：固定 npm `0.6.0` 和提交 `ba164002ebac`，保留相邻上游镜像、示例库、来源与许可记录。
+- **项目级安装**：24 个 Skill 仅安装在 `starfield-process-demo/.codex/skills`，不写入用户全局目录。
+- **能力地图**：按规划验证、镜头运动、场景资产、环境特效、光照画质五类解释全部 Skill 的时机、输入、输出、约束和组合。
+- **演示证据**：12 个本地演示被分为 2 个直接实现、4 个机制组合和 6 个产品原型，明确区分上游代码、Skill 指导和我们的产品代码。
+- **产品结论**：它适合作为项目级 Three.js 图形专家层，提高模型生成与验收质量；不能替代真实资产、业务数据、游戏系统、数字孪生平台或生产工程。
+
+[阅读子项目完整说明](./starfield-process-demo/README.md) · [查看上游审计](./starfield-process-demo/docs/01-UPSTREAM_LIBRARY.md) · [查看维护与复验](./starfield-process-demo/docs/05-MAINTENANCE.md)
+
 ## 待研究与参考项目
 
 这里登记已经发现价值、但尚未形成正式可运行子项目的研究方向。它们是研究资产，不会因为暂缓实施而删除。
@@ -71,6 +86,7 @@
 ├─ 项目 03：Complete Shelf - Research Volumes
 ├─ 项目 04：Particle Flower Lab
 ├─ 项目 05：Glass Worlds Gallery
+├─ 项目 06：Three.js Graphics Agent Skills Lab
 └─ 后续正式研究项目
 ```
 
