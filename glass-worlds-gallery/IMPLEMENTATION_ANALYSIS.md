@@ -1,5 +1,7 @@
 # Happy Oyster 首页动态效果实现分析
 
+> 本研究已经阶段归档。当前实现、两组关键对比、完整可选优化项和重新启动条件见 [`ARCHIVE.md`](./ARCHIVE.md)；原始页面与我们演示的观察入口见 [`DEMO_COMPARISON.md`](./DEMO_COMPARISON.md)。
+
 分析对象：[Happy Oyster Home](https://www.happyoyster.com/home)。公开页面版本为 `aorizon-world-web/0.0.106`。
 
 ## 两层能力必须分开理解

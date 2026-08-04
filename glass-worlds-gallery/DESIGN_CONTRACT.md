@@ -157,6 +157,17 @@ The user confirmed the next trajectory study after the single v22 corridor passe
 - retain `2/2/2/2` quadrant allocation, `0–1` near worlds, two to three readable middle worlds, eight unique scenes, continuous fixed-size particles, adaptive glass optics and working hover/click selection;
 - validate a full 1280x720 lifecycle with no late turn, camera entry, recycle flash or near overlap before deciding whether physical corridors should replace the remaining four control paths.
 
+## Revision 19: scenario-driven research archive
+
+The user ended open-ended visual refinement and explicitly requested a complete subproject archive. This documentation and handoff revision preserves the validated runtime and adds only a visible original-reference link. Acceptance is:
+
+- describe the current rendering, assets, glass, particles, motion, interaction, validation evidence and model/token boundary in one archive entry;
+- retain both key comparisons: screen-directed paths versus physical 3D corridors, and Happy Oyster's content-first worlds versus this prototype's effect-first composition;
+- link the original Happy Oyster page, the published prototype, the local route, source repository and comparison procedure;
+- record a comprehensive but scenario-gated optimization backlog, including content readability, perceptible 3D, glass, particles, scheduling, assets, interaction, performance and fallback;
+- mark the project as `阶段归档` in the root gallery and research registry;
+- keep unrelated `.agents/` content untouched, rerun project build, Sites tests, research-gallery build, browser smoke checks and diff validation, then commit and push the archive to `master`.
+
 ## Spatial-stage architecture
 
 ```text
@@ -207,6 +218,7 @@ Fallback: Semantic keyboard world list and DOM details remain available when mot
 | Adaptive glass optics | Sphere imagery reads inside a distinct glass volume with individual highlights and edge-only dispersion | 1280x720 middle and close passes | Timed browser frames plus source/runtime optical state | Stage 2 | pass | Browser frames retain clear image centers while runtime depth optics span 0.720–1.080; edge dispersion, view parallax and seeded highlight directions vary the glass without obscuring scenes |
 | Pilot 3D corridor | One priority sphere follows a bounded world-space line and grows through perspective without a turn or camera entry | 1280x720 complete lifecycle | Pilot trajectory samples, full exit/recycle and control-lane comparison | Stage 2 | pass | The Live Avatars pilot decreased from 53.72 to 7.63 camera units while radius rose from 0.051 to 0.358 with no sampled reversal; it fully cleared the right edge before safe far-field recycling |
 | Four-quadrant corridor comparison | Four phase-staggered worlds use fixed-scale physical corridors, one per quadrant, while four old paths remain as controls | 1280x720 sustained lifecycle | Per-corridor distance/radius/direction samples, minimum projected gap, exits, interactions and logs | Stage 2 | pass | Twenty-eight seconds and 112 samples covered 2–3 recycles per corridor with zero direction, distance or radius regression, a positive 0.071 minimum projected gap and at most one near world |
+| Scenario-driven archive | Complete implementation record, two comparison narratives, demo/reference linkage and scenario-gated backlog | Repository docs, project chrome and gallery registry | Files, links, build/test output, browser link state and clean scoped diff | Stage 9 | pass | Archive and comparison documents are linked from the project/root READMEs; build, all 4 Sites tests, gallery build and 1280×720 browser smoke checks pass; the original-reference link is visible and runtime logs are clean |
 | Multi-image spheres | Three images per world | Default and selected states | Timed transition plus selected-world observation | Stage 5 | pass | Eight worlds each reference three local raster scenes |
 | Primary interaction | Browse, select, close, compose | Mouse and keyboard | Interaction observations and focus return | Stage 5 | pass | Browser verified world selection, detail state, composer open, Escape close, and focus return to the opener |
 | Responsive behavior | Preserve spatial experience | Desktop and 390px mobile | Browser screenshots and interaction | Stage 7 | pass | 1280×720 and 390×844 captures show no document overflow; portrait size cap removes near-field overlap while preserving the stage |

@@ -63,8 +63,8 @@
       "type": "vite",
       "output": "dist/client",
       "enabled": true,
-      "status": "研究样例",
-      "summary": "研究如何用图片纹理、透明玻璃材质、GPU 粒子、摄影机穿行和视锥循环构建无需世界模型的沉浸式 AI 能力星系。",
+      "status": "阶段归档",
+      "summary": "阶段归档：研究如何用图片纹理、透明玻璃材质、GPU 粒子、混合空间轨迹和视锥循环构建无需世界模型的沉浸式 AI 能力星系。",
       "tags": ["React", "Three.js", "WebGL"],
       "docs": "glass-worlds-gallery/README.md"
     }

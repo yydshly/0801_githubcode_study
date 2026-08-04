@@ -135,6 +135,7 @@ button {
 }
 
 .topbar nav button,
+.reference-link,
 .quiet-button {
   display: inline-flex;
   align-items: center;
@@ -146,15 +147,27 @@ button {
   color: rgba(245, 247, 248, 0.58);
   background: transparent;
   cursor: pointer;
+  text-decoration: none;
   transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
 }
 
 .topbar nav button:hover,
 .topbar nav button.is-active,
+.reference-link:hover,
+.reference-link:focus-visible,
 .quiet-button:hover {
   color: #fff;
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.1);
+}
+
+.reference-link {
+  min-height: 38px;
+  padding-inline: 12px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .topbar-meta {

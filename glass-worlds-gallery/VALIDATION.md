@@ -171,3 +171,12 @@ Reduced-motion runtime emulation remains deferred: the available browser exposes
 - Wheel input raised the common sphere/particle motion scale from `1.000` to `1.084`, then returned to `1.000`. Particle mode stayed `continuous-depth-wheel-synced` with 1,450/340 points at shared `1.18/1.18` sizes.
 - Browser logs contained only Vite connection and React development notices, with no warning or error. The 1280x720 document remained exactly 1280x720 with no overflow.
 - Final production build passed and all 4 Sites worker tests passed. The generated JavaScript is 790.90 kB raw / 214.11 kB gzip; the only build notice remains the known Three.js chunk-size warning.
+
+## Archive closure evidence
+
+- Archive closure is documentation-led and preserves the validated v23 particle, glass, trajectory and interaction runtime. The only runtime change is a desktop `Original reference` link to `https://www.happyoyster.com/home`.
+- `ARCHIVE.md` records the current capability map, measured runtime evidence, two comparison conclusions, scenario routing, complete optional optimization backlog, non-goals and restart conditions.
+- `DEMO_COMPARISON.md` links the original page, published demo, local route and archive, and defines one consistent 1280×720 observation procedure.
+- Root `README.md` and `research-projects.json` now mark project 05 as `阶段归档`; the root project section and publishing matrix link both archive documents.
+- Final project build passed with CSS `19.83 kB` raw / `5.18 kB` gzip and JavaScript `793.41 kB` raw / `214.70 kB` gzip; the expected Three.js chunk-size notice is the only build warning. All 4 Sites worker tests and the root research-gallery build passed.
+- The final 1280×720 browser smoke check confirmed a visible `Original reference` link to `https://www.happyoyster.com/home` with `_blank`/`noreferrer`, 8 active scenes, 4 physical corridors plus 4 control paths, 1,450 background plus 340 foreground particles at fixed `1.18/1.18` point sizes, changing trajectory state over time, no document overflow, and no console warnings or errors.

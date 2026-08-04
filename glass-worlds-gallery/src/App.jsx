@@ -3,6 +3,7 @@ import { GalaxyCanvas } from "./GalaxyCanvas";
 import {
   ArrowLeft,
   ArrowRight,
+  ArrowSquareOut,
   CaretDown,
   CheckCircle,
   Compass,
@@ -353,6 +354,15 @@ export function App() {
         </nav>
         <div className="topbar-meta">
           <span>Research 05</span>
+          <a
+            className="reference-link"
+            href="https://www.happyoyster.com/home"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open the original Happy Oyster visual reference"
+          >
+            Original reference <ArrowSquareOut size={14} />
+          </a>
           <button className="quiet-button" type="button" onClick={() => setComposerOpen(true)}>Open composer</button>
         </div>
       </header>
