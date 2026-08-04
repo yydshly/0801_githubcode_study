@@ -13,12 +13,15 @@
 - **Minimal intervention**：增加研究历程区块和跨本地/发布环境入口；把两个项目登记到统一研究展厅，不重做它们的场景
 - **Adjacent regression surfaces**：顶部导航、5项内容索引、桌面卡片、390px 单列、GitHub Pages 子路径资产
 - **Observed result**：三个子项目独立构建通过；统一生产基路径构建9个研究项目通过；Capability Lab 与 Ocean Atlas 的本地回链正确
-- **Decision**：`continue`（仅剩 Git 范围审计、提交与远端推送）
+- **Decision**：`pass`（移动端视口证据按下述条件有效 `defer`）
 - **Defer**：390px视口复验。已调用浏览器 viewport 控件并分别重载、新建标签，但页面实际 `window.innerWidth` 仍为1280；当可用浏览器能实际切换到390px时，按现有响应式规则复验研究历程单列与5项索引
-- **Next executable action**：显式暂存目标文件、检查暂存范围、提交并推送 `master`
+- **Git evidence**：48个目标文件、0个缓存/日志/重复Skill/范围外文件；提交 `55d3e7e` 已推送到 `origin/master`
+- **Unresolved continue**：无
+- **Blocked**：无
+- **Next executable action**：无；本次范围交付关闭
 - **New authority required**：无；用户已授权实现和推送 `master`
 
-## 最终状态
+## Revision 01 最终状态
 
 - **Current stage**：Stage 9 · Engineering and delivery closure
 - **User goal**：把原始库、库的能力、现有演示和对我们的影响整理为正式且尽量完整的研究子项目。
