@@ -82,6 +82,32 @@
       "docs": "starfield-process-demo/README.md"
     },
     {
+      "id": "06A",
+      "name": "Three.js Capability Lab",
+      "slug": "threejs-capability-lab",
+      "directory": "threejs-awesome-graphics-agent-skills-demo",
+      "type": "vite",
+      "output": "dist",
+      "enabled": true,
+      "status": "前置能力实验",
+      "summary": "把 Three.js Agent Skills 翻译成 Glass Worlds 的玻璃球、镜头、共享场、图像管线与验证方法。",
+      "tags": ["Agent Skills", "Three.js", "Glass Worlds", "Capability Mapping"],
+      "docs": "threejs-awesome-graphics-agent-skills-demo/README.md"
+    },
+    {
+      "id": "06B",
+      "name": "Ocean Atlas",
+      "slug": "ocean-atlas",
+      "directory": "ocean-atlas-product-demo",
+      "type": "vite",
+      "output": "dist",
+      "enabled": true,
+      "status": "Skill 产品验证",
+      "summary": "把 spectral-ocean 的方向性波谱、GPU FFT、解析法线和泡沫历史放进可解释的海洋研究世界。",
+      "tags": ["Three.js", "Spectral Ocean", "GPU FFT", "Product Prototype"],
+      "docs": "ocean-atlas-product-demo/README.md"
+    },
+    {
       "id": "07",
       "name": "Awesome DESIGN.md Lab",
       "slug": "awesome-design-md-lab",

@@ -25,6 +25,15 @@ Skill 不是运行时引擎，也不是一键场景。它的核心作用是让�
 | [`index.html`](./index.html) | 极光、深空、太阳系、暴雨城市和火星效果实验 |
 | [`applications.html`](./applications.html) | 乡村、园区、出行、故事和游戏产品原型 |
 
+当前目录包含 5 个正式页面。整个研究链还保留两个早期独立页面，因此我们自己制作的相关网页入口合计为 7 个：
+
+| 早期页面 | 研究阶段 | 本地入口 | 发布入口 |
+| --- | --- | --- | --- |
+| [Three.js Capability Lab](../threejs-awesome-graphics-agent-skills-demo/) | 把 Skill 能力翻译到 Glass Worlds 玻璃球、镜头、共享场和图像管线 | <http://127.0.0.1:4178/> | `/projects/threejs-capability-lab/` |
+| [Ocean Atlas](../ocean-atlas-product-demo/) | 直接采用 spectral-ocean 上游核心实现进行产品验证 | <http://127.0.0.1:4179/> | `/projects/ocean-atlas/` |
+
+上游 `4173` 示例展厅属于原仓库开发工具，包含31个示例，不计入我们的7个网页入口。`project.html` 的“研究历程”区块把三个阶段及真实代码关系放在一起展示。
+
 ## 研究文档
 
 - [原仓库审计](./docs/01-UPSTREAM_LIBRARY.md)
@@ -44,6 +53,7 @@ Skill 不是运行时引擎，也不是一键场景。它的核心作用是让�
 - 24 个 Skill，14 个 Skill 带开发示例，共 31 个示例
 - 项目内 `.codex/skills` 安装 24/24，没有全局安装
 - 本地 12 个演示：2 个直接实现、4 个机制组合、6 个产品原型
+- 7 个自有网页入口：当前子项目5页 + 2个早期独立实验；12个当前演示场景单独计数
 - 随项目级 Skill 和资产一并保留 MIT、GPL-3.0、第三方声明与来源追踪清单
 
 ## 运行与验证

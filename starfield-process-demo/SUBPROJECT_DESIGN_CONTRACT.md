@@ -62,3 +62,31 @@
 | 5 | 对我们的影响 | 产品影响页与文档 | 信息审阅 | Stage 6 | pass | 收益、限制、产品方向和采用流程已写明 |
 | 全部 | 可维护与可复验 | audit、build、README | 命令输出 | Stage 9 | pass | audit、项目 build、全研究展厅 6 项目 build 通过 |
 | 全部 | 桌面与手机可读 | 1280px、390×844 | 浏览器截图与 DOM | Stage 7 | pass | 5 类、24 条、12 卡可见；两端无横向溢出 |
+
+## Revision 02 · 纳入早期研究页面（2026-08-05）
+
+- **Entry mode**：Revision-led。
+- **Request revision**：把早期独立运行的 Capability Lab 与 Ocean Atlas 纳入正式研究链，并提交远端 `master`。
+- **Primary journey**：理解当前结论 → 查看“能力翻译 → 真实 Skill 产品验证 → 完整研究实验室”的演进关系 → 打开对应实时页面。
+- **Information constraints**：必须区分当前子项目的 5 个页面、2 个早期独立页面、12 个当前场景以及上游 31 个示例，不能把它们混成同一个计数。
+- **Operation constraints**：本地开发时分别打开 4178/4179；GitHub Pages 发布后打开各自的研究项目路径。
+- **Repository constraints**：纳入两个早期项目的源码、必要资产、说明和来源记录；排除 `node_modules`、`dist`、日志和重复的 `.agents/skills` 安装目录。
+- **Autonomy authorization**：用户明确要求“加入并展示，需要提交到远端 master”，允许实施、验证、提交和推送本次范围内的可逆修改。
+
+### Revision 02 observable completion criteria
+
+- `project.html` 出现可见的“研究历程”区块，包含 Capability Lab 与 Ocean Atlas，并说明二者与当前实验室的关系。
+- 页面明确显示 5 个当前页面 + 2 个早期页面 = 7 个自有网页入口；12 个当前场景仍单独计数。
+- 两个早期项目进入 `research-projects.json`，可由统一研究展厅构建器发布。
+- Capability Lab 与 Ocean Atlas 在 GitHub Pages 子路径下仍能正确加载资产和相互导航。
+- 当前总览、Capability Lab、Ocean Atlas 均完成构建；总览在桌面与 390px 手机宽度无横向溢出，研究历程入口可操作。
+
+### Revision 02 coverage record
+
+| 用户阶段 | 要求或产物 | 表面 / 状态 | 证据 | Owning stage | 状态 | 下一步 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 加入 | 两个早期项目源码进入仓库且不包含缓存 | 两个独立目录 | Git 范围审计 | Stage 9 | continue | 添加忽略规则并检查暂存清单 |
+| 展示 | 总览展示完整研究演进 | `project.html` 桌面默认状态 | 浏览器截图与 DOM | Stage 3 | pass | 3阶段卡片、5+2=7统计和本地入口均可见 |
+| 展示 | 手机端入口可读可点 | `project.html` 390×844 | 浏览器截图与溢出检查 | Stage 7 | defer | 浏览器视口控制保持1280px；在可生效的390px环境中复验 |
+| 发布 | 两个项目进入统一研究展厅 | `research-projects.json` 与 `.pages` | 9 项目构建输出 | Stage 9 | pass | 生产基路径下9项目构建通过 |
+| 发布 | 提交并推送 `master` | GitHub 远端 | 远端提交哈希 | Stage 9 | continue | 验证后显式暂存并推送 |

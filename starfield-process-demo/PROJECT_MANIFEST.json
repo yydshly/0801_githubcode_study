@@ -3,7 +3,7 @@
   "name": "Three.js Graphics Agent Skills 研究实验室",
   "shortName": "Three.js Skill Lab",
   "status": "完整研究子项目",
-  "updatedAt": "2026-08-04",
+  "updatedAt": "2026-08-05",
   "researchQuestion": "一个 Three.js Agent Skill 库如何约束大模型生成高级 3D 代码，并进一步转化为可验证的产品场景？",
   "conclusion": "Skill 提供专家方法、实现参考、失败边界和验收规则；大模型负责理解、选择与生成代码；Three.js、WebGL/WebGPU 和 GPU 负责运行并呈现实时 3D。",
   "canonicalUrl": "http://127.0.0.1:4180/project.html",
@@ -25,12 +25,41 @@
     "installedVersion": "0.6.0",
     "installedSkillCount": 24,
     "installScope": "project",
+    "pageCount": 5,
+    "relatedProjectCount": 2,
+    "totalOwnedWebEntries": 7,
     "pages": [
       { "id": "overview", "label": "研究总览", "href": "./project.html" },
       { "id": "skills", "label": "24 Skill 能力地图", "href": "./skills.html" },
       { "id": "skill-lab", "label": "Skill 控制实验", "href": "./skill-lab.html" },
       { "id": "effects", "label": "效果实验室", "href": "./index.html" },
       { "id": "applications", "label": "应用展厅", "href": "./applications.html" }
+    ],
+    "lineage": [
+      {
+        "id": "capability-lab",
+        "phase": "01 / 能力翻译",
+        "title": "Three.js Capability Lab",
+        "slug": "threejs-capability-lab",
+        "directory": "threejs-awesome-graphics-agent-skills-demo",
+        "localUrl": "http://127.0.0.1:4178/",
+        "status": "早期独立实验",
+        "summary": "把 24 个 Skill 翻译成 Glass Worlds 的玻璃球、镜头、共享场、图像管线和验证方法。",
+        "relationship": "代表性机制由产品代码实现；页面负责解释库能力如何影响已有产品。",
+        "skills": ["procedural-materials", "camera-direction", "procedural-fields", "exposure-color-grading", "visual-validation"]
+      },
+      {
+        "id": "ocean-atlas",
+        "phase": "02 / 产品验证",
+        "title": "Ocean Atlas",
+        "slug": "ocean-atlas",
+        "directory": "ocean-atlas-product-demo",
+        "localUrl": "http://127.0.0.1:4179/",
+        "status": "真实 Skill 产品原型",
+        "summary": "把上游 spectral-ocean 的方向性波谱、GPU FFT、解析法线和泡沫历史放进可解释的海洋研究世界。",
+        "relationship": "五个海洋核心文件直接来自上游示例；产品壳层、研究层和交互由我们编写。",
+        "skills": ["spectral-ocean", "camera-direction", "visual-validation"]
+      }
     ],
     "demos": {
       "direct": 2,

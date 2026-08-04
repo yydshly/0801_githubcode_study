@@ -74,7 +74,7 @@ main { width: min(1480px, 100%); margin: 0 auto; }
 .hero-metrics span { font: 9px/1 Consolas, monospace; letter-spacing: .14em; }
 .hero-metrics small { color: var(--muted); font-size: 11px; }
 
-.project-index { margin: 0 5vw; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+.project-index { margin: 0 5vw; display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); }
 .project-index a { min-height: 116px; padding: 22px; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 18px; border-right: 1px solid var(--line); transition: background .2s ease; }
 .project-index a:last-child { border-right: 0; }
 .project-index a:hover, .project-index a:focus-visible { background: rgba(93, 166, 164, .08); }
@@ -123,6 +123,29 @@ main { width: min(1480px, 100%); margin: 0 auto; }
 .wide-link span { color: var(--warm); font: 10px/1 Consolas, monospace; letter-spacing: .14em; }
 .wide-link strong { font-size: 14px; font-weight: 450; }
 .wide-link b { color: var(--cyan); font-size: 12px; }
+
+.lineage-summary { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; border: 1px solid var(--line); background: rgba(9, 24, 30, .72); }
+.lineage-summary div { min-height: 132px; padding: 24px 30px; display: grid; align-content: center; gap: 8px; }
+.lineage-summary strong { color: var(--warm); font: 42px/1 Georgia, serif; font-weight: 400; }
+.lineage-summary span { font-size: 14px; font-weight: 520; }
+.lineage-summary small { color: var(--muted); font-size: 10px; line-height: 1.5; }
+.lineage-summary i { color: rgba(156, 226, 219, .45); font: 24px/1 Georgia, serif; font-style: normal; }
+.lineage-grid { margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.lineage-card { min-height: 470px; padding: clamp(25px, 3vw, 38px); display: flex; flex-direction: column; border: 1px solid var(--line); background: linear-gradient(150deg, rgba(16, 38, 45, .92), rgba(7, 18, 24, .92)); }
+.lineage-capability-lab { border-top-color: var(--violet); }
+.lineage-ocean-atlas { border-top-color: #6bc7df; }
+.lineage-current { border-top-color: var(--warm); }
+.lineage-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font: 9px/1.4 Consolas, monospace; letter-spacing: .1em; }
+.lineage-meta b { color: var(--green); font-weight: 500; text-align: right; }
+.lineage-card h3 { margin: 48px 0 17px; font-size: clamp(27px, 2.5vw, 38px); line-height: 1.05; font-weight: 470; letter-spacing: -.035em; }
+.lineage-card > p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+.lineage-relation { margin: 26px 0 18px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.lineage-relation span { display: block; margin-bottom: 8px; color: var(--warm); font: 9px/1 Consolas, monospace; }
+.lineage-relation strong { color: #bdccca; font-size: 11px; line-height: 1.65; font-weight: 400; }
+.lineage-skills { display: flex; flex-wrap: wrap; gap: 6px; }
+.lineage-skills code { padding: 6px 8px; border: 1px solid var(--line); color: var(--cyan); font-size: 8px; }
+.lineage-card > a { margin-top: auto; padding-top: 28px; display: flex; justify-content: space-between; color: var(--text); font-size: 12px; }
+.lineage-card > a b { color: var(--cyan); }
 
 .truth-levels { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); margin-bottom: 18px; }
 .truth-levels article { padding: 24px; border-right: 1px solid var(--line); }
@@ -187,6 +210,8 @@ main { width: min(1480px, 100%); margin: 0 auto; }
   .capability-group { grid-template-columns: 1fr; }
   .capability-head { border-right: 0; border-bottom: 1px solid var(--line); }
   .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lineage-grid { grid-template-columns: 1fr; }
+  .lineage-card { min-height: 390px; }
   .product-directions { grid-template-columns: repeat(2, 1fr); }
   .product-directions div:nth-child(2) { border-right: 0; }
   .product-directions div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -210,8 +235,9 @@ main { width: min(1480px, 100%); margin: 0 auto; }
   .hero-metrics div:nth-child(2) { border-right: 0; }
   .hero-metrics div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   .project-index { margin: 0 20px; grid-template-columns: 1fr 1fr; }
-  .project-index a:nth-child(2) { border-right: 0; }
-  .project-index a:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .project-index a { border-bottom: 1px solid var(--line); }
+  .project-index a:nth-child(2n) { border-right: 0; }
+  .project-index a:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
   .project-index a { min-height: 96px; padding: 17px; }
   .section-heading h2 { font-size: clamp(38px, 12vw, 58px); }
   .source-explanation { grid-template-columns: 1fr; }
@@ -220,6 +246,9 @@ main { width: min(1480px, 100%); margin: 0 auto; }
   .source-facts dl div { grid-template-columns: 90px minmax(0, 1fr); }
   .skill-chip-list { grid-template-columns: 1fr 1fr; }
   .wide-link { grid-template-columns: 1fr; }
+  .lineage-summary { grid-template-columns: 1fr; }
+  .lineage-summary div { min-height: 108px; text-align: center; }
+  .lineage-summary i { padding: 0 0 4px; text-align: center; }
   .truth-levels, .impact-grid, .evidence-grid, .maintenance-layout { grid-template-columns: 1fr; }
   .truth-levels article, .impact-grid article { border-right: 0; border-bottom: 1px solid var(--line); }
   .truth-levels article:last-child, .impact-grid article:last-child { border-bottom: 0; }
@@ -234,7 +263,7 @@ main { width: min(1480px, 100%); margin: 0 auto; }
   .hero-metrics div { border-right: 0; border-bottom: 1px solid var(--line); }
   .hero-metrics div:last-child { border-bottom: 0; }
   .project-index { grid-template-columns: 1fr; }
-  .project-index a { border-right: 0; border-bottom: 1px solid var(--line); }
+  .project-index a, .project-index a:last-child { grid-column: auto; border-right: 0; border-bottom: 1px solid var(--line); }
   .project-index a:last-child { border-bottom: 0; }
   .capability-head { grid-template-columns: 28px 1fr; }
   .capability-head > strong { display: none; }

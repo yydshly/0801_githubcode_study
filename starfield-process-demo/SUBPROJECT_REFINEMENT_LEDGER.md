@@ -1,5 +1,23 @@
 # Three.js Graphics Agent Skills 子项目整理记录
 
+## Revision 02 · 早期页面纳入（2026-08-05）
+
+- **Current stage**：Stage 9 · Engineering and delivery closure
+- **User phase**：加入并展示
+- **Coverage item**：早期 Capability Lab 与 Ocean Atlas 未进入当前总览和发布登记
+- **User goal**：在正式研究子项目中看到完整演进关系，并把相关源码发布到远端 `master`
+- **Browser environment**：`http://127.0.0.1:4180/project.html`，桌面默认视口；基线页面可运行
+- **Observed evidence**：基线 DOM 不包含“研究历程”，页面只显示12个当前演示；实现后桌面 DOM 显示5项索引、3张历程卡和“5+2=7”，无横向溢出；4178包含2个模式与实时 Canvas，4179包含4个研究层、实时 Canvas并显示 `RUNTIME READY`
+- **Problem category**：信息与布局缺口
+- **Root cause**：正式整理时只纳入 `starfield-process-demo`，两个前置实验仍是相邻独立目录
+- **Minimal intervention**：增加研究历程区块和跨本地/发布环境入口；把两个项目登记到统一研究展厅，不重做它们的场景
+- **Adjacent regression surfaces**：顶部导航、5项内容索引、桌面卡片、390px 单列、GitHub Pages 子路径资产
+- **Observed result**：三个子项目独立构建通过；统一生产基路径构建9个研究项目通过；Capability Lab 与 Ocean Atlas 的本地回链正确
+- **Decision**：`continue`（仅剩 Git 范围审计、提交与远端推送）
+- **Defer**：390px视口复验。已调用浏览器 viewport 控件并分别重载、新建标签，但页面实际 `window.innerWidth` 仍为1280；当可用浏览器能实际切换到390px时，按现有响应式规则复验研究历程单列与5项索引
+- **Next executable action**：显式暂存目标文件、检查暂存范围、提交并推送 `master`
+- **New authority required**：无；用户已授权实现和推送 `master`
+
 ## 最终状态
 
 - **Current stage**：Stage 9 · Engineering and delivery closure
@@ -52,4 +70,3 @@
 - `scripts/audit-subproject.mjs` 与 `scripts/copy-docs.mjs`
 - 根 `research-projects.json` 项目 06 登记与根 README 说明
 - 现有四个演示页面的“研究总览”导航入口
-

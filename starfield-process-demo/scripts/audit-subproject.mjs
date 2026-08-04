@@ -44,6 +44,10 @@ const sceneHrefs = SCENE_DEMOS.map((scene) => scene.href);
 const invalidSceneSkillRefs = SCENE_DEMOS.flatMap((scene) => scene.skills.map((item) => item.id)).filter((id) => !catalogSkillIds.includes(id));
 const invalidRecipeSkillRefs = SKILL_RECIPES.flatMap((recipe) => recipe.skills).filter((id) => !catalogSkillIds.includes(id));
 const demoGroups = Object.fromEntries(['direct', 'composed', 'product'].map((group) => [group, SCENE_DEMOS.filter((scene) => scene.group === group).length]));
+const lineageSlugs = manifest.local.lineage.map((project) => project.slug);
+const missingLineageDirectories = manifest.local.lineage
+  .filter((project) => !existsSync(resolve(root, '..', project.directory)))
+  .map((project) => project.directory);
 
 assert(upstreamPackage.version === manifest.upstream.packageVersion, 'Upstream package version differs from PROJECT_MANIFEST.json');
 assert(installManifest.version === manifest.local.installedVersion, 'Installed Skill version differs from PROJECT_MANIFEST.json');
@@ -60,6 +64,11 @@ assert(new Set(sceneIds).size === sceneIds.length, 'Duplicate local demo IDs fou
 assert(new Set(sceneHrefs).size === sceneHrefs.length, 'Duplicate local demo links found');
 assert(invalidSceneSkillRefs.length === 0, `Invalid Skill references in demos: ${invalidSceneSkillRefs.join(', ')}`);
 assert(invalidRecipeSkillRefs.length === 0, `Invalid Skill references in recipes: ${invalidRecipeSkillRefs.join(', ')}`);
+assert(manifest.local.pages.length === manifest.local.pageCount, 'Current page count differs from manifest');
+assert(manifest.local.lineage.length === manifest.local.relatedProjectCount, 'Related project count differs from manifest');
+assert(manifest.local.pageCount + manifest.local.relatedProjectCount === manifest.local.totalOwnedWebEntries, 'Owned web entry total differs from manifest');
+assert(new Set(lineageSlugs).size === lineageSlugs.length, 'Duplicate research-lineage slugs found');
+assert(missingLineageDirectories.length === 0, `Missing research-lineage directories: ${missingLineageDirectories.join(', ')}`);
 
 const result = {
   status: 'pass',
@@ -75,6 +84,9 @@ const result = {
     recipes: SKILL_RECIPES.length,
     demos: SCENE_DEMOS.length,
     demoGroups,
+    pages: manifest.local.pageCount,
+    relatedProjects: manifest.local.relatedProjectCount,
+    totalOwnedWebEntries: manifest.local.totalOwnedWebEntries,
   },
   integrity: {
     upstreamEqualsInstalled: true,
@@ -87,4 +99,3 @@ const result = {
 };
 
 console.log(JSON.stringify(result, null, 2));
-

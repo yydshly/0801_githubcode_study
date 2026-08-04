@@ -40,3 +40,11 @@ Observable completion criteria:
 | 3 | Repository association | Root/project README | File inspection | 9 | pass | Project 02 and multi-project deployment instructions added |
 | Delivery | Scoped publication | Mixed worktree | Git status/diff | 9 | pass | `.pages` ignored; `.agents` remains unrelated and unstaged |
 | Delivery | Publish configuration | Branch/PR/Pages | Workflow and scoped-diff evidence | 9 | pass | Default-branch workflow and isolated artifact are ready for merge |
+
+## Revision 2 · Three.js 前置实验纳入（2026-08-05）
+
+- **Request revision**：把项目06之前独立运行的 Capability Lab 与 Ocean Atlas 纳入统一研究展厅和远端仓库。
+- **Registry scope**：启用项目由7个扩展到9个；新增编号 `06A` 与 `06B`，保留它们作为项目06的研究历程，而不是伪装成12个当前场景的一部分。
+- **Publication boundary**：两个项目分别构建到 `/projects/threejs-capability-lab/` 与 `/projects/ocean-atlas/`，继续使用统一 `.pages` 产物和默认分支工作流。
+- **Repository boundary**：仅发布源码、必要资产和说明；忽略依赖、构建产物、日志及重复的 `.agents/skills` 安装目录。
+- **Completion criteria**：生产基路径下9个项目全部构建；两个新增入口进入门户；项目06总览展示“5当前页面 + 2早期页面 = 7自有网页入口”。

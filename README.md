@@ -18,6 +18,8 @@
 | 04 | [Particle Flower Lab](./particle-flower-lab/) | 本仓库原创研究，无外部上游仓库 | 如何用程序化网格与粒子生成可完整旋转的三维花束 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/particle-flower-lab/) | [项目 README](./particle-flower-lab/README.md) |
 | 05 | [Glass Worlds Gallery](./glass-worlds-gallery/) | 公开视觉参考：[Happy Oyster](https://www.happyoyster.com/home) | 如何不用世界模型实现包含多图场景的漂浮玻璃世界展厅 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) | [项目 README](./glass-worlds-gallery/README.md) |
 | 06 | [Three.js Graphics Agent Skills Lab](./starfield-process-demo/) | [scottstts/Threejs-Awesome-Graphics-Agent-Skills](https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills) | 24 个 Skill 如何约束大模型生成高级 Three.js 代码并进入产品场景 | 完整研究子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-graphics-agent-skills/project.html) | [项目 README](./starfield-process-demo/README.md) |
+| 06A | [Three.js Capability Lab](./threejs-awesome-graphics-agent-skills-demo/) | 项目 06 的前置能力翻译实验 | Skill 如何改善 Glass Worlds 的玻璃球、镜头、共享场和图像管线 | 前置能力实验 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-capability-lab/) | [项目 README](./threejs-awesome-graphics-agent-skills-demo/README.md) |
+| 06B | [Ocean Atlas](./ocean-atlas-product-demo/) | 直接采用上游 `threejs-spectral-ocean` 示例核心 | 如何把真实海洋 Skill 变成可解释的产品研究世界 | Skill 产品验证 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/ocean-atlas/) | [项目 README](./ocean-atlas-product-demo/README.md) |
 | 07 | [Awesome DESIGN.md Lab](./awesome-design-md-lab/) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | 如何把公开网页的视觉规律整理成 Agent 可读取的 DESIGN.md | 资源型子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) | [项目 README](./awesome-design-md-lab/README.md) |
 
 “原始项目 / 参考来源”列会明确区分上游代码仓库、公开视觉参考和本仓库原创研究；没有可验证外部仓库的项目不会补写推测性链接。
@@ -68,6 +70,18 @@
 
 [阅读子项目完整说明](./starfield-process-demo/README.md) · [查看上游审计](./starfield-process-demo/docs/01-UPSTREAM_LIBRARY.md) · [查看维护与复验](./starfield-process-demo/docs/05-MAINTENANCE.md)
 
+### 子项目 06A：Three.js Capability Lab
+
+**[打开在线演示](https://yydshly.github.io/0801_githubcode_study/projects/threejs-capability-lab/)** · [进入子项目目录](./threejs-awesome-graphics-agent-skills-demo/) · [查看产品适配分析](./threejs-awesome-graphics-agent-skills-demo/PRODUCT_FIT_ANALYSIS.md)
+
+这是项目 06 的第一阶段实验。它把 24 个 Skill 的抽象说明翻译成 Glass Worlds 已有的玻璃球、星尘、镜头交接和内容模式，重点回答“这套库如何改善我们已经做出的产品”。页面包含5个代表性能力状态、完整24 Skill学习层、产品映射和可交互玻璃世界。
+
+### 子项目 06B：Ocean Atlas
+
+**[打开在线演示](https://yydshly.github.io/0801_githubcode_study/projects/ocean-atlas/)** · [进入子项目目录](./ocean-atlas-product-demo/) · [查看上游代码边界](./ocean-atlas-product-demo/UPSTREAM_SOURCE.md)
+
+这是项目 06 的第二阶段产品验证。它不只是按 Skill 思路重新编写效果，而是直接采用上游 `threejs-spectral-ocean` 示例中的5个核心文件，把方向性波谱、GPU FFT/IFFT、解析法线和泡沫历史放进 Ocean Atlas 产品壳层，证明 Skill 示例可以被转化为可观察、可解释的产品体验。
+
 ### 子项目 07：Awesome DESIGN.md Lab
 
 **[打开在线演示](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/)** · [进入子项目目录](./awesome-design-md-lab/) · [查看上游快照](./awesome-design-md-lab/UPSTREAM.md) · [查看验证记录](./awesome-design-md-lab/VALIDATION.md)
@@ -105,6 +119,8 @@
 ├─ 项目 04：Particle Flower Lab
 ├─ 项目 05：Glass Worlds Gallery
 ├─ 项目 06：Three.js Graphics Agent Skills Lab
+├─ 项目 06A：Three.js Capability Lab
+├─ 项目 06B：Ocean Atlas
 ├─ 项目 07：Awesome DESIGN.md Lab
 └─ 后续正式研究项目
 ```
@@ -524,5 +540,8 @@ python -m http.server 4180 --directory .pages
 | 01 · Finance Header - Wallet | [README](./wallet-finance-header/README.md) | [验证记录](./wallet-finance-header/docs/verification-coverage.md) | [设计契约](./docs/superpowers/specs/2026-08-02-wallet-finance-header-design.md) · [实现计划](./docs/superpowers/plans/2026-08-02-wallet-finance-header.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) |
 | 02 · Prompt Master | [README](./prompt-master-comparison-demo/README.md) | [验证记录](./prompt-master-comparison-demo/VALIDATION.md) | [设计契约](./prompt-master-comparison-demo/DESIGN_CONTRACT.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) |
 | 05 · Glass Worlds Gallery | [README](./glass-worlds-gallery/README.md) | [验证记录](./glass-worlds-gallery/VALIDATION.md) | [阶段归档](./glass-worlds-gallery/ARCHIVE.md) · [演示对比](./glass-worlds-gallery/DEMO_COMPARISON.md) · [实现分析](./glass-worlds-gallery/IMPLEMENTATION_ANALYSIS.md) · [设计契约](./glass-worlds-gallery/DESIGN_CONTRACT.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) |
+| 06 · Three.js Graphics Agent Skills Lab | [README](./starfield-process-demo/README.md) | [验证记录](./starfield-process-demo/SUBPROJECT_REFINEMENT_LEDGER.md) | [设计契约](./starfield-process-demo/SUBPROJECT_DESIGN_CONTRACT.md) · [演示追踪](./starfield-process-demo/docs/03-DEMO_TRACEABILITY.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-graphics-agent-skills/project.html) |
+| 06A · Three.js Capability Lab | [README](./threejs-awesome-graphics-agent-skills-demo/README.md) | [验证记录](./threejs-awesome-graphics-agent-skills-demo/VALIDATION.md) | [设计契约](./threejs-awesome-graphics-agent-skills-demo/DESIGN_CONTRACT.md) · [产品适配](./threejs-awesome-graphics-agent-skills-demo/PRODUCT_FIT_ANALYSIS.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-capability-lab/) |
+| 06B · Ocean Atlas | [README](./ocean-atlas-product-demo/README.md) | [验证记录](./ocean-atlas-product-demo/VALIDATION.md) | [设计契约](./ocean-atlas-product-demo/DESIGN_CONTRACT.md) · [上游边界](./ocean-atlas-product-demo/UPSTREAM_SOURCE.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/ocean-atlas/) |
 | 07 · Awesome DESIGN.md Lab | [README](./awesome-design-md-lab/README.md) | [验证记录](./awesome-design-md-lab/VALIDATION.md) | [设计契约](./awesome-design-md-lab/DESIGN_CONTRACT.md) · [上游快照](./awesome-design-md-lab/UPSTREAM.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) |
 | 研究展厅与部署 | [设计说明](./docs/research-pages/DESIGN_CONTRACT.md) | [验证记录](./docs/research-pages/VALIDATION.md) | [`research-projects.json`](./research-projects.json) | [研究展厅](https://yydshly.github.io/0801_githubcode_study/) |

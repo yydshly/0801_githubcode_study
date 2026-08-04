@@ -5,6 +5,7 @@ import { SCENE_DEMOS, SKILL_CATEGORIES, THREEJS_SKILLS } from './skills-catalog.
 const app = document.querySelector('#app');
 
 const categoryMap = Object.fromEntries(SKILL_CATEGORIES.map((category) => [category.id, category]));
+const isLocalRuntime = ['127.0.0.1', 'localhost'].includes(window.location.hostname);
 const truthLabel = {
   direct: { index: 'A', label: '直接实现', copy: '上游或本地 Skill 代码直接进入运行路径' },
   composed: { index: 'B', label: '机制组合', copy: '我们写代码，Skill 提供实现方法与约束' },
@@ -53,6 +54,34 @@ function renderDemos() {
   }).join('');
 }
 
+function relatedProjectHref(project) {
+  if (isLocalRuntime) return project.localUrl;
+  return new URL(`../${project.slug}/`, window.location.href).href;
+}
+
+function renderLineage() {
+  const earlyProjects = manifest.local.lineage.map((project) => `
+    <article class="lineage-card lineage-${project.id}">
+      <div class="lineage-meta"><span>${project.phase}</span><b>${project.status}</b></div>
+      <h3>${project.title}</h3>
+      <p>${project.summary}</p>
+      <div class="lineage-relation"><span>真实关系</span><strong>${project.relationship}</strong></div>
+      <div class="lineage-skills">${project.skills.map((skill) => `<code>$${skill.toUpperCase()}</code>`).join('')}</div>
+      <a href="${relatedProjectHref(project)}" target="_blank" rel="noreferrer">打开这个阶段 <b>↗</b></a>
+    </article>
+  `).join('');
+
+  return `${earlyProjects}
+    <article class="lineage-card lineage-current">
+      <div class="lineage-meta"><span>03 / 完整整理</span><b>当前正式子项目</b></div>
+      <h3>Three.js Skill Research Lab</h3>
+      <p>把原仓库、24 个 Skill、31 个上游示例、12 个当前演示、来源边界和产品意义统一整理成可复验的研究项目。</p>
+      <div class="lineage-relation"><span>真实关系</span><strong>吸收前两次实验的结论，但继续明确区分直接实现、机制组合和产品原型。</strong></div>
+      <div class="lineage-skills"><code>5 CURRENT PAGES</code><code>12 CURRENT DEMOS</code><code>24 SKILLS</code></div>
+      <a href="#demos">查看当前演示矩阵 <b>↓</b></a>
+    </article>`;
+}
+
 app.innerHTML = `
   <div class="project-shell">
     <header class="project-topbar">
@@ -62,6 +91,7 @@ app.innerHTML = `
       <nav aria-label="子项目页面导航">
         <a href="#upstream">原仓库</a>
         <a href="#capabilities">库的能力</a>
+        <a href="#journey">研究历程</a>
         <a href="#demos">演示证据</a>
         <a href="#impact">对我们的影响</a>
         <a href="./skills.html">24 Skill 地图 →</a>
@@ -96,15 +126,16 @@ app.innerHTML = `
           <div><strong>${manifest.upstream.skillCount}</strong><span>EXPERT SKILLS</span><small>全部纳入能力地图</small></div>
           <div><strong>${manifest.upstream.exampleCount}</strong><span>UPSTREAM EXAMPLES</span><small>${manifest.upstream.skillsWithExamples} 个 Skill 带实现示例</small></div>
           <div><strong>${manifest.local.demos.total}</strong><span>LOCAL DEMOS</span><small>2 直接 / 4 组合 / 6 产品</small></div>
-          <div><strong>03</strong><span>EVIDENCE LEVELS</span><small>不混淆来源和责任</small></div>
+          <div><strong>${String(manifest.local.totalOwnedWebEntries).padStart(2, '0')}</strong><span>WEB ENTRIES</span><small>5 当前页面 + 2 早期实验</small></div>
         </div>
       </section>
 
       <nav class="project-index" aria-label="研究内容索引">
         <a href="#upstream"><span>01</span><strong>原始库</strong><small>来源、版本、示例、许可</small></a>
         <a href="#capabilities"><span>02</span><strong>库的能力</strong><small>5 类、24 个专家系统</small></a>
-        <a href="#demos"><span>03</span><strong>这里的演示</strong><small>12 个场景及真实关系</small></a>
-        <a href="#impact"><span>04</span><strong>对我们的影响</strong><small>价值、边界、采用方式</small></a>
+        <a href="#journey"><span>03</span><strong>研究历程</strong><small>2 个早期页面如何进入当前项目</small></a>
+        <a href="#demos"><span>04</span><strong>这里的演示</strong><small>12 个当前场景及真实关系</small></a>
+        <a href="#impact"><span>05</span><strong>对我们的影响</strong><small>价值、边界、采用方式</small></a>
       </nav>
 
       <section id="upstream" class="project-section upstream-section" aria-labelledby="upstream-title">
@@ -145,9 +176,24 @@ app.innerHTML = `
         <a class="wide-link" href="./skills.html"><span>完整能力档案</span><strong>查看每个 Skill 的使用时机、输入、输出、关键约束、原始示例和常见组合</strong><b>进入 24 Skill 地图 →</b></a>
       </section>
 
+      <section id="journey" class="project-section lineage-section" aria-labelledby="lineage-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">RESEARCH LINEAGE / 03</p><h2 id="lineage-title">早期页面没有消失，它们是这次完整整理的前两步</h2></div>
+          <p>我们自己制作的相关网页共有 ${manifest.local.totalOwnedWebEntries} 个：当前子项目 5 个页面，加上 Capability Lab 与 Ocean Atlas 两个早期独立页面。上游 4173 示例库另计，不混入自有页面数量。</p>
+        </div>
+        <div class="lineage-summary" aria-label="网页入口统计">
+          <div><strong>${manifest.local.pageCount}</strong><span>当前整理页面</span><small>总览、能力、控制、效果、应用</small></div>
+          <i>+</i>
+          <div><strong>${manifest.local.relatedProjectCount}</strong><span>早期独立页面</span><small>能力翻译、海洋产品验证</small></div>
+          <i>=</i>
+          <div><strong>${manifest.local.totalOwnedWebEntries}</strong><span>自有网页入口</span><small>统一进入研究展厅发布</small></div>
+        </div>
+        <div class="lineage-grid">${renderLineage()}</div>
+      </section>
+
       <section id="demos" class="project-section demo-section" aria-labelledby="demo-title">
         <div class="section-heading">
-          <div><p class="eyebrow">RUNTIME EVIDENCE / 03</p><h2 id="demo-title">12 个演示，但证据等级不同</h2></div>
+          <div><p class="eyebrow">RUNTIME EVIDENCE / 04</p><h2 id="demo-title">12 个当前演示，但证据等级不同</h2></div>
           <p>漂亮不等于来自 Skill。我们把直接代码、机制组合和产品原型分开标记，避免把大模型生成的产品代码都算成原仓库能力。</p>
         </div>
         <div class="truth-levels">
@@ -158,7 +204,7 @@ app.innerHTML = `
 
       <section id="impact" class="project-section impact-section" aria-labelledby="impact-title">
         <div class="section-heading">
-          <div><p class="eyebrow">PRODUCT IMPACT / 04</p><h2 id="impact-title">它对我们的意义：提高图形生成质量，而不是替代产品建设</h2></div>
+          <div><p class="eyebrow">PRODUCT IMPACT / 05</p><h2 id="impact-title">它对我们的意义：提高图形生成质量，而不是替代产品建设</h2></div>
           <p>真正价值不是多了几个漂亮 Demo，而是建立一套可复用的“模型如何生成、我们如何验收、产品如何组合”的图形工程方法。</p>
         </div>
         <div class="impact-grid">
@@ -176,12 +222,14 @@ app.innerHTML = `
 
       <section class="project-section maintenance-section" aria-labelledby="maintenance-title">
         <div class="section-heading">
-          <div><p class="eyebrow">PROJECT MAP / 05</p><h2 id="maintenance-title">子项目结构与研究文档</h2></div>
-          <p>原仓库镜像保持只读；项目级 Skill 安装、运行演示、能力数据和研究结论都留在当前子项目中。</p>
+          <div><p class="eyebrow">PROJECT MAP / 06</p><h2 id="maintenance-title">子项目结构与研究文档</h2></div>
+          <p>原仓库镜像保持只读；两个早期实验作为可独立构建的相邻项目保留；项目级 24 Skill 的唯一正式快照仍在当前子项目中。</p>
         </div>
         <div class="maintenance-layout">
           <pre aria-label="子项目目录结构"><code>0801_codex_project/
 ├─ threejs-awesome-graphics-agent-skills-upstream/  # 原仓库镜像
+├─ threejs-awesome-graphics-agent-skills-demo/      # 06A 能力翻译实验
+├─ ocean-atlas-product-demo/                        # 06B 海洋产品验证
 └─ starfield-process-demo/                          # 我们的研究子项目
    ├─ .codex/skills/                                # 项目级 24 Skill
    ├─ src/                                          # Three.js 演示与说明页面
