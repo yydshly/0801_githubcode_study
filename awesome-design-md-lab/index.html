@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="用中文展示 VoltAgent awesome-design-md 的设计档案、Token 结构和 Agent 使用流程。" />
+    <title>DESIGN.md / 中文能力档案馆</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-noise" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="返回页面顶部">
+        <span class="brand-mark">✦</span>
+        <span class="brand-copy"><span>DESIGN.md</span><small>/ ARCHIVE</small></span>
+      </a>
+      <nav class="topnav" aria-label="页面导航">
+        <a href="#catalog">风格档案</a>
+        <a href="#format">文件结构</a>
+        <a href="#flow">使用流程</a>
+      </nav>
+      <a class="source-link" href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noreferrer">
+        上游仓库 <span>↗</span>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero content-width" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-pulse"></span>RESEARCH 07 · DESIGN CONTEXT LIBRARY</p>
+          <h1 id="hero-title">把网页的<br /><em>气质</em>，变成 Agent<br />能读懂的规则。</h1>
+          <p class="hero-lede">一个中文研究档案馆，拆开 `awesome-design-md` 内部的设计文件：它如何记录颜色、字体、组件、响应式和“不该做什么”，再把这些判断交给 AI 编程代理。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#catalog">浏览风格档案 <span>↓</span></a>
+            <a class="button button-quiet" href="#format">查看文件结构 <span>→</span></a>
+          </div>
+          <p class="hero-note"><span class="mono">LOCAL SNAPSHOT</span> · 74 份 DESIGN.md · 公开视觉模式的独立分析</p>
+        </div>
+
+        <div class="hero-spec" aria-label="DESIGN.md 文件示意">
+          <div class="spec-window-bar"><span class="window-dot red"></span><span class="window-dot yellow"></span><span class="window-dot green"></span><span class="spec-path">design-md / linear.app / DESIGN.md</span><span class="spec-version">v.alpha</span></div>
+          <div class="spec-body">
+            <div class="spec-comment"># 一个文件，保存一套视觉判断</div>
+            <div class="spec-line"><span class="syntax-key">colors</span><span class="syntax-punc">:</span></div>
+            <div class="spec-line indent"><span class="syntax-key">primary</span><span class="syntax-punc">:</span> <span class="syntax-value violet">#5e6ad2</span></div>
+            <div class="spec-line indent"><span class="syntax-key">canvas</span><span class="syntax-punc">:</span> <span class="syntax-value ink">#010102</span></div>
+            <div class="spec-line"><span class="syntax-key">typography</span><span class="syntax-punc">:</span></div>
+            <div class="spec-line indent"><span class="syntax-key">display-xl</span><span class="syntax-punc">:</span> <span class="syntax-value">Linear Display / 80px / 600</span></div>
+            <div class="spec-line"><span class="syntax-key">components</span><span class="syntax-punc">:</span></div>
+            <div class="spec-line indent"><span class="syntax-key">button-primary</span><span class="syntax-punc">:</span> <span class="syntax-value">hairline + lavender focus</span></div>
+            <div class="spec-divider"></div>
+            <div class="spec-markdown"><span class="md-hash">##</span> Do's and Don'ts</div>
+            <div class="spec-rule"><span class="rule-mark">+</span> Keep the accent intentional.</div>
+            <div class="spec-rule"><span class="rule-mark no">−</span> Don't decorate every surface.</div>
+          </div>
+          <div class="spec-footer"><span>YAML TOKENS</span><span>+</span><span>MARKDOWN RATIONALE</span><span>→</span><span>AGENT CONTEXT</span></div>
+        </div>
+      </section>
+
+      <section class="signal-strip content-width" aria-label="上游快照指标">
+        <div class="signal-item"><strong>74</strong><span>份上游设计档案</span></div>
+        <div class="signal-item"><strong>09</strong><span>个核心章节</span></div>
+        <div class="signal-item"><strong>02</strong><span>层可读结构</span></div>
+        <div class="signal-item"><strong>00</strong><span>个运行时依赖</span></div>
+        <div class="signal-caption">源代码之外的另一种上下文：<br /><span>告诉 Agent，页面应该如何被感受。</span></div>
+      </section>
+
+      <section class="intro-section content-width" aria-labelledby="intro-title">
+        <div class="section-kicker"><span>01</span><span>WHY THIS LIBRARY</span></div>
+        <div class="intro-grid">
+          <div>
+            <h2 id="intro-title">它不是组件库。<br /><span>它是设计判断的压缩包。</span></h2>
+          </div>
+          <div class="intro-copy">
+            <p>AI 可以很快写出一个“能运行”的页面，却经常无法稳定复现品牌的节奏：颜色为什么出现、标题为什么这么轻、卡片为什么没有阴影、哪个按钮才值得被看见。</p>
+            <p>`DESIGN.md` 把这些通常藏在设计师直觉里的判断，写成颜色 Token、字体层级、组件状态、响应式策略和反例约束。Agent 不再从空白页猜测，而是在一套视觉语言里生成。</p>
+            <div class="fact-line"><span class="fact-mark">↳</span><span>事实边界：上游仓库提供分析结果；网页提取、人工复核和运行时 Token 编译并不由它自动完成。</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog-section content-width" id="catalog" aria-labelledby="catalog-title">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker"><span>02</span><span>STYLE CATALOG</span></div>
+            <h2 id="catalog-title">风格档案</h2>
+          </div>
+          <p>从 74 份真实上游文件中选出 9 个切片。点击一个案例，查看它的颜色、字体、组件和设计判断。</p>
+        </div>
+
+        <div class="catalog-toolbar">
+          <div id="category-filters" class="category-filters" role="tablist" aria-label="按类别筛选"></div>
+          <span class="catalog-count"><span id="visible-count">9</span> / 74 展示切片</span>
+        </div>
+
+        <div class="catalog-layout">
+          <aside class="catalog-list" aria-label="设计案例列表">
+            <div class="list-label">SELECT A DESIGN / <span id="list-category">FEATURED</span></div>
+            <div id="catalog-list-items"></div>
+            <div class="list-footnote"><span class="tiny-dot"></span> 案例颜色来自上游 DESIGN.md 的 Token；文字为中文研究摘要。</div>
+          </aside>
+
+          <article id="brand-inspector" class="brand-inspector" aria-live="polite">
+            <div class="inspector-header">
+              <div><p class="inspector-index">DESIGN / <span id="brand-index">01</span></p><h3 id="brand-name">Linear</h3></div>
+              <a id="brand-source" class="text-link" href="#" target="_blank" rel="noreferrer">打开上游文件 ↗</a>
+            </div>
+            <p id="brand-description" class="brand-description"></p>
+            <div class="brand-preview-grid">
+              <div class="brand-canvas">
+                <div class="preview-meta"><span id="brand-category">Productivity & SaaS</span><span class="preview-live"><i></i> LIVE TOKEN VIEW</span></div>
+                <div class="preview-hero-line"></div>
+                <p id="brand-eyebrow" class="preview-eyebrow">THE CRAFT OF SOFTWARE</p>
+                <h4 id="brand-headline">Design language<br /><span>with a point of view.</span></h4>
+                <p id="brand-body" class="preview-body">A miniature surface assembled from the selected design file.</p>
+                <div class="preview-actions"><button id="brand-primary-button" class="preview-button">Primary action</button><span id="brand-radius" class="preview-token">radius / 8px</span></div>
+                <div class="preview-card"><span class="mini-label">SURFACE / 01</span><strong id="brand-card-title">Quiet structure, deliberate accent.</strong><span class="mini-rule"></span><span id="brand-spacing" class="mini-label">spacing / 8px base</span></div>
+              </div>
+              <div class="token-column">
+                <div class="token-block"><span class="token-label">COLOR ROLES</span><div id="brand-swatches" class="swatches"></div></div>
+                <div class="token-block"><span class="token-label">TYPE SYSTEM</span><strong id="brand-type">Linear Display / SF Pro Display</strong><span id="brand-type-detail" class="token-detail">80px display · 600 weight · tight tracking</span></div>
+                <div class="token-block"><span class="token-label">SIGNATURE MOVES</span><ul id="brand-signatures" class="signature-list"></ul></div>
+              </div>
+            </div>
+            <div class="inspector-bottom"><span id="brand-verdict" class="verdict">一套克制、技术、带有产品工艺感的界面语言。</span><span class="mono">source: public pattern analysis</span></div>
+          </article>
+        </div>
+
+        <div class="catalog-atlas">
+          <div class="atlas-heading"><span class="section-kicker"><span>CATALOG / 74</span></span><span>上游快照中的完整品牌索引</span></div>
+          <div id="catalog-atlas-list" class="atlas-list"></div>
+        </div>
+      </section>
+
+      <section class="format-section content-width" id="format" aria-labelledby="format-title">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker"><span>03</span><span>FILE ANATOMY</span></div>
+            <h2 id="format-title">一个文件，<br /><span>两种语言。</span></h2>
+          </div>
+          <p>机器需要精确的 Token，人类和模型又需要知道这些 Token 为什么存在。`DESIGN.md` 把两者叠在一起。</p>
+        </div>
+
+        <div class="anatomy-grid">
+          <article class="anatomy-card token-card">
+            <div class="anatomy-card-top"><span class="card-number">01</span><span class="card-tag">MACHINE-READABLE</span></div>
+            <h3>YAML / Token 层</h3>
+            <p>把颜色、字体、圆角、间距和组件状态写成可引用的变量，减少 Agent 在原始数值上的猜测。</p>
+            <pre><code><span class="code-dim">colors:</span>
+  <span class="code-key">primary</span>: <span class="code-color">#5e6ad2</span>
+  <span class="code-key">canvas</span>: <span class="code-color">#010102</span>
+<span class="code-dim">typography:</span>
+  <span class="code-key">display-xl</span>:
+    fontSize: <span class="code-number">80px</span>
+    fontWeight: <span class="code-number">600</span>
+<span class="code-dim">rounded:</span>
+  <span class="code-key">card</span>: <span class="code-number">8px</span></code></pre>
+            <div class="anatomy-foot"><span>colors</span><span>typography</span><span>rounded</span><span>spacing</span><span>components</span></div>
+          </article>
+          <article class="anatomy-card rationale-card">
+            <div class="anatomy-card-top"><span class="card-number">02</span><span class="card-tag">HUMAN-READABLE</span></div>
+            <h3>Markdown / 语义层</h3>
+            <p>解释页面的氛围、层级和反例。它告诉 Agent“什么时候使用”，而不只是“值是多少”。</p>
+            <div class="rationale-quote"><span class="quote-mark">“</span><p>Accent color should remain intentional. Use it for active states and primary CTAs, never as a decorative wash across every surface.</p><span class="quote-source">— Do's & Don'ts / example rule</span></div>
+            <div class="anatomy-foot"><span>意图</span><span>组件状态</span><span>布局原则</span><span>响应式</span></div>
+          </article>
+        </div>
+
+        <div class="section-map">
+          <div class="map-intro"><span class="mono">THE 09 SECTION MAP</span><p>点击章节，查看它在 Agent 生成过程中的作用。</p><div id="section-explainer" class="section-explainer">先从视觉主题开始：它定义页面应该让人感受到什么。</div></div>
+          <div id="section-list" class="section-list" role="list"></div>
+        </div>
+      </section>
+
+      <section class="flow-section content-width" id="flow" aria-labelledby="flow-title">
+        <div class="section-kicker"><span>04</span><span>FROM WEB TO AGENT</span></div>
+        <div class="flow-heading"><h2 id="flow-title">它如何进入<br /><span>一次真实开发。</span></h2><p>仓库提供的是设计上下文，不是网页运行时。真正的价值出现在它和 Agent、组件代码、截图验证连起来之后。</p></div>
+        <div class="flow-rail">
+          <article class="flow-step"><span class="flow-index">01</span><div class="flow-icon">◌</div><h3>观察公开模式</h3><p>从真实网页中识别颜色、字体、布局、组件、响应式和反例。</p><span class="flow-code">public website / patterns</span></article>
+          <span class="flow-arrow">→</span>
+          <article class="flow-step"><span class="flow-index">02</span><div class="flow-icon">{ }</div><h3>整理成 DESIGN.md</h3><p>把视觉事实和设计意图压缩成 Token + Markdown 两层结构。</p><span class="flow-code">DESIGN.md / alpha spec</span></article>
+          <span class="flow-arrow">→</span>
+          <article class="flow-step"><span class="flow-index">03</span><div class="flow-icon">✦</div><h3>交给 Agent 读取</h3><p>Agent 用颜色、字体和 Do / Don't 约束生成页面和组件代码。</p><span class="flow-code">context / prompt / code</span></article>
+          <span class="flow-arrow">→</span>
+          <article class="flow-step"><span class="flow-index">04</span><div class="flow-icon">⌁</div><h3>浏览器验证</h3><p>用截图、响应式和可访问性检查确认设计意图真的落地。</p><span class="flow-code">render / inspect / refine</span></article>
+        </div>
+        <div class="boundary-grid"><div class="boundary-card is"><span>它能提供</span><strong>稳定的视觉先验</strong><p>把 Agent 的审美猜测缩小成可复用的设计语言。</p></div><div class="boundary-card isnt"><span>它不能替代</span><strong>组件、业务与验收</strong><p>它不会自动生成后端、产品逻辑、资产授权或像素级保证。</p></div></div>
+      </section>
+
+      <section class="use-section content-width" aria-labelledby="use-title">
+        <div class="use-panel">
+          <div class="section-kicker"><span>05</span><span>USE IT IN A PROJECT</span></div>
+          <h2 id="use-title">让 Agent 先读规则，<br /><span>再开始写界面。</span></h2>
+          <p>实际使用时，我们只需要把选中的 `DESIGN.md` 放进项目，并把它和现有的 Agent 指令、设计契约和截图验收连起来。</p>
+          <div class="prompt-box"><div class="prompt-top"><span>AGENT BRIEF / 中文示例</span><button id="copy-prompt" class="copy-button" type="button">复制指令 <span>↗</span></button></div><code id="prompt-text">请先读取项目根目录的 DESIGN.md。它定义了本项目的视觉语言。实现一个可响应式的产品页面：遵守其中的颜色语义、字体层级、间距、圆角、组件状态和 Do / Don't；保留现有功能，不复制品牌 Logo、图片或商业字体；完成后在桌面和 390px 手机宽度进行截图验收。</code><div id="copy-status" class="copy-status" role="status" aria-live="polite">准备好复制</div></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer content-width">
+      <div class="footer-brand"><span class="brand-mark">✦</span><span><strong>DESIGN.md / ARCHIVE</strong><small>0801 GitHub Code Study · Research 07</small></span></div>
+      <div class="footer-links"><a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noreferrer">上游仓库 ↗</a><a href="https://getdesign.md/about" target="_blank" rel="noreferrer">getdesign.md ↗</a><a href="https://everyfeed.ai/" target="_blank" rel="noreferrer">EveryFeed / 生态入口 ↗</a><a href="https://designmd.sh/docs/design-md-format" target="_blank" rel="noreferrer">格式说明 ↗</a></div>
+      <p class="footer-disclaimer">品牌案例为公开视觉模式的独立研究展示，不代表官方设计系统；EveryFeed 是上游 README 中的生态链接，不是本 Demo 的运行依赖。</p>
+    </footer>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

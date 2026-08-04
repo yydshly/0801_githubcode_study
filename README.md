@@ -17,6 +17,7 @@
 | 04 | [Particle Flower Lab](./particle-flower-lab/) | 如何用程序化网格与粒子生成可完整旋转的三维花束 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/particle-flower-lab/) | [项目 README](./particle-flower-lab/README.md) |
 | 05 | [Glass Worlds Gallery](./glass-worlds-gallery/) | 如何不用世界模型实现包含多图场景的漂浮玻璃世界展厅 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) | [项目 README](./glass-worlds-gallery/README.md) |
 | 06 | [Three.js Graphics Agent Skills Lab](./starfield-process-demo/) | 24 个 Skill 如何约束大模型生成高级 Three.js 代码并进入产品场景 | 完整研究子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-graphics-agent-skills/project.html) | [项目 README](./starfield-process-demo/README.md) |
+| 07 | [Awesome DESIGN.md Lab](./awesome-design-md-lab/) | 如何把公开网页的视觉规律整理成 Agent 可读取的 DESIGN.md | 资源型子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) | [项目 README](./awesome-design-md-lab/README.md) |
 
 后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
 
@@ -64,6 +65,20 @@
 
 [阅读子项目完整说明](./starfield-process-demo/README.md) · [查看上游审计](./starfield-process-demo/docs/01-UPSTREAM_LIBRARY.md) · [查看维护与复验](./starfield-process-demo/docs/05-MAINTENANCE.md)
 
+### 子项目 07：Awesome DESIGN.md Lab
+
+**[打开在线演示](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/)** · [进入子项目目录](./awesome-design-md-lab/) · [查看上游快照](./awesome-design-md-lab/UPSTREAM.md) · [查看验证记录](./awesome-design-md-lab/VALIDATION.md)
+
+这个子项目研究 [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) 的真实定位：它不是组件库，也不是自动把网页截图转成 `DESIGN.md` 的运行时工具，而是把公开网页中可观察的视觉规律整理成设计上下文档案，交给人和 Agent 复用。
+
+- **项目定位**：资源型子项目，价值主要来自设计资料整理、格式观察和 Agent 上下文样本，不作为核心技术实现研究。
+- **上游证据**：研究基于提交 [`8147538b`](https://github.com/VoltAgent/awesome-design-md/tree/8147538b4226ae41e2487a9179e3bcc1f68e8554)，确认其中包含 74 份 `DESIGN.md`。
+- **档案结构**：页面拆解颜色、字体、间距、圆角、组件、响应式策略、Do / Don't 等 9 类信息，区分机器可读 Token 与人类可读语义。
+- **风格研究**：以 Linear、Stripe、Vercel、NVIDIA、Apple、Spotify、Nintendo 2001、Voltagent、Notion 为代表，展示不同的色彩纪律、字体性格、表面处理和布局节奏。
+- **产品结论**：它适合做项目级设计上下文、品牌风格研究和 Agent 生成 UI 前的约束层；网页提取、人工复核、代码实现与浏览器验收仍需要额外流程。
+
+[阅读子项目完整说明](./awesome-design-md-lab/README.md) · [查看设计契约](./awesome-design-md-lab/DESIGN_CONTRACT.md) · [查看上游快照](./awesome-design-md-lab/UPSTREAM.md)
+
 ## 待研究与参考项目
 
 这里登记已经发现价值、但尚未形成正式可运行子项目的研究方向。它们是研究资产，不会因为暂缓实施而删除。
@@ -87,6 +102,7 @@
 ├─ 项目 04：Particle Flower Lab
 ├─ 项目 05：Glass Worlds Gallery
 ├─ 项目 06：Three.js Graphics Agent Skills Lab
+├─ 项目 07：Awesome DESIGN.md Lab
 └─ 后续正式研究项目
 ```
 
@@ -505,4 +521,5 @@ python -m http.server 4180 --directory .pages
 | 01 · Finance Header - Wallet | [README](./wallet-finance-header/README.md) | [验证记录](./wallet-finance-header/docs/verification-coverage.md) | [设计契约](./docs/superpowers/specs/2026-08-02-wallet-finance-header-design.md) · [实现计划](./docs/superpowers/plans/2026-08-02-wallet-finance-header.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/wallet-finance-header/) |
 | 02 · Prompt Master | [README](./prompt-master-comparison-demo/README.md) | [验证记录](./prompt-master-comparison-demo/VALIDATION.md) | [设计契约](./prompt-master-comparison-demo/DESIGN_CONTRACT.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/prompt-master/) |
 | 05 · Glass Worlds Gallery | [README](./glass-worlds-gallery/README.md) | [验证记录](./glass-worlds-gallery/VALIDATION.md) | [阶段归档](./glass-worlds-gallery/ARCHIVE.md) · [演示对比](./glass-worlds-gallery/DEMO_COMPARISON.md) · [实现分析](./glass-worlds-gallery/IMPLEMENTATION_ANALYSIS.md) · [设计契约](./glass-worlds-gallery/DESIGN_CONTRACT.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/glass-worlds-gallery/) |
+| 07 · Awesome DESIGN.md Lab | [README](./awesome-design-md-lab/README.md) | [验证记录](./awesome-design-md-lab/VALIDATION.md) | [设计契约](./awesome-design-md-lab/DESIGN_CONTRACT.md) · [上游快照](./awesome-design-md-lab/UPSTREAM.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) |
 | 研究展厅与部署 | [设计说明](./docs/research-pages/DESIGN_CONTRACT.md) | [验证记录](./docs/research-pages/VALIDATION.md) | [`research-projects.json`](./research-projects.json) | [研究展厅](https://yydshly.github.io/0801_githubcode_study/) |
