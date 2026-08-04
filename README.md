@@ -4,6 +4,7 @@
 
 - **[访问在线研究展厅](https://yydshly.github.io/0801_githubcode_study/)**
 - [查看 GitHub 仓库](https://github.com/yydshly/0801_githubcode_study)
+- [阅读 URL → 网页复刻工具研究记录](./URL_TO_CODE_RESEARCH.md)
 
 ## 正式研究项目
 
