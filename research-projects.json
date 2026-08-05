@@ -119,6 +119,33 @@
       "tags": ["DESIGN.md", "Refero", "Design Research", "AI Agents", "Frontend"],
       "publish": ["index.html", "styles.css", "app.js", "assets", "README.md", "ARCHIVE.md", "DESIGN_CONTRACT.md", "UPSTREAM.md", "VALIDATION.md"],
       "docs": "awesome-design-md-lab/README.md"
+    },
+    {
+      "id": "08",
+      "name": "Infinite Build 与《孤潮余生》",
+      "slug": "infinite-build-lab",
+      "directory": "research-todos/infinite-build-game-research/infinite-build-lab",
+      "type": "static",
+      "enabled": true,
+      "status": "研究待办 · 暂缓",
+      "summary": "研究 Codex 长期游戏开发工作流，并以“雾中灯塔”和《孤潮余生》验证从检查点循环到写实游戏生产之间的真实边界。",
+      "tags": ["Codex", "Game Workflow", "Survival Game", "Research Archive"],
+      "publish": ["index.html", "styles.css", "game-core.js", "app.js", "README.md", "CAPABILITY_MAP_ZH.md", "EXPERIMENT_PLAN.md", "ROADMAP.md", "CHANGELOG.md", "VALIDATION.md"],
+      "docs": "research-todos/infinite-build-game-research/README.md"
+    },
+    {
+      "id": "08-case",
+      "name": "孤潮余生（Research 08 关联演示）",
+      "slug": "castaway-island-survival",
+      "directory": "research-todos/infinite-build-game-research/castaway-island-survival",
+      "type": "vite",
+      "output": "dist",
+      "enabled": true,
+      "listed": false,
+      "status": "Research 08 关联演示 · 已归档",
+      "summary": "第八个研究子项目内部的荒岛生存案例，保留项目蓝图与 Day Two Recon V1.2 可玩原型。",
+      "tags": ["Survival Game", "Three.js", "Rigged Character", "Dynamic Ocean"],
+      "docs": "research-todos/infinite-build-game-research/castaway-island-survival/README.md"
     }
   ]
 }

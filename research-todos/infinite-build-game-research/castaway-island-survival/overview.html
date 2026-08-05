@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#071819" />
+    <meta
+      name="description"
+      content="《孤潮余生》项目蓝图：从客货船海难前情进入可信孤岛生存，理解陌生体验、世界系统、南部海湾切片与开发路线。"
+    />
+    <title>孤潮余生 · 项目蓝图</title>
+    <script>document.documentElement.classList.add('js')</script>
+    <link rel="stylesheet" href="/src/overview.css" />
+  </head>
+  <body>
+    <div class="reading-progress" aria-hidden="true"><i id="reading-progress-bar"></i></div>
+
+    <header class="site-header">
+      <a class="brand" href="#vision" aria-label="返回项目蓝图顶部">
+        <span>08 · CASE</span>
+        <div><strong>孤潮余生</strong><small>CASTAWAY · PROJECT BLUEPRINT</small></div>
+      </a>
+      <nav class="section-nav" aria-label="项目蓝图章节">
+        <a href="#prologue">海难前情</a>
+        <a href="#unfamiliar">陌生体验</a>
+        <a href="#systems">核心系统</a>
+        <a href="#slice">南部海湾</a>
+        <a href="#documents">设计文档</a>
+        <a href="../infinite-build-lab/">Research 08</a>
+      </nav>
+      <a class="play-link" href="./">体验当前原型 <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section id="vision" class="hero section-shell">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span></span> RESEARCH 08 · 关联案例 · 研究待办归档</p>
+          <h1>把现实世界<br />转化成一个<br /><em>能够被理解和改变</em><br />的生存世界。</h1>
+          <p class="hero-lede">
+            一艘偏远群岛客货船在风暴中失去动力并撞上外海礁带。主角穿着救生衣漂流一夜，
+            清晨独自被冲上陌生海岛；他不知道其他人是否生还、求救是否成功，也不知道自己漂了多远。
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#prologue">了解海难前情</a>
+            <a class="secondary-action" href="./">进入 V1.2 原型</a>
+          </div>
+          <dl class="hero-facts" aria-label="项目关键信息">
+            <div><dt>当前状态</dt><dd>研究待办归档</dd></div>
+            <div><dt>首个目标</dt><dd>南部海湾技术切片</dd></div>
+            <div><dt>核心标准</dt><dd>真实 · 陌生 · 可推理</dd></div>
+          </dl>
+        </div>
+
+        <figure class="hero-visual reveal">
+          <img src="/assets/concepts/four-stage-gameplay-direction-v1.png" alt="漂流者从海滩苏醒、探索淡水、暴雨守夜到建立营地的四阶段目标概念图" />
+          <figcaption>
+            <span>目标体验参考</span>
+            这是长期画面与体验方向，不是当前原型截图。
+          </figcaption>
+          <div class="visual-index" aria-hidden="true"><b>01</b><span>抵达</span><b>02</b><span>观察</span><b>03</b><span>抵抗</span><b>04</b><span>扎根</span></div>
+        </figure>
+      </section>
+
+      <section id="prologue" class="content-section prologue-section">
+        <div class="section-shell">
+          <header class="section-heading reveal">
+            <p class="section-number">01 · SHIPWRECK PROLOGUE</p>
+            <h2>先经历失去，<br />再面对一座未知岛屿</h2>
+            <p>主角不是凭空刷新在海滩。正常航程、风暴增强、机械失效、礁带撞击和洋流漂移共同把一个普通人送到岛上。</p>
+          </header>
+
+          <dl class="prologue-facts reveal" aria-label="海难故事基本事实">
+            <div><dt>船只</dt><dd>地区性客货船“远汐号”</dd></div>
+            <div><dt>海域</dt><dd>偏远火山群岛外围航线</dd></div>
+            <div><dt>事故</dt><dd>风暴 · 失去动力 · 外海礁带</dd></div>
+            <div><dt>上岸事实</dt><dd>独自抵达，不等于唯一幸存</dd></div>
+          </dl>
+
+          <ol class="shipwreck-timeline reveal" aria-label="海难五段时间线">
+            <li>
+              <header><span>01</span><b>出港</b></header>
+              <h3>普通航程</h3>
+              <p>乘客找座位，船员固定货物，港口灯逐渐远离。先建立可以失去的正常生活。</p>
+              <em>状态：生活仍有秩序</em>
+            </li>
+            <li>
+              <header><span>02</span><b>风暴逼近</b></header>
+              <h3>窗口收紧</h3>
+              <p>云墙、气压、浪型和广播连续变化。船长调整航线寻找背风水域，而不是在晴空中突然遇险。</p>
+              <em>状态：危险已有预兆</em>
+            </li>
+            <li>
+              <header><span>03</span><b>系统受损</b></header>
+              <h3>失去航向</h3>
+              <p>推进、舵机、供电或天线相继受损。船员尝试求救，但主角无法确认位置是否完整发出。</p>
+              <em>状态：位置开始不确定</em>
+            </li>
+            <li>
+              <header><span>04</span><b>撞击</b></header>
+              <h3>与船分离</h3>
+              <p>船体撞上外海礁带。主角穿着救生衣被横浪带离集合区，抓住漂浮残骸度过夜晚。</p>
+              <em>状态：与其他人失去联系</em>
+            </li>
+            <li>
+              <header><span>05</span><b>清晨</b></header>
+              <h3>独自上岸</h3>
+              <p>风、浪和岛屿背风岸形把主角推入南部海湾。海滩求生从事故状态直接开始。</p>
+              <em>状态：开放生存接管叙事</em>
+            </li>
+          </ol>
+
+          <div class="prologue-questions reveal">
+            <header><span>故事不会立即回答</span><h3>三个问题持续推动探索</h3></header>
+            <article><b>01</b><h4>还有其他幸存者吗？</h4><p>脚印、救生衣碎片、包装、远处火光或岛屿另一侧的痕迹，需要判断来源与时间。</p></article>
+            <article><b>02</b><h4>求救信号发出去了吗？</h4><p>船载设备残片、高地观察、收音机和远处搜索活动，逐步补全最后通信发生了什么。</p></article>
+            <article><b>03</b><h4>我究竟漂了多远？</h4><p>手机时间、太阳、风流、票据、货物标签和高地视野只提供部分定位证据。</p></article>
+          </div>
+
+          <aside class="rescue-logic reveal">
+            <span>现实约束</span>
+            <div><h3>救援会存在，只是暂时找不到这里</h3><p>风暴限制搜索窗口；最后确认位置早于失控漂移；船体、救生筏、示位设备与主角被不同风流带开。玩家建立烟火、反光标记、无线电和高地观察点，必须真实改变被发现的可能。</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="project-thesis section-shell reveal" aria-label="项目核心命题">
+        <p>项目核心命题</p>
+        <blockquote>世界不是任务的背景，而是一个暂时无法读懂、却能通过证据逐步理解并承担后果的系统。</blockquote>
+        <div class="thesis-loop" aria-label="核心游玩循环">
+          <span>观察</span><i>→</i><span>判断</span><i>→</i><span>行动</span><i>→</i><span>后果</span><i>→</i><span>学习</span>
+        </div>
+      </section>
+
+      <section id="unfamiliar" class="content-section unfamiliar-section">
+        <div class="section-shell">
+          <header class="section-heading reveal">
+            <p class="section-number">02 · THE UNFAMILIAR ISLAND</p>
+            <h2>陌生感来自“不知道”，探索欲来自“可以知道”</h2>
+            <p>真实漂流者不会落地就开始砍树制作。人会先逃离浪区、确认伤势、寻找他人和判断天黑前的威胁；只有安全感稍微恢复，好奇心才有空间出现。</p>
+          </header>
+
+          <div class="emotion-curve reveal" aria-label="漂流者情绪变化">
+            <article class="emotion-phase phase-shock">
+              <header><span>00–03 MIN</span><b>高压</b></header>
+              <h3>休克与失序</h3>
+              <p>耳鸣、疼痛、湿冷和破碎记忆让注意力变窄。人物先离开浪区、检查身体，并本能地寻找其他幸存者。</p>
+              <em>心里在问：我受伤了吗？下一波浪会不会更高？</em>
+            </article>
+            <article class="emotion-phase phase-orient">
+              <header><span>03–10 MIN</span><b>警惕</b></header>
+              <h3>定向与保命</h3>
+              <p>确认海岸、太阳、潮线、高地和可疑声响。水、遮蔽、伤势与天黑时间，比收集大量材料更重要。</p>
+              <em>心里在问：这里多大？淡水在哪里？夜里安全吗？</em>
+            </article>
+            <article class="emotion-phase phase-curious">
+              <header><span>安全稍稳后</span><b>拉扯</b></header>
+              <h3>谨慎好奇</h3>
+              <p>海鸟突然聚集、林内传来流水声、退潮露出新路线。每个诱因都值得靠近，也都可能消耗返回营地的时间。</p>
+              <em>心里在问：那是什么？我现在有能力过去吗？</em>
+            </article>
+            <article class="emotion-phase phase-agency">
+              <header><span>知识累积后</span><b>能动</b></header>
+              <h3>理解与敬畏</h3>
+              <p>熟悉不等于失去新鲜感。玩家开始预测潮汐和天气，却会因新的区域、季节变化与意外后果重新感到不安。</p>
+              <em>心里在问：我能利用这个规律，走得更远吗？</em>
+            </article>
+          </div>
+
+          <div class="unfamiliar-model reveal">
+            <section class="discovery-grammar">
+              <header><span>探索语法</span><h3>未知必须经历一次可推理的验证</h3></header>
+              <ol>
+                <li><span>01</span><div><strong>出现异常线索</strong><p>陌生叫声、足迹、烟雾、反光、鸟群或不寻常的植被边界。</p></div></li>
+                <li><span>02</span><div><strong>形成暂时假设</strong><p>可能有淡水、食物、危险、旧营地，或者只是天气造成的错觉。</p></div></li>
+                <li><span>03</span><div><strong>评估并准备</strong><p>查看潮位、天气、身体、工具、路程和返回时间，决定现在靠近还是留下标记。</p></div></li>
+                <li><span>04</span><div><strong>接近并承担后果</strong><p>发现可能带来资源、知识、伤势、路线中断，也可能证明原先判断不完整。</p></div></li>
+                <li><span>05</span><div><strong>知识留在世界中</strong><p>地图注记、人物经验、营地准备和未来决策发生改变，未知成为能力而非一次性奖励。</p></div></li>
+              </ol>
+            </section>
+
+            <aside class="generation-boundary">
+              <span>不是随机猎奇</span>
+              <h3>固定真实骨架，生成变化条件</h3>
+              <p>山脉、水系、海岸、土壤与栖息地保持地理一致；新鲜感来自同一地点在不同时间呈现不同机会和危险。</p>
+              <ul>
+                <li><b>固定：</b>地貌、水路、气候带、生态关系与主要地标。</li>
+                <li><b>变化：</b>潮位、天气窗口、生物活动、漂流物、足迹与条件事件。</li>
+                <li><b>约束：</b>每次生成都有地点、时间、原因、预兆和持续期。</li>
+                <li><b>禁止：</b>无因跳脸、跨气候乱放生物、为了惊吓临时改变物理规则。</li>
+              </ul>
+            </aside>
+          </div>
+
+          <div class="risk-spectrum reveal" aria-label="真实风险层次">
+            <article><span>01 · 即时风险</span><h3>看得见</h3><p>浪区、坠落、伤口、深水和不稳定岩面。危险强烈，但应当能被迅速辨认和回避。</p></article>
+            <article><span>02 · 累积风险</span><h3>感觉得到</h3><p>脱水、失温、疲劳、感染和食物问题，通过口渴、动作、皮肤、呼吸和意识变化逐步预警。</p></article>
+            <article><span>03 · 路线风险</span><h3>推算得出</h3><p>涨潮封路、暴雨截断返程、天黑迷失和负重过大，来自玩家对时间与距离的判断。</p></article>
+            <article><span>04 · 情绪风险</span><h3>反复拉扯</h3><p>孤独、未知夜声、疑似救援信号和营地依恋改变决定，但不变成一条需要机械照料的“理智值”。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture" class="content-section section-shell">
+        <header class="section-heading reveal">
+          <p class="section-number">03 · WORLD ARCHITECTURE</p>
+          <h2>一个世界，两套工程</h2>
+          <p>系统构建决定世界内部发生什么；系统呈现把内部变化翻译成玩家能看见、听见和感受到的证据。</p>
+        </header>
+
+        <div class="architecture-grid reveal">
+          <article class="architecture-card simulation-card">
+            <div class="card-kicker"><span>内部真相</span><b>SIMULATION</b></div>
+            <h3>世界运行层</h3>
+            <p>保存世界状态，执行自然规则，让地理、天气、生态、资源与人物持续发生联系。</p>
+            <ul>
+              <li><span>对象</span>玩家、海洋、区域、植物、动物、火堆</li>
+              <li><span>状态</span>水深、湿度、风速、体温、燃料、数量</li>
+              <li><span>规则</span>状态如何随时间和互动改变</li>
+              <li><span>联系</span>一个变化如何影响其他系统</li>
+            </ul>
+          </article>
+
+          <div class="translation-core" aria-label="状态到感知的翻译关系">
+            <div><span>STATE</span><strong>世界状态</strong></div>
+            <i aria-hidden="true">⇄</i>
+            <div><span>EVIDENCE</span><strong>玩家证据</strong></div>
+            <p>同一个事实，必须同时拥有内部数值和外部表现。</p>
+          </div>
+
+          <article class="architecture-card presentation-card">
+            <div class="card-kicker"><span>感官证据</span><b>PRESENTATION</b></div>
+            <h3>世界表现层</h3>
+            <p>把不可见的状态转换成画面、声音、动作和操作反馈，让玩家不依赖数字也能判断环境。</p>
+            <ul>
+              <li><span>画面</span>地形、材质、光照、天气、粒子</li>
+              <li><span>声音</span>海浪、风雨、动物、脚步、呼吸</li>
+              <li><span>动作</span>逆风、疲劳、寒冷、涉水、受伤</li>
+              <li><span>反馈</span>脚印、湿沙、积水、火焰与界面提示</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="storm-example reveal">
+          <div class="storm-title">
+            <span>联动样例 / 一场热带暴雨</span>
+            <strong>降雨不是特效，而是一条因果链</strong>
+          </div>
+          <div class="cause-chain" aria-label="暴雨系统因果链">
+            <div><small>01</small><b>风压下降</b><span>云量、风速和浪高改变</span></div>
+            <i>→</i>
+            <div><small>02</small><b>环境变湿</b><span>木材、人物和地面吸水</span></div>
+            <i>→</i>
+            <div><small>03</small><b>营火受损</b><span>热量下降，烟雾增加</span></div>
+            <i>→</i>
+            <div><small>04</small><b>玩家决策</b><span>保护火种或收集雨水</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="systems" class="content-section systems-section">
+        <div class="section-shell">
+          <header class="section-heading light-heading reveal">
+            <p class="section-number">04 · SYSTEM ATLAS</p>
+            <h2>七个核心系统，共同构成一座岛</h2>
+            <p>选择任一系统，查看它在内部保存什么、遵循什么规则、如何呈现，以及我们用什么证据判断它已经成立。</p>
+          </header>
+
+          <div class="system-explorer reveal">
+            <div class="system-tabs" role="tablist" aria-label="选择世界系统">
+              <button role="tab" aria-selected="true" aria-controls="system-panel" data-system="geography"><span>01</span>地理</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" data-system="climate"><span>02</span>气候</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" data-system="physics"><span>03</span>海洋与物理</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" data-system="ecology"><span>04</span>生态</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" data-system="player"><span>05</span>人物生存</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" data-system="resources"><span>06</span>资源与营地</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" data-system="events"><span>07</span>事件与叙事</button>
+            </div>
+
+            <article id="system-panel" class="system-panel" role="tabpanel" tabindex="0" aria-live="polite">
+              <header>
+                <p id="system-index">SYSTEM 01 / WORLD FOUNDATION</p>
+                <h3 id="system-title">地理系统</h3>
+                <p id="system-summary">高度、坡度、水流、海岸和土壤决定资源在哪里、路线如何形成，也是生态与天气落地的基础。</p>
+              </header>
+              <div class="system-details">
+                <section><span>内部状态</span><p id="system-state">高度、坡度、朝向、水深、土壤、淡水距离、风浪暴露度。</p></section>
+                <section><span>运行规则</span><p id="system-rule">水从高处汇入低谷；海浪塑造岩岸与沙湾；坡度和土壤约束植物分布。</p></section>
+                <section><span>玩家感知</span><p id="system-presentation">山体轮廓、溪流方向、湿润植物、潮线、岩层和远处地标共同说明路线。</p></section>
+                <section><span>成立证据</span><p id="system-evidence">玩家不看箭头，也能从海滩找到淡水、判断高地并解释资源为何出现在这里。</p></section>
+              </div>
+              <footer>
+                <span>直接连接</span>
+                <div id="system-connections"><b>气候</b><b>生态</b><b>资源</b><b>探索路线</b></div>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section section-shell reality-section">
+        <header class="section-heading reveal">
+          <p class="section-number">05 · REALITY TO GAME</p>
+          <h2>现实不是被复制，而是被选择、抽象和验证</h2>
+          <p>我们只模拟会影响玩家理解与决定的部分。其余复杂性由美术、声音和精心设计的近似结果承担。</p>
+        </header>
+        <ol class="reality-pipeline reveal">
+          <li><span>01</span><div><strong>观察现实</strong><p>收集真实区域的地形、天气、物种与人的行为参考。</p></div></li>
+          <li><span>02</span><div><strong>选择变量</strong><p>只保留会改变路线、风险、资源或判断的信息。</p></div></li>
+          <li><span>03</span><div><strong>建立模型</strong><p>把现象转成有限状态、数值、区域和时间规则。</p></div></li>
+          <li><span>04</span><div><strong>连接系统</strong><p>让一个变化通过明确接口影响其他世界系统。</p></div></li>
+          <li><span>05</span><div><strong>翻译感知</strong><p>使用画面、声音、动作和反馈表现内部状态。</p></div></li>
+          <li><span>06</span><div><strong>玩家验证</strong><p>确认玩家能看懂、能预测，并愿意据此行动。</p></div></li>
+        </ol>
+
+        <div class="reality-boundary reveal">
+          <div><span>必须可信</span><p>比例、地理关系、碰撞、材料、光照、运动方向、交互后果。</p></div>
+          <div><span>允许近似</span><p>海浪流体、植物生长、动物远距离活动、风场和火焰燃烧。</p></div>
+          <div><span>服务节奏</span><p>制作时间、背包容量、饥饿速度、采集次数和资源恢复周期。</p></div>
+        </div>
+      </section>
+
+      <section id="slice" class="content-section slice-section">
+        <div class="section-shell">
+          <header class="section-heading light-heading reveal">
+            <p class="section-number">06 · SOUTH BAY TECHNICAL SLICE</p>
+            <h2>先让 150 × 150 米的海湾真实运转</h2>
+            <p>完整岛屿暂不展开。第一阶段只证明一个小区域能同时承载地理、海洋、天气、人物和生存因果。</p>
+          </header>
+
+          <div class="slice-layout reveal">
+            <figure class="bay-map">
+              <svg viewBox="0 0 720 620" role="img" aria-labelledby="bay-map-title bay-map-desc">
+                <title id="bay-map-title">南部海湾技术切片示意图</title>
+                <desc id="bay-map-desc">从南侧漂流海滩经过潮池和林缘抵达淡水溪口，再选择高地营地的探索路线。</desc>
+                <defs>
+                  <linearGradient id="sea" x1="0" x2="1" y1="1" y2="0"><stop stop-color="#0a5558"/><stop offset="1" stop-color="#10363a"/></linearGradient>
+                  <linearGradient id="land" x1="0" x2="1"><stop stop-color="#b6aa79"/><stop offset=".36" stop-color="#577258"/><stop offset="1" stop-color="#1e473d"/></linearGradient>
+                  <filter id="soft"><feGaussianBlur stdDeviation="7"/></filter>
+                </defs>
+                <path class="map-sea" d="M0 0h720v620H0z" fill="url(#sea)"/>
+                <path class="map-foam" d="M42 512c94-83 153-47 233-113 71-58 76-166 164-197 79-28 157 22 281-62" fill="none" stroke="#a6d6cf" stroke-width="22" opacity=".18" filter="url(#soft)"/>
+                <path class="map-land" d="M-20 566c104-110 188-75 270-156 80-79 70-180 172-229 90-43 175 10 318-72V-30H-20z" fill="url(#land)"/>
+                <path class="map-shore" d="M-4 549c106-98 181-66 264-146 74-72 72-174 170-214 89-37 170 13 295-67" fill="none" stroke="#e4dfbc" stroke-width="16" opacity=".92"/>
+                <path class="map-creek" d="M300 0c7 76 35 112 63 164 25 48 22 98-18 158-21 32-42 60-45 94" fill="none" stroke="#76c9be" stroke-width="12" opacity=".8"/>
+                <path class="map-route" d="M102 494c72-52 111-27 170-77 39-33 43-76 79-105 39-31 88-32 141-75" fill="none" stroke="#f2b866" stroke-width="5" stroke-dasharray="12 11"/>
+                <g class="map-point"><circle cx="102" cy="494" r="16"/><text x="126" y="485">漂流海滩</text><text class="minor" x="126" y="507">抵达与潮线观察</text></g>
+                <g class="map-point"><circle cx="270" cy="416" r="16"/><text x="294" y="407">浅海潮池</text><text class="minor" x="294" y="429">贝类、鱼群与潮汐</text></g>
+                <g class="map-point"><circle cx="352" cy="310" r="16"/><text x="376" y="301">淡水溪口</text><text class="minor" x="376" y="323">饮水与动物踪迹</text></g>
+                <g class="map-point"><circle cx="492" cy="237" r="16"/><text x="516" y="228">林缘高地</text><text class="minor" x="516" y="250">营地与避雨测试</text></g>
+                <text class="map-label" x="64" y="118">沿岸林带</text>
+                <text class="map-label" x="480" y="85">岛内高地</text>
+                <text class="map-label water-label" x="445" y="520">南部海湾</text>
+                <path d="M625 559v-48m0 0-10 18m10-18 10 18" stroke="#edf5e9" stroke-width="3"/><text class="north-label" x="616" y="584">N</text>
+              </svg>
+              <figcaption>概念地理示意 · 最终尺寸与地形必须通过人物尺度、坡度和行走时间复核。</figcaption>
+            </figure>
+
+            <div class="slice-brief">
+              <div class="slice-metric"><span>目标时长</span><strong>12–20 分钟</strong><p>只验证一条可重复的生存因果链。</p></div>
+              <div class="slice-metric"><span>包含区域</span><strong>5 个</strong><p>海滩、浅海、潮池、溪口、林缘高地。</p></div>
+              <div class="slice-metric"><span>首批生物</span><strong>3 类</strong><p>小型鱼群、岸蟹、海鸟，各自提供环境线索。</p></div>
+              <div class="slice-metric"><span>天气事件</span><strong>1 场</strong><p>从平静到暴雨，再到雨后清晨。</p></div>
+
+              <section class="slice-test">
+                <h3>这个切片必须证明什么？</h3>
+                <ul>
+                  <li>不用悬浮箭头，也能沿地势和生态线索找到淡水。</li>
+                  <li>人物不能穿越岩石，坡度、涉水和地面接触可信。</li>
+                  <li>同一场雨同时改变海面、地面、人物、火堆与资源。</li>
+                  <li>玩家能通过环境变化预判风险，而不是事后读提示。</li>
+                  <li>当前机器上画面和操作达到明确的性能预算。</li>
+                </ul>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap" class="content-section section-shell roadmap-section">
+        <header class="section-heading reveal">
+          <p class="section-number">07 · DELIVERY ROADMAP</p>
+          <h2>用阶段门控制复杂度，而不是一次建完整座岛</h2>
+          <p>每一阶段都必须交付可观察证据。前一阶段没有成立，就不扩张地图、物种和配方数量。</p>
+        </header>
+
+        <div class="roadmap reveal">
+          <article class="active"><span>阶段 0 · 当前</span><h3>世界蓝图</h3><p>统一海难前情、陌生体验、系统边界、技术方向与验收语言。</p><b>交付：网页蓝图 + 设计文档</b></article>
+          <article><span>阶段 1</span><h3>技术切片</h3><p>完成 150 × 150 米海湾、人物、碰撞、海水、光照与天气基线。</p><b>门槛：地理和运动可信</b></article>
+          <article><span>阶段 2</span><h3>生存闭环</h3><p>接入可操作海难前情、淡水、火、体温、采集、营地和一场暴雨。</p><b>门槛：故事与因果链连续</b></article>
+          <article><span>阶段 3</span><h3>活的生态</h3><p>加入鱼、蟹、海鸟的栖息地、时段、天气和玩家反应。</p><b>门槛：生物属于环境</b></article>
+          <article><span>阶段 4</span><h3>内容扩张</h3><p>通过验证后再扩展森林、高地、洞穴、远海与长期建造。</p><b>门槛：生产管线稳定</b></article>
+        </div>
+
+        <div class="decision-gates reveal">
+          <header><span>三项关键决策</span><p>本轮不提前假装这些问题已经确定。</p></header>
+          <div><b>引擎</b><p>用同一切片比较浏览器路线与 Unreal 路线的画质、效率和成本。</p></div>
+          <div><b>写实程度</b><p>以真实比例和自然规律为底线，再确定风格化程度与设备范围。</p></div>
+          <div><b>资产投入</b><p>主角、地形、植被和动物只在规格与授权明确后购买或制作。</p></div>
+        </div>
+      </section>
+
+      <section id="documents" class="content-section documents-section">
+        <div class="section-shell">
+          <header class="section-heading light-heading reveal">
+            <p class="section-number">08 · LIVING DOCUMENTATION</p>
+            <h2>网页负责理解，文档负责持续开发</h2>
+            <p>网页是项目总地图；Markdown 是可追踪、可修改、可验证的正式设计依据。</p>
+          </header>
+
+          <div class="document-grid reveal" aria-label="Markdown 文档地图">
+            <article><span>01</span><div><strong>游戏愿景</strong><p>项目为什么存在，以及明确不做什么。</p><code>docs/01_GAME_VISION.md</code></div></article>
+            <article><span>02</span><div><strong>玩家体验</strong><p>玩家如何从无助走向理解和独立。</p><code>docs/02_PLAYER_EXPERIENCE.md</code></div></article>
+            <article><span>03</span><div><strong>世界系统</strong><p>地理、气候、物理、生态等如何联动。</p><code>docs/03_WORLD_SYSTEMS.md</code></div></article>
+            <article><span>04</span><div><strong>世界呈现</strong><p>内部状态怎样转成画面、声音和动作。</p><code>docs/04_WORLD_PRESENTATION.md</code></div></article>
+            <article><span>05</span><div><strong>南部海湾切片</strong><p>第一块高质量区域的范围与验收。</p><code>docs/05_SOUTH_BAY_SLICE.md</code></div></article>
+            <article><span>06</span><div><strong>技术架构</strong><p>运行层、表现层、数据和存档边界。</p><code>docs/06_TECHNICAL_ARCHITECTURE.md</code></div></article>
+            <article><span>07</span><div><strong>开发路线</strong><p>阶段门、风险、投入与停止条件。</p><code>docs/07_DEVELOPMENT_ROADMAP.md</code></div></article>
+            <article><span>08</span><div><strong>海难前情</strong><p>客货船如何失事、为何独自上岸、悬念如何衔接探索。</p><code>docs/08_SHIPWRECK_PROLOGUE.md</code></div></article>
+            <article><span>INDEX</span><div><strong>文档总目录</strong><p>阅读顺序、文档状态和维护规则。</p><code>docs/README.md</code></div></article>
+          </div>
+
+          <div class="next-step reveal">
+            <div><span>NEXT MILESTONE</span><h3>南部海湾技术切片</h3></div>
+            <p>下一轮先确定参考岛屿、目标设备和引擎比较方法，再进入真正的地形、人物、碰撞和海水制作。</p>
+            <a href="/">查看当前原型</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer section-shell">
+      <div><strong>孤潮余生</strong><span>CASTAWAY · RESEARCH 08A</span></div>
+      <p>从网页原型进入正式游戏研发之前，我们先把世界讲清楚。</p>
+      <a href="#vision">返回顶部 ↑</a>
+    </footer>
+
+    <script type="module" src="/src/overview.js"></script>
+  </body>
+</html>

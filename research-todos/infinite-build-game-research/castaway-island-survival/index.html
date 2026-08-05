@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#173c45" />
+    <meta name="description" content="孤潮余生：从可信地理、动态海洋与基础生态开始的 3D 荒岛生存研究原型。" />
+    <title>孤潮余生 · 南部海湾</title>
+  </head>
+  <body>
+    <main id="game-shell">
+      <canvas id="game-canvas" aria-label="孤潮余生 3D 游戏世界"></canvas>
+      <div class="film-grain" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <section id="start-screen" class="start-screen">
+        <div class="start-gradient"></div>
+        <header class="start-topbar">
+          <a class="project-mark" href="overview.html" aria-label="查看孤潮余生项目蓝图">
+            <span class="mark-symbol">08 · CASE</span>
+            <span><strong>孤潮余生</strong><small>CASTAWAY / SOUTH BAY</small></span>
+          </a>
+          <span class="prototype-badge"><i></i> 研究待办归档 · V1.2</span>
+        </header>
+        <div class="start-copy">
+          <p class="eyebrow">DAY ONE · 16:35 · TRADE WIND CLEARING</p>
+          <h1>潮水把你留在这里，<br /><em>岛屿不会主动解释自己。</em></h1>
+          <p class="intro">你只有潮线上的残骸、陌生的地势与不到半壶水。读懂海湾，找到淡水，制作工具，搭起避雨棚，再从潟湖带回第一顿食物。</p>
+          <div class="start-proof">
+            <span>完整骨骼人物与 25 段动作</span>
+            <span>石斧、棚屋与原子制作</span>
+            <span>降雨湿度、营火与潟湖捕鱼</span>
+          </div>
+          <div class="loading-track"><i id="loading-bar"></i></div>
+          <p id="loading-text" class="loading-text">准备海湾地理与人物资源…</p>
+          <p id="save-note" class="save-note" hidden></p>
+          <p id="loading-error" class="loading-error" hidden>若你正在直接双击 HTML，请改用项目运行地址。</p>
+          <button id="start-button" class="start-button" disabled>正在进入世界…</button>
+          <p class="controls-preview">WASD 移动 · Shift 奔跑 · E 互动 · I 背包制作 · 拖动视角</p>
+        </div>
+        <div class="start-location">
+          <span>07°18′S</span><strong>无名岛 · 南部海湾</strong><small>距已知航线约 640 公里</small>
+        </div>
+      </section>
+
+      <section id="hud" class="hud" aria-label="游戏信息">
+        <header class="hud-topbar">
+          <div class="location-panel glass-panel">
+            <span class="compass">N</span>
+            <div><small>当前位置</small><strong id="zone-name">南湾漂流岸</strong></div>
+            <i></i>
+            <div><small id="day-label">第一日</small><strong id="day-time">16:35</strong></div>
+            <i></i>
+            <div><small>天气</small><strong id="weather-name">晴朗信风</strong></div>
+          </div>
+          <div class="top-actions">
+            <button id="inventory-button" class="glass-button inventory-button" aria-expanded="false" aria-controls="inventory-drawer">背包与制作 <b id="inventory-total">0</b></button>
+            <button id="sound-toggle" class="glass-button sound-button" aria-pressed="true">声音：开</button>
+            <button id="weather-toggle" class="glass-button">观察阵雨</button>
+            <button id="help-button" class="round-button" aria-label="打开实地笔记">?</button>
+          </div>
+        </header>
+
+        <aside class="objective-card glass-panel">
+          <div class="objective-head">
+            <span id="objective-step">第一日 · 1/7</span>
+            <strong id="objective-distance">— m</strong>
+          </div>
+          <h2 id="objective-title">寻找可以饮用的淡水</h2>
+          <p id="objective-detail">观察地势，沿棕榈林边缘寻找从高处流下的溪流。</p>
+          <span id="objective-progress" class="objective-progress"></span>
+          <button id="night-button" class="night-button" hidden>进入第一夜</button>
+          <button id="day-two-button" class="night-button" hidden>开始第二日侦察</button>
+        </aside>
+
+        <aside class="survival-panel glass-panel">
+          <div class="vital">
+            <span class="vital-icon water-icon">◆</span>
+            <div><small>水分</small><strong><b id="water-value">46</b>%</strong><i><em id="water-fill"></em></i></div>
+          </div>
+          <div class="vital">
+            <span class="vital-icon energy-icon">ϟ</span>
+            <div><small>体力</small><strong><b id="energy-value">71</b>%</strong><i><em id="energy-fill"></em></i></div>
+          </div>
+          <div class="vital wetness-vital">
+            <span class="vital-icon wetness-icon">≈</span>
+            <div><small>湿度</small><strong><b id="wetness-value">8</b>%</strong><i><em id="wetness-fill"></em></i></div>
+          </div>
+          <div class="vital fuel-vital">
+            <span class="vital-icon fuel-icon">♨</span>
+            <div><small>营火燃料</small><strong><b id="fuel-value">0</b>%</strong><i><em id="fuel-fill"></em></i></div>
+          </div>
+          <div class="vital fullness-vital">
+            <span class="vital-icon fullness-icon">●</span>
+            <div><small>饱食</small><strong><b id="fullness-value">62</b>%</strong><i><em id="fullness-fill"></em></i></div>
+          </div>
+          <div class="resources">
+            <span><i class="wood-swatch"></i>木料 <b id="wood-count">0</b></span>
+            <span><i class="stone-swatch"></i>石块 <b id="stone-count">0</b></span>
+            <span><i class="tool-swatch"></i>工具 <b id="tool-name">无</b></span>
+          </div>
+        </aside>
+
+        <aside id="inventory-drawer" class="inventory-drawer glass-panel" aria-label="背包与制作" aria-hidden="true">
+          <header>
+            <div><small>PACK / CRAFT</small><h2>背包与制作</h2></div>
+            <button id="close-inventory" aria-label="关闭背包">×</button>
+          </header>
+          <p class="inventory-hint">材料会真实扣除；条件不足时不会损失任何物品。</p>
+          <div id="inventory-grid" class="inventory-grid" aria-live="polite"></div>
+          <section class="recipe-card">
+            <div class="recipe-copy"><span class="item-symbol">⌁</span><div><strong>石斧</strong><small>1 木料 + 2 石块</small></div></div>
+            <button id="craft-axe-button" data-testid="craft-stone-axe">制作并装备</button>
+          </section>
+          <section class="recipe-card food-card">
+            <div class="recipe-copy"><span class="item-symbol">◀</span><div><strong>烤熟的鱼</strong><small>恢复饱食，食用后扣除 1 份</small></div></div>
+            <button id="eat-fish-button" data-testid="eat-cooked-fish">食用</button>
+          </section>
+          <p id="craft-status" class="craft-status" role="status">先在潮线和岩岬收集材料。</p>
+        </aside>
+
+        <aside class="minimap glass-panel" aria-label="南部海湾简图">
+          <div class="map-island"><i class="map-lagoon"></i><i class="map-creek"></i></div>
+          <span class="map-north">N</span>
+          <i id="map-target" class="map-target"></i>
+          <i id="map-player" class="map-player"></i>
+          <small>南部海湾</small>
+        </aside>
+
+        <div id="interaction-prompt" class="interaction-prompt">
+          <kbd>E</kbd><div><strong>检查并饮用</strong><span>清澈的山泉</span></div>
+        </div>
+
+        <div id="toast" class="toast glass-panel" role="status">
+          <i></i><div><strong></strong><span></span></div>
+        </div>
+
+        <div class="desktop-hint">拖动观察 · WASD 行走 · <kbd>E</kbd> 互动 · <kbd>I</kbd> 背包制作</div>
+
+        <div class="touch-controls" aria-label="触屏游戏控制">
+          <div id="joystick" class="joystick"><i></i><b id="joystick-knob"></b></div>
+          <div class="touch-actions">
+            <button id="run-button" class="run-button">奔跑</button>
+            <button id="action-button" class="action-button">互动</button>
+          </div>
+        </div>
+      </section>
+
+      <aside id="field-notes" class="field-notes" aria-hidden="true">
+        <button id="close-notes" class="close-notes" aria-label="关闭笔记">×</button>
+        <p class="eyebrow">FIELD NOTES / WORLD FOUNDATION</p>
+        <h2>当前版本要验证的，<br />是生存能否打开新的地理。</h2>
+        <div class="notes-grid">
+          <article><span>01 · 地理</span><strong>地形决定资源</strong><p>南湾适合登陆，岛内高处汇集降雨形成溪流，东侧礁体围出浅潟湖，西侧岩岬承受更强海浪。</p></article>
+          <article><span>02 · 生态</span><strong>生物属于环境</strong><p>岸线蟹类沿潮间带活动，礁鱼停留在潟湖，海鸟从高处暴露鱼群，而不是随机散落的装饰。</p></article>
+          <article><span>03 · 探索</span><strong>行动改变世界</strong><p>第一日建立营地，第二日用食物与淡水准备远行；石斧清开倒木，观察缘揭示远海烟柱与逼近的风暴。</p></article>
+        </div>
+        <figure>
+          <img src="/assets/concepts/four-stage-gameplay-direction-v1.png" alt="孤潮余生四阶段概念图" />
+          <figcaption>概念图负责确定长期方向；当前 3D 世界负责验证它能否真实地被操作和理解。</figcaption>
+        </figure>
+        <section class="save-tools">
+          <span>LOCAL CHECKPOINT</span>
+          <strong id="save-status">尚未建立本地检查点</strong>
+          <p>进度只保存在这台设备的当前浏览器，不会上传到网络。</p>
+          <button id="reset-game-button">重新开始第一日</button>
+        </section>
+      </aside>
+
+      <section id="reset-dialog" class="reset-dialog" role="dialog" aria-modal="true" aria-labelledby="reset-title" aria-hidden="true">
+        <div class="reset-card glass-panel">
+          <p class="eyebrow">RESET LOCAL CHECKPOINT</p>
+          <h2 id="reset-title">确定重新开始第一日？</h2>
+          <p>这会清除本项目在当前浏览器中的营地、背包和章节进度，声音偏好会保留。</p>
+          <div><button id="cancel-reset">保留进度</button><button id="confirm-reset">清除并重新开始</button></div>
+        </div>
+      </section>
+
+      <div id="sleep-transition" class="sleep-transition" aria-hidden="true">
+        <span>火光守住了营地</span><strong>第二日 · 05:42</strong>
+      </div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

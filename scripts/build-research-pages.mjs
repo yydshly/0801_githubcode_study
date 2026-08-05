@@ -110,6 +110,7 @@ const templatePath = resolve(workspaceRoot, "research-site", "index.template.htm
 const stylePath = resolve(workspaceRoot, "research-site", "styles.css");
 const config = JSON.parse(await readFile(configPath, "utf8"));
 const projects = config.projects.filter((project) => project.enabled);
+const listedProjects = projects.filter((project) => project.listed !== false);
 
 if (new Set(projects.map((project) => project.slug)).size !== projects.length) {
   throw new Error("Every enabled project must have a unique slug.");
@@ -136,8 +137,8 @@ const portal = template
   .replaceAll("{{SITE_DESCRIPTION}}", escapeHtml(config.siteDescription))
   .replaceAll("{{REPOSITORY_URL}}", escapeHtml(config.repositoryUrl))
   .replaceAll("{{BASE_PATH}}", escapeHtml(basePath))
-  .replaceAll("{{PROJECT_COUNT}}", String(projects.length))
-  .replaceAll("{{PROJECT_CARDS}}", projects.map((project) => renderCard(project, config.repositoryUrl)).join("\n"))
+  .replaceAll("{{PROJECT_COUNT}}", String(listedProjects.length))
+  .replaceAll("{{PROJECT_CARDS}}", listedProjects.map((project) => renderCard(project, config.repositoryUrl)).join("\n"))
   .replaceAll("{{UPDATED_AT}}", new Date().toISOString().slice(0, 10));
 
 await writeFile(resolve(outputRoot, "index.html"), portal, "utf8");
@@ -145,7 +146,7 @@ await copyFile(stylePath, resolve(outputRoot, "styles.css"));
 await writeFile(resolve(outputRoot, ".nojekyll"), "", "utf8");
 await writeFile(
   resolve(outputRoot, "projects.json"),
-  `${JSON.stringify(projects.map(({ directory, output, publish, ...publicProject }) => publicProject), null, 2)}\n`,
+  `${JSON.stringify(listedProjects.map(({ directory, output, publish, listed, ...publicProject }) => publicProject), null, 2)}\n`,
   "utf8",
 );
 
