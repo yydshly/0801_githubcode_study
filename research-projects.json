@@ -109,15 +109,15 @@
     },
     {
       "id": "07",
-      "name": "Awesome DESIGN.md Lab",
+      "name": "DESIGN.md Evidence Lab",
       "slug": "awesome-design-md-lab",
       "directory": "awesome-design-md-lab",
       "type": "static",
       "enabled": true,
-      "status": "资源型子项目",
-      "summary": "用中文整理 VoltAgent/awesome-design-md 的 74 份设计档案、Token 结构与 Agent 使用边界。",
-      "tags": ["DESIGN.md", "Design Systems", "AI Agents", "Frontend"],
-      "publish": ["index.html", "styles.css", "app.js", "README.md", "DESIGN_CONTRACT.md", "UPSTREAM.md", "VALIDATION.md"],
+      "status": "阶段归档",
+      "summary": "关联原始网站与 Refero 公开样例，用六维复核把设计证据翻译成 Token、组件规则和 Agent 实现简报。",
+      "tags": ["DESIGN.md", "Refero", "Design Research", "AI Agents", "Frontend"],
+      "publish": ["index.html", "styles.css", "app.js", "assets", "README.md", "ARCHIVE.md", "DESIGN_CONTRACT.md", "UPSTREAM.md", "VALIDATION.md"],
       "docs": "awesome-design-md-lab/README.md"
     }
   ]

@@ -20,7 +20,7 @@
 | 06 | [Three.js Graphics Agent Skills Lab](./starfield-process-demo/) | [scottstts/Threejs-Awesome-Graphics-Agent-Skills](https://github.com/scottstts/Threejs-Awesome-Graphics-Agent-Skills) | 24 个 Skill 如何约束大模型生成高级 Three.js 代码并进入产品场景 | 完整研究子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-graphics-agent-skills/project.html) | [项目 README](./starfield-process-demo/README.md) |
 | 06A | [Three.js Capability Lab](./threejs-awesome-graphics-agent-skills-demo/) | 项目 06 的前置能力翻译实验 | Skill 如何改善 Glass Worlds 的玻璃球、镜头、共享场和图像管线 | 前置能力实验 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-capability-lab/) | [项目 README](./threejs-awesome-graphics-agent-skills-demo/README.md) |
 | 06B | [Ocean Atlas](./ocean-atlas-product-demo/) | 直接采用上游 `threejs-spectral-ocean` 示例核心 | 如何把真实海洋 Skill 变成可解释的产品研究世界 | Skill 产品验证 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/ocean-atlas/) | [项目 README](./ocean-atlas-product-demo/README.md) |
-| 07 | [Awesome DESIGN.md Lab](./awesome-design-md-lab/) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | 如何把公开网页的视觉规律整理成 Agent 可读取的 DESIGN.md | 资源型子项目 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) | [项目 README](./awesome-design-md-lab/README.md) |
+| 07 | [DESIGN.md Evidence Lab](./awesome-design-md-lab/) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) + [Refero Styles](https://styles.refero.design/) | 如何把原始网页证据复核为可执行的 DESIGN.md 与实现规则 | 阶段归档 | [打开 Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) | [项目 README](./awesome-design-md-lab/README.md) |
 
 “原始项目 / 参考来源”列会明确区分上游代码仓库、公开视觉参考和本仓库原创研究；没有可验证外部仓库的项目不会补写推测性链接。
 
@@ -82,16 +82,17 @@
 
 这是项目 06 的第二阶段产品验证。它不只是按 Skill 思路重新编写效果，而是直接采用上游 `threejs-spectral-ocean` 示例中的5个核心文件，把方向性波谱、GPU FFT/IFFT、解析法线和泡沫历史放进 Ocean Atlas 产品壳层，证明 Skill 示例可以被转化为可观察、可解释的产品体验。
 
-### 子项目 07：Awesome DESIGN.md Lab
+### 子项目 07：DESIGN.md Evidence Lab
 
 **[打开在线演示](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/)** · [进入子项目目录](./awesome-design-md-lab/) · [查看上游快照](./awesome-design-md-lab/UPSTREAM.md) · [查看验证记录](./awesome-design-md-lab/VALIDATION.md)
 
-这个子项目研究 [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) 的真实定位：它不是组件库，也不是自动把网页截图转成 `DESIGN.md` 的运行时工具，而是把公开网页中可观察的视觉规律整理成设计上下文档案，交给人和 Agent 复用。
+这个子项目把 [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)、[Refero Styles](https://styles.refero.design/) 与原始网站放在同一条研究链上：它们不是面向访客的 URL 转换入口，而是公开网页观察、结构化设计判断与 Agent 上下文的样例。研究页再把这些材料复核成可以驱动实现的规则。
 
-- **项目定位**：资源型子项目，价值主要来自设计资料整理、格式观察和 Agent 上下文样本，不作为核心技术实现研究。
+- **项目定位**：阶段归档的真实样例研究子项目，保留原始网站、Refero 样例、公开截图和我们的复核结论。
 - **上游证据**：研究基于提交 [`8147538b`](https://github.com/VoltAgent/awesome-design-md/tree/8147538b4226ae41e2487a9179e3bcc1f68e8554)，确认其中包含 74 份 `DESIGN.md`。
 - **档案结构**：页面拆解颜色、字体、间距、圆角、组件、响应式策略、Do / Don't 等 9 类信息，区分机器可读 Token 与人类可读语义。
-- **风格研究**：以 Linear、Stripe、Vercel、NVIDIA、Apple、Spotify、Nintendo 2001、Voltagent、Notion 为代表，展示不同的色彩纪律、字体性格、表面处理和布局节奏。
+- **风格研究**：以 Linear、Stripe、Vercel、Spotify、Wise、Mercury 为首批案例，统一分析构图、层级、字体、颜色、材质和交互。
+- **实现翻译**：每个案例都输出起始 Token、组件规则、Do / Don't 和可复制的 Agent 实现简报；复用设计方法，不复制品牌资产。
 - **产品结论**：它适合做项目级设计上下文、品牌风格研究和 Agent 生成 UI 前的约束层；网页提取、人工复核、代码实现与浏览器验收仍需要额外流程。
 
 [阅读子项目完整说明](./awesome-design-md-lab/README.md) · [查看设计契约](./awesome-design-md-lab/DESIGN_CONTRACT.md) · [查看上游快照](./awesome-design-md-lab/UPSTREAM.md)
@@ -121,7 +122,7 @@
 ├─ 项目 06：Three.js Graphics Agent Skills Lab
 ├─ 项目 06A：Three.js Capability Lab
 ├─ 项目 06B：Ocean Atlas
-├─ 项目 07：Awesome DESIGN.md Lab
+├─ 项目 07：DESIGN.md Evidence Lab
 └─ 后续正式研究项目
 ```
 
@@ -543,5 +544,5 @@ python -m http.server 4180 --directory .pages
 | 06 · Three.js Graphics Agent Skills Lab | [README](./starfield-process-demo/README.md) | [验证记录](./starfield-process-demo/SUBPROJECT_REFINEMENT_LEDGER.md) | [设计契约](./starfield-process-demo/SUBPROJECT_DESIGN_CONTRACT.md) · [演示追踪](./starfield-process-demo/docs/03-DEMO_TRACEABILITY.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-graphics-agent-skills/project.html) |
 | 06A · Three.js Capability Lab | [README](./threejs-awesome-graphics-agent-skills-demo/README.md) | [验证记录](./threejs-awesome-graphics-agent-skills-demo/VALIDATION.md) | [设计契约](./threejs-awesome-graphics-agent-skills-demo/DESIGN_CONTRACT.md) · [产品适配](./threejs-awesome-graphics-agent-skills-demo/PRODUCT_FIT_ANALYSIS.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/threejs-capability-lab/) |
 | 06B · Ocean Atlas | [README](./ocean-atlas-product-demo/README.md) | [验证记录](./ocean-atlas-product-demo/VALIDATION.md) | [设计契约](./ocean-atlas-product-demo/DESIGN_CONTRACT.md) · [上游边界](./ocean-atlas-product-demo/UPSTREAM_SOURCE.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/ocean-atlas/) |
-| 07 · Awesome DESIGN.md Lab | [README](./awesome-design-md-lab/README.md) | [验证记录](./awesome-design-md-lab/VALIDATION.md) | [设计契约](./awesome-design-md-lab/DESIGN_CONTRACT.md) · [上游快照](./awesome-design-md-lab/UPSTREAM.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) |
+| 07 · DESIGN.md Evidence Lab | [README](./awesome-design-md-lab/README.md) | [验证记录](./awesome-design-md-lab/VALIDATION.md) | [设计契约](./awesome-design-md-lab/DESIGN_CONTRACT.md) · [上游快照](./awesome-design-md-lab/UPSTREAM.md) | [Demo](https://yydshly.github.io/0801_githubcode_study/projects/awesome-design-md-lab/) |
 | 研究展厅与部署 | [设计说明](./docs/research-pages/DESIGN_CONTRACT.md) | [验证记录](./docs/research-pages/VALIDATION.md) | [`research-projects.json`](./research-projects.json) | [研究展厅](https://yydshly.github.io/0801_githubcode_study/) |

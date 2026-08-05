@@ -3,205 +3,311 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="用中文展示 VoltAgent awesome-design-md 的设计档案、Token 结构和 Agent 使用流程。" />
-    <title>DESIGN.md / 中文能力档案馆</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <meta
+      name="description"
+      content="从真实网页、Refero 样例和结构化分析出发，研究 DESIGN.md 如何驱动 AI 前端设计实现。"
+    />
+    <title>DESIGN.md Evidence Lab / 真实网页设计研究</title>
+    <link rel="stylesheet" href="./styles.css?rev=6" />
+    <script type="module" src="./app.js?rev=6"></script>
   </head>
   <body>
-    <div class="site-noise" aria-hidden="true"></div>
-    <header class="topbar">
+    <a class="skip-link" href="#case-workspace">跳到案例工作台</a>
+
+    <header class="site-header">
       <a class="brand" href="#top" aria-label="返回页面顶部">
-        <span class="brand-mark">✦</span>
-        <span class="brand-copy"><span>DESIGN.md</span><small>/ ARCHIVE</small></span>
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>DESIGN.md</span>
+        <small>/ EVIDENCE LAB</small>
       </a>
-      <nav class="topnav" aria-label="页面导航">
-        <a href="#catalog">风格档案</a>
-        <a href="#format">文件结构</a>
-        <a href="#flow">使用流程</a>
+      <nav aria-label="主导航">
+        <a href="#method">研究方法</a>
+        <a href="#insights">研究结论</a>
+        <a href="#cases">真实案例</a>
+        <a href="#model">分析模型</a>
+        <a href="#sources">来源边界</a>
       </nav>
-      <a class="source-link" href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noreferrer">
-        上游仓库 <span>↗</span>
-      </a>
+      <a class="header-link" href="https://styles.refero.design/" target="_blank" rel="noreferrer">打开 Refero</a>
     </header>
 
     <main id="top">
-      <section class="hero content-width" aria-labelledby="hero-title">
+      <section class="hero section-shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="eyebrow-pulse"></span>RESEARCH 07 · DESIGN CONTEXT LIBRARY</p>
-          <h1 id="hero-title">把网页的<br /><em>气质</em>，变成 Agent<br />能读懂的规则。</h1>
-          <p class="hero-lede">一个中文研究档案馆，拆开 `awesome-design-md` 内部的设计文件：它如何记录颜色、字体、组件、响应式和“不该做什么”，再把这些判断交给 AI 编程代理。</p>
+          <p class="eyebrow"><span></span> RESEARCH 07 · SOURCE-GROUNDED DESIGN</p>
+          <h1 id="hero-title">把优秀网页，<br />翻译成<span>可执行</span>的<br />设计规则。</h1>
+          <p class="hero-lede">
+            关联原始网站与 Refero 样例，区分可见事实、设计解释和实现建议，最终形成一份可以交给 Codex 或前端团队的
+            <code>DESIGN.md 设计包</code>。
+          </p>
+          <div class="hero-outcomes" aria-label="研究交付成果">
+            <article><span>01 / SOURCE</span><strong>证据地图</strong><p>原站、Refero、截图与未知项</p></article>
+            <article><span>02 / MODEL</span><strong>设计模型</strong><p>六维判断、迁移原则与边界</p></article>
+            <article><span>03 / BUILD</span><strong>实现简报</strong><p>Token、组件规则与验收标准</p></article>
+          </div>
           <div class="hero-actions">
-            <a class="button button-primary" href="#catalog">浏览风格档案 <span>↓</span></a>
-            <a class="button button-quiet" href="#format">查看文件结构 <span>→</span></a>
+            <a class="button button-primary" href="#cases">浏览真实案例</a>
+            <a class="button button-ghost" href="#insights">查看研究结论</a>
           </div>
-          <p class="hero-note"><span class="mono">LOCAL SNAPSHOT</span> · 74 份 DESIGN.md · 公开视觉模式的独立分析</p>
         </div>
 
-        <div class="hero-spec" aria-label="DESIGN.md 文件示意">
-          <div class="spec-window-bar"><span class="window-dot red"></span><span class="window-dot yellow"></span><span class="window-dot green"></span><span class="spec-path">design-md / linear.app / DESIGN.md</span><span class="spec-version">v.alpha</span></div>
-          <div class="spec-body">
-            <div class="spec-comment"># 一个文件，保存一套视觉判断</div>
-            <div class="spec-line"><span class="syntax-key">colors</span><span class="syntax-punc">:</span></div>
-            <div class="spec-line indent"><span class="syntax-key">primary</span><span class="syntax-punc">:</span> <span class="syntax-value violet">#5e6ad2</span></div>
-            <div class="spec-line indent"><span class="syntax-key">canvas</span><span class="syntax-punc">:</span> <span class="syntax-value ink">#010102</span></div>
-            <div class="spec-line"><span class="syntax-key">typography</span><span class="syntax-punc">:</span></div>
-            <div class="spec-line indent"><span class="syntax-key">display-xl</span><span class="syntax-punc">:</span> <span class="syntax-value">Linear Display / 80px / 600</span></div>
-            <div class="spec-line"><span class="syntax-key">components</span><span class="syntax-punc">:</span></div>
-            <div class="spec-line indent"><span class="syntax-key">button-primary</span><span class="syntax-punc">:</span> <span class="syntax-value">hairline + lavender focus</span></div>
-            <div class="spec-divider"></div>
-            <div class="spec-markdown"><span class="md-hash">##</span> Do's and Don'ts</div>
-            <div class="spec-rule"><span class="rule-mark">+</span> Keep the accent intentional.</div>
-            <div class="spec-rule"><span class="rule-mark no">−</span> Don't decorate every surface.</div>
+        <div class="hero-map" aria-label="研究处理链">
+          <div class="map-header">
+            <span>research-pipeline.md</span>
+            <code>rev.04</code>
           </div>
-          <div class="spec-footer"><span>YAML TOKENS</span><span>+</span><span>MARKDOWN RATIONALE</span><span>→</span><span>AGENT CONTEXT</span></div>
+          <ol class="pipeline-list">
+            <li>
+              <span class="pipeline-index">01</span>
+              <div><strong>原始网页</strong><small>真实页面、截图、DOM 与可观察样式</small></div>
+              <span class="pipeline-state">EVIDENCE</span>
+            </li>
+            <li>
+              <span class="pipeline-index">02</span>
+              <div><strong>Refero 样例</strong><small>颜色、字体、间距、组件与 DESIGN.md</small></div>
+              <span class="pipeline-state">INTERPRET</span>
+            </li>
+            <li>
+              <span class="pipeline-index">03</span>
+              <div><strong>我们的复核</strong><small>区分事实、推断、设计原则和未知项</small></div>
+              <span class="pipeline-state">REVIEW</span>
+            </li>
+            <li>
+              <span class="pipeline-index">04</span>
+              <div><strong>实现翻译</strong><small>Token、组件规则、Do / Don't 与 Agent 简报</small></div>
+              <span class="pipeline-state">BUILD</span>
+            </li>
+          </ol>
+          <p class="map-note">判断不是事实。只有能回到原始页面复验的结论，才适合进入实现规范。</p>
+        </div>
+
+        <div class="hero-proofbar">
+          <dl class="hero-stats" aria-label="研究范围">
+            <div><dt>06</dt><dd>真实案例</dd></div>
+            <div><dt>03</dt><dd>证据层级</dd></div>
+            <div><dt>06</dt><dd>分析维度</dd></div>
+            <div><dt>01</dt><dd>可执行设计包</dd></div>
+          </dl>
+          <p><span>最终目标</span> 不是复刻某个品牌，而是把可验证的设计纪律迁移到自己的产品。</p>
         </div>
       </section>
 
-      <section class="signal-strip content-width" aria-label="上游快照指标">
-        <div class="signal-item"><strong>74</strong><span>份上游设计档案</span></div>
-        <div class="signal-item"><strong>09</strong><span>个核心章节</span></div>
-        <div class="signal-item"><strong>02</strong><span>层可读结构</span></div>
-        <div class="signal-item"><strong>00</strong><span>个运行时依赖</span></div>
-        <div class="signal-caption">源代码之外的另一种上下文：<br /><span>告诉 Agent，页面应该如何被感受。</span></div>
+      <section class="method section-shell" id="method" aria-labelledby="method-title">
+        <div class="section-intro">
+          <p class="section-kicker">METHOD / 研究方法</p>
+          <h2 id="method-title">我们研究的不是“像不像”，<br />而是<span>判断如何成立</span>。</h2>
+          <p>把视觉感觉拆成四个连续阶段。每个阶段都保留来源、边界和下一步可验证动作。</p>
+        </div>
+        <ol class="method-track">
+          <li>
+            <span>01 · OBSERVE</span>
+            <strong>先记录可观察证据</strong>
+            <p>截图、颜色、字体、空间关系、组件状态和内容密度；不急着解释它为什么有效。</p>
+          </li>
+          <li>
+            <span>02 · INTERPRET</span>
+            <strong>再读取结构化判断</strong>
+            <p>对照 Refero 的 DESIGN.md，检查它如何为颜色、字体、组件和布局赋予语义。</p>
+          </li>
+          <li>
+            <span>03 · REVIEW</span>
+            <strong>用统一六维框架复核</strong>
+            <p>从构图、层级、字体、颜色、材质和交互判断哪些结论可信，哪些仍是推断。</p>
+          </li>
+          <li>
+            <span>04 · TRANSLATE</span>
+            <strong>最后翻译成实现规则</strong>
+            <p>形成 Token、组件规则、Do / Don't 和可复制简报，再交给 Codex 或前端实现。</p>
+          </li>
+        </ol>
+        <div class="method-boundary">
+          <strong>研究边界</strong>
+          <p>Refero 的公开页面是样例库；它没有面向访客开放 URL 转换入口。本项目也不把其内部维护接口包装成公开能力。</p>
+        </div>
       </section>
 
-      <section class="intro-section content-width" aria-labelledby="intro-title">
-        <div class="section-kicker"><span>01</span><span>WHY THIS LIBRARY</span></div>
-        <div class="intro-grid">
+      <section class="insights section-shell" id="insights" aria-labelledby="insights-title">
+        <div class="section-heading-row insights-heading">
           <div>
-            <h2 id="intro-title">它不是组件库。<br /><span>它是设计判断的压缩包。</span></h2>
+            <p class="section-kicker">SYNTHESIS / 跨案例结论</p>
+            <h2 id="insights-title">六个网站，<br />沉淀出四条<br /><span>可迁移纪律。</span></h2>
           </div>
-          <div class="intro-copy">
-            <p>AI 可以很快写出一个“能运行”的页面，却经常无法稳定复现品牌的节奏：颜色为什么出现、标题为什么这么轻、卡片为什么没有阴影、哪个按钮才值得被看见。</p>
-            <p>`DESIGN.md` 把这些通常藏在设计师直觉里的判断，写成颜色 Token、字体层级、组件状态、响应式策略和反例约束。Agent 不再从空白页猜测，而是在一套视觉语言里生成。</p>
-            <div class="fact-line"><span class="fact-mark">↳</span><span>事实边界：上游仓库提供分析结果；网页提取、人工复核和运行时 Token 编译并不由它自动完成。</span></div>
+          <p>真正值得复用的不是某个颜色或圆角，而是这些网站如何控制注意力、证明产品价值，并把视觉选择变成稳定规则。</p>
+        </div>
+
+        <div class="insight-grid">
+          <article>
+            <span>01 · COLOR BUDGET</span>
+            <strong>强调色是一种预算</strong>
+            <p>Linear、Stripe、Wise 与 Mercury 都限制高饱和颜色的职责。颜色越少，主操作越明确。</p>
+            <small>实现提示：先定义强调色允许出现的组件清单。</small>
+          </article>
+          <article>
+            <span>02 · PRODUCT PROOF</span>
+            <strong>主视觉必须证明价值</strong>
+            <p>开发者工具展示真实产品界面，金融品牌展示信任场景；装饰不能替代产品证据。</p>
+            <small>实现提示：给每张 Hero 资产写清它要证明什么。</small>
+          </article>
+          <article>
+            <span>03 · DEPTH SYSTEM</span>
+            <strong>深度来自表面阶梯</strong>
+            <p>成熟暗色系统主要依靠明度、边界和内容密度分层，而不是给每张卡片添加阴影。</p>
+            <small>实现提示：先建立 canvas / surface / raised 三层表面。</small>
+          </article>
+          <article>
+            <span>04 · TYPE ROLES</span>
+            <strong>字体角色比字体品牌重要</strong>
+            <p>真正可迁移的是展示、正文、元数据三种角色的比例、字重和节奏，而不是商业字体文件。</p>
+            <small>实现提示：为每个角色定义职责，再选择可授权替代字体。</small>
+          </article>
+        </div>
+
+        <div class="comparison-panel">
+          <div class="comparison-header">
+            <div><span>case-comparison.md</span><strong>六案例迁移矩阵</strong></div>
+            <p>比较的是设计机制，不是视觉相似度。</p>
           </div>
+          <div class="comparison-scroll" tabindex="0" aria-label="六案例迁移矩阵，可横向滚动">
+            <div class="comparison-table" role="table" aria-label="六案例设计机制比较">
+              <div class="comparison-row comparison-head" role="row">
+                <span role="columnheader">案例</span><span role="columnheader">主要机制</span><span role="columnheader">强调纪律</span><span role="columnheader">主要证据</span><span role="columnheader">值得迁移</span>
+              </div>
+              <div class="comparison-row" role="row"><strong role="cell">Linear</strong><span role="cell">精密工具感</span><span role="cell">酸柠檬 / 单一 CTA</span><span role="cell">真实产品界面</span><span role="cell">表面阶梯与紧凑元数据</span></div>
+              <div class="comparison-row" role="row"><strong role="cell">Stripe</strong><span role="cell">轻量可信度</span><span role="cell">靛蓝 / 操作与链接</span><span role="cell">文字与数据结构</span><span role="cell">轻字重与长呼吸节奏</span></div>
+              <div class="comparison-row" role="row"><strong role="cell">Vercel</strong><span role="cell">零噪声秩序</span><span role="cell">黑白 / 状态反转</span><span role="cell">产品与代码</span><span role="cell">网格、边界和字级纪律</span></div>
+              <div class="comparison-row" role="row"><strong role="cell">Spotify</strong><span role="cell">内容舞台</span><span role="cell">品牌绿 / 关键播放</span><span role="cell">专辑与人物内容</span><span role="cell">高密度内容分组</span></div>
+              <div class="comparison-row" role="row"><strong role="cell">Wise</strong><span role="cell">大胆清晰</span><span role="cell">森林绿 / 荧光操作</span><span role="cell">全球货币叙事</span><span role="cell">巨型标题与直接文案</span></div>
+              <div class="comparison-row" role="row"><strong role="cell">Mercury</strong><span role="cell">电影化信任</span><span role="cell">钴蓝 / 唯一转化</span><span role="cell">愿景摄影与产品卡</span><span role="cell">氛围层和产品层分工</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight-principle">
+          <span>TRANSFER PRINCIPLE</span>
+          <strong>不要复制视觉结果，复制产生结果的决策结构。</strong>
+          <a href="#cases">进入案例逐条核对 →</a>
         </div>
       </section>
 
-      <section class="catalog-section content-width" id="catalog" aria-labelledby="catalog-title">
-        <div class="section-heading">
+      <section class="cases section-shell" id="cases" aria-labelledby="cases-title">
+        <div class="section-heading-row">
           <div>
-            <div class="section-kicker"><span>02</span><span>STYLE CATALOG</span></div>
-            <h2 id="catalog-title">风格档案</h2>
+            <p class="section-kicker">CASE WORKSPACE / 真实案例</p>
+            <h2 id="cases-title">同一套分析逻辑，<br />观察六种设计纪律。</h2>
           </div>
-          <p>从 74 份真实上游文件中选出 9 个切片。点击一个案例，查看它的颜色、字体、组件和设计判断。</p>
+          <p>选择案例后，在“证据、分析、实现”三个视图之间切换。所有案例都保留原始网站与 Refero 样例入口。</p>
         </div>
 
-        <div class="catalog-toolbar">
-          <div id="category-filters" class="category-filters" role="tablist" aria-label="按类别筛选"></div>
-          <span class="catalog-count"><span id="visible-count">9</span> / 74 展示切片</span>
-        </div>
+        <div class="filter-bar" id="case-filters" role="tablist" aria-label="案例筛选"></div>
 
-        <div class="catalog-layout">
-          <aside class="catalog-list" aria-label="设计案例列表">
-            <div class="list-label">SELECT A DESIGN / <span id="list-category">FEATURED</span></div>
-            <div id="catalog-list-items"></div>
-            <div class="list-footnote"><span class="tiny-dot"></span> 案例颜色来自上游 DESIGN.md 的 Token；文字为中文研究摘要。</div>
+        <div class="case-workspace" id="case-workspace">
+          <aside class="case-rail" aria-label="案例列表">
+            <div class="rail-meta">
+              <span id="rail-category">全部案例</span>
+              <strong><span id="visible-case-count">6</span> / 06</strong>
+            </div>
+            <div class="case-list" id="case-list"></div>
           </aside>
 
-          <article id="brand-inspector" class="brand-inspector" aria-live="polite">
-            <div class="inspector-header">
-              <div><p class="inspector-index">DESIGN / <span id="brand-index">01</span></p><h3 id="brand-name">Linear</h3></div>
-              <a id="brand-source" class="text-link" href="#" target="_blank" rel="noreferrer">打开上游文件 ↗</a>
-            </div>
-            <p id="brand-description" class="brand-description"></p>
-            <div class="brand-preview-grid">
-              <div class="brand-canvas">
-                <div class="preview-meta"><span id="brand-category">Productivity & SaaS</span><span class="preview-live"><i></i> LIVE TOKEN VIEW</span></div>
-                <div class="preview-hero-line"></div>
-                <p id="brand-eyebrow" class="preview-eyebrow">THE CRAFT OF SOFTWARE</p>
-                <h4 id="brand-headline">Design language<br /><span>with a point of view.</span></h4>
-                <p id="brand-body" class="preview-body">A miniature surface assembled from the selected design file.</p>
-                <div class="preview-actions"><button id="brand-primary-button" class="preview-button">Primary action</button><span id="brand-radius" class="preview-token">radius / 8px</span></div>
-                <div class="preview-card"><span class="mini-label">SURFACE / 01</span><strong id="brand-card-title">Quiet structure, deliberate accent.</strong><span class="mini-rule"></span><span id="brand-spacing" class="mini-label">spacing / 8px base</span></div>
+          <article class="case-detail" id="case-detail" aria-live="polite">
+            <header class="case-detail-header">
+              <div>
+                <p class="case-index" id="case-index">CASE 01</p>
+                <h3 id="case-name">Linear</h3>
+                <p id="case-thesis"></p>
               </div>
-              <div class="token-column">
-                <div class="token-block"><span class="token-label">COLOR ROLES</span><div id="brand-swatches" class="swatches"></div></div>
-                <div class="token-block"><span class="token-label">TYPE SYSTEM</span><strong id="brand-type">Linear Display / SF Pro Display</strong><span id="brand-type-detail" class="token-detail">80px display · 600 weight · tight tracking</span></div>
-                <div class="token-block"><span class="token-label">SIGNATURE MOVES</span><ul id="brand-signatures" class="signature-list"></ul></div>
+              <div class="case-links">
+                <a id="original-link" class="button button-primary" target="_blank" rel="noreferrer">打开原始网站</a>
+                <a id="refero-link" class="button button-ghost" target="_blank" rel="noreferrer">查看 Refero 样例</a>
               </div>
-            </div>
-            <div class="inspector-bottom"><span id="brand-verdict" class="verdict">一套克制、技术、带有产品工艺感的界面语言。</span><span class="mono">source: public pattern analysis</span></div>
-          </article>
-        </div>
+            </header>
 
-        <div class="catalog-atlas">
-          <div class="atlas-heading"><span class="section-kicker"><span>CATALOG / 74</span></span><span>上游快照中的完整品牌索引</span></div>
-          <div id="catalog-atlas-list" class="atlas-list"></div>
+            <figure class="evidence-frame">
+              <div class="evidence-toolbar">
+                <span id="evidence-domain">linear.app</span>
+                <span>REFERENCE CAPTURE · 1440 × 900</span>
+              </div>
+              <div class="evidence-image-wrap" id="evidence-image-wrap">
+                <img id="case-image" alt="" loading="eager" referrerpolicy="no-referrer" />
+                <div class="image-fallback" id="image-fallback" hidden>
+                  <strong>外部证据图暂时无法载入</strong>
+                  <p>仍可通过上方“打开原始网站”和“查看 Refero 样例”继续核对来源。</p>
+                </div>
+              </div>
+              <figcaption>
+                <span>来源：Refero 公开案例截图，仅用于设计研究与对照</span>
+                <span id="capture-meta"></span>
+              </figcaption>
+            </figure>
+
+            <div class="view-tabs" role="tablist" aria-label="案例研究视图">
+              <button role="tab" aria-selected="true" data-view="evidence">01 · 原始证据</button>
+              <button role="tab" aria-selected="false" data-view="analysis">02 · 我们的分析</button>
+              <button role="tab" aria-selected="false" data-view="implementation">03 · 实现翻译</button>
+            </div>
+
+            <div class="case-view" id="case-view"></div>
+          </article>
         </div>
       </section>
 
-      <section class="format-section content-width" id="format" aria-labelledby="format-title">
-        <div class="section-heading">
-          <div>
-            <div class="section-kicker"><span>03</span><span>FILE ANATOMY</span></div>
-            <h2 id="format-title">一个文件，<br /><span>两种语言。</span></h2>
+      <section class="analysis-model section-shell" id="model" aria-labelledby="model-title">
+        <div class="section-intro compact">
+          <p class="section-kicker">ANALYSIS MODEL / 分析模型</p>
+          <h2 id="model-title">一份可用的设计分析，<br />必须分清<span>三种信息</span>。</h2>
+        </div>
+        <div class="model-table" role="table" aria-label="三层分析模型">
+          <div class="model-row model-head" role="row">
+            <span role="columnheader">层级</span><span role="columnheader">回答的问题</span><span role="columnheader">允许的内容</span><span role="columnheader">风险</span>
           </div>
-          <p>机器需要精确的 Token，人类和模型又需要知道这些 Token 为什么存在。`DESIGN.md` 把两者叠在一起。</p>
-        </div>
-
-        <div class="anatomy-grid">
-          <article class="anatomy-card token-card">
-            <div class="anatomy-card-top"><span class="card-number">01</span><span class="card-tag">MACHINE-READABLE</span></div>
-            <h3>YAML / Token 层</h3>
-            <p>把颜色、字体、圆角、间距和组件状态写成可引用的变量，减少 Agent 在原始数值上的猜测。</p>
-            <pre><code><span class="code-dim">colors:</span>
-  <span class="code-key">primary</span>: <span class="code-color">#5e6ad2</span>
-  <span class="code-key">canvas</span>: <span class="code-color">#010102</span>
-<span class="code-dim">typography:</span>
-  <span class="code-key">display-xl</span>:
-    fontSize: <span class="code-number">80px</span>
-    fontWeight: <span class="code-number">600</span>
-<span class="code-dim">rounded:</span>
-  <span class="code-key">card</span>: <span class="code-number">8px</span></code></pre>
-            <div class="anatomy-foot"><span>colors</span><span>typography</span><span>rounded</span><span>spacing</span><span>components</span></div>
-          </article>
-          <article class="anatomy-card rationale-card">
-            <div class="anatomy-card-top"><span class="card-number">02</span><span class="card-tag">HUMAN-READABLE</span></div>
-            <h3>Markdown / 语义层</h3>
-            <p>解释页面的氛围、层级和反例。它告诉 Agent“什么时候使用”，而不只是“值是多少”。</p>
-            <div class="rationale-quote"><span class="quote-mark">“</span><p>Accent color should remain intentional. Use it for active states and primary CTAs, never as a decorative wash across every surface.</p><span class="quote-source">— Do's & Don'ts / example rule</span></div>
-            <div class="anatomy-foot"><span>意图</span><span>组件状态</span><span>布局原则</span><span>响应式</span></div>
-          </article>
-        </div>
-
-        <div class="section-map">
-          <div class="map-intro"><span class="mono">THE 09 SECTION MAP</span><p>点击章节，查看它在 Agent 生成过程中的作用。</p><div id="section-explainer" class="section-explainer">先从视觉主题开始：它定义页面应该让人感受到什么。</div></div>
-          <div id="section-list" class="section-list" role="list"></div>
+          <div class="model-row" role="row">
+            <strong role="cell">EVIDENCE<br /><small>可观察证据</small></strong>
+            <span role="cell">页面实际上呈现了什么？</span>
+            <span role="cell">截图、数值、颜色、字体、排列、状态</span>
+            <span role="cell">只看单一视口会遗漏响应式行为</span>
+          </div>
+          <div class="model-row" role="row">
+            <strong role="cell">INTERPRETATION<br /><small>设计解释</small></strong>
+            <span role="cell">这些选择为什么形成当前气质？</span>
+            <span role="cell">层级、节奏、品牌性格、组件角色</span>
+            <span role="cell">解释可能主观，不能冒充官方规范</span>
+          </div>
+          <div class="model-row" role="row">
+            <strong role="cell">TRANSLATION<br /><small>实现翻译</small></strong>
+            <span role="cell">新项目应该如何复用这种方法？</span>
+            <span role="cell">Token、组件规则、Do / Don't、验收标准</span>
+            <span role="cell">原样复制会带来品牌与版权问题</span>
+          </div>
         </div>
       </section>
 
-      <section class="flow-section content-width" id="flow" aria-labelledby="flow-title">
-        <div class="section-kicker"><span>04</span><span>FROM WEB TO AGENT</span></div>
-        <div class="flow-heading"><h2 id="flow-title">它如何进入<br /><span>一次真实开发。</span></h2><p>仓库提供的是设计上下文，不是网页运行时。真正的价值出现在它和 Agent、组件代码、截图验证连起来之后。</p></div>
-        <div class="flow-rail">
-          <article class="flow-step"><span class="flow-index">01</span><div class="flow-icon">◌</div><h3>观察公开模式</h3><p>从真实网页中识别颜色、字体、布局、组件、响应式和反例。</p><span class="flow-code">public website / patterns</span></article>
-          <span class="flow-arrow">→</span>
-          <article class="flow-step"><span class="flow-index">02</span><div class="flow-icon">{ }</div><h3>整理成 DESIGN.md</h3><p>把视觉事实和设计意图压缩成 Token + Markdown 两层结构。</p><span class="flow-code">DESIGN.md / alpha spec</span></article>
-          <span class="flow-arrow">→</span>
-          <article class="flow-step"><span class="flow-index">03</span><div class="flow-icon">✦</div><h3>交给 Agent 读取</h3><p>Agent 用颜色、字体和 Do / Don't 约束生成页面和组件代码。</p><span class="flow-code">context / prompt / code</span></article>
-          <span class="flow-arrow">→</span>
-          <article class="flow-step"><span class="flow-index">04</span><div class="flow-icon">⌁</div><h3>浏览器验证</h3><p>用截图、响应式和可访问性检查确认设计意图真的落地。</p><span class="flow-code">render / inspect / refine</span></article>
+      <section class="sources section-shell" id="sources" aria-labelledby="sources-title">
+        <div class="sources-copy">
+          <p class="section-kicker">SOURCES & BOUNDARIES / 来源与边界</p>
+          <h2 id="sources-title">保持链接，<br />也保持怀疑。</h2>
+          <p>
+            本轮案例记录于 <time datetime="2026-08-05">2026-08-05</time>。原始网页会持续变化，Refero 样例也是第三方分析，因此页面中的判断都应被视为可复验研究材料，而不是品牌官方设计系统。
+          </p>
         </div>
-        <div class="boundary-grid"><div class="boundary-card is"><span>它能提供</span><strong>稳定的视觉先验</strong><p>把 Agent 的审美猜测缩小成可复用的设计语言。</p></div><div class="boundary-card isnt"><span>它不能替代</span><strong>组件、业务与验收</strong><p>它不会自动生成后端、产品逻辑、资产授权或像素级保证。</p></div></div>
-      </section>
-
-      <section class="use-section content-width" aria-labelledby="use-title">
-        <div class="use-panel">
-          <div class="section-kicker"><span>05</span><span>USE IT IN A PROJECT</span></div>
-          <h2 id="use-title">让 Agent 先读规则，<br /><span>再开始写界面。</span></h2>
-          <p>实际使用时，我们只需要把选中的 `DESIGN.md` 放进项目，并把它和现有的 Agent 指令、设计契约和截图验收连起来。</p>
-          <div class="prompt-box"><div class="prompt-top"><span>AGENT BRIEF / 中文示例</span><button id="copy-prompt" class="copy-button" type="button">复制指令 <span>↗</span></button></div><code id="prompt-text">请先读取项目根目录的 DESIGN.md。它定义了本项目的视觉语言。实现一个可响应式的产品页面：遵守其中的颜色语义、字体层级、间距、圆角、组件状态和 Do / Don't；保留现有功能，不复制品牌 Logo、图片或商业字体；完成后在桌面和 390px 手机宽度进行截图验收。</code><div id="copy-status" class="copy-status" role="status" aria-live="polite">准备好复制</div></div>
+        <div class="source-ledger">
+          <a href="https://styles.refero.design/" target="_blank" rel="noreferrer">
+            <span>VISUAL EVIDENCE</span><strong>Refero Styles</strong><small>样例页面、截图、公开结构化字段</small>
+          </a>
+          <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noreferrer">
+            <span>STRUCTURED ARCHIVE</span><strong>VoltAgent / awesome-design-md</strong><small>DESIGN.md 样本格式与 74 份档案</small>
+          </a>
+          <div>
+            <span>OUR RESEARCH LAYER</span><strong>Evidence Lab Review</strong><small>六维复核、实现翻译、边界与验证记录</small>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer class="footer content-width">
-      <div class="footer-brand"><span class="brand-mark">✦</span><span><strong>DESIGN.md / ARCHIVE</strong><small>0801 GitHub Code Study · Research 07</small></span></div>
-      <div class="footer-links"><a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noreferrer">上游仓库 ↗</a><a href="https://getdesign.md/about" target="_blank" rel="noreferrer">getdesign.md ↗</a><a href="https://everyfeed.ai/" target="_blank" rel="noreferrer">EveryFeed / 生态入口 ↗</a><a href="https://designmd.sh/docs/design-md-format" target="_blank" rel="noreferrer">格式说明 ↗</a></div>
-      <p class="footer-disclaimer">品牌案例为公开视觉模式的独立研究展示，不代表官方设计系统；EveryFeed 是上游 README 中的生态链接，不是本 Demo 的运行依赖。</p>
+    <footer class="site-footer">
+      <span>DESIGN.md EVIDENCE LAB · RESEARCH 07 · STAGE ARCHIVE</span>
+      <span>公开网页研究，不代表相关品牌官方设计系统</span>
+      <a href="#top">返回顶部</a>
     </footer>
-    <script type="module" src="./app.js"></script>
+
+    <div class="toast" id="copy-toast" role="status" aria-live="polite"></div>
   </body>
 </html>
