@@ -127,10 +127,10 @@
       "directory": "research-todos/infinite-build-game-research/infinite-build-lab",
       "type": "static",
       "enabled": true,
-      "status": "研究待办 · 暂缓",
-      "summary": "研究 Codex 长期游戏开发工作流，并以“雾中灯塔”和《孤潮余生》验证从检查点循环到写实游戏生产之间的真实边界。",
-      "tags": ["Codex", "Game Workflow", "Survival Game", "Research Archive"],
-      "publish": ["index.html", "styles.css", "game-core.js", "app.js", "README.md", "CAPABILITY_MAP_ZH.md", "EXPERIMENT_PLAN.md", "ROADMAP.md", "CHANGELOG.md", "VALIDATION.md"],
+      "status": "研究进行中 · 四游戏视觉路线与出生海滩 R7",
+      "summary": "R6已完成荒岛系统闭环；R7完成出生海滩视觉验证，并补充四个参考游戏的2D、2.5D与实时3D生产路线对照。",
+      "tags": ["Game Capability", "Visual Slice", "2.5D", "Environment Art", "Three.js"],
+      "publish": ["index.html", "styles.css", "game-core.js", "app.js", "workflow-practice.html", "workflow-practice.css", "workflow-practice.js", "capability-lab.html", "capability-lab.css", "capability-lab.js", "adventure-combat-core.js", "capability-lab-3d.mjs", "vendor/three.module.min.js", "vendor/three.core.min.js", "tidewatch-game.html", "tidewatch-game.css", "tidewatch-scene.js", "tidewatch-core.js", "tidewatch-level.js", "island-systems-slice.html", "island-systems-slice.css", "island-systems-scene.js", "island-systems-core.js", "island-systems-level.js", "arrival-beach-visual-slice.html", "arrival-beach-visual-slice.css", "arrival-beach-visual-runtime.mjs", "assets/visual-slice/arrival-beach-target-v1.png", "assets/concepts/tidewatch-three-states-v1.png", "assets/visual-production/coastal-rune-forest-v1.png", "assets/visual-production/castaway-guardian-v1.png", "assets/visual-production/tidewood-sentinel-v1.png", "assets/visual-production/castaway-guardian-atlas-v1.png", "assets/visual-production/tidewood-sentinel-atlas-v1.png", "README.md", "CAPABILITY_MAP_ZH.md", "EXPERIMENT_PLAN.md", "ROADMAP.md", "CHANGELOG.md", "VALIDATION.md", "WORKFLOW_STUDY_CONTRACT.md", "WORKFLOW_STUDY_VALIDATION.md", "TIDEWATCH_CONCEPT_V1_REVIEW.md", "TIDEWATCH_SLICE_CONTRACT.md", "TIDEWATCH_SLICE_VALIDATION.md", "METHOD_LEARNING_LEDGER.md", "FOUR_GAME_CAPABILITY_LAB_CONTRACT.md", "FOUR_GAME_CAPABILITY_LAB_VALIDATION.md", "FOUR_GAME_VISUAL_IMPLEMENTATION_SUMMARY.md", "VISUAL_PRODUCTION_BENCHMARK_CONTRACT.md", "VISUAL_PRODUCTION_BENCHMARK_VALIDATION.md", "ADVENTURE_COMBAT_SLICE_CONTRACT.md", "ADVENTURE_COMBAT_SLICE_VALIDATION.md", "ISLAND_VERTICAL_SLICE_CONTRACT.md", "ISLAND_VERTICAL_SLICE_VALIDATION.md", "ARRIVAL_BEACH_VISUAL_SLICE_CONTRACT.md", "ARRIVAL_BEACH_VISUAL_SLICE_VALIDATION.md", "ASSET_PROVENANCE.md"],
       "docs": "research-todos/infinite-build-game-research/README.md"
     },
     {

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="zh-CN" data-three-status="booting">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="拆解四个 Infinite Build 游戏的真实实现，并用四个可交互实验验证可迁移能力。">
+    <title>四游戏能力拆解实验室 · Research 08</title>
+    <link rel="stylesheet" href="capability-lab.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#lab-main">跳到能力实验</a>
+    <header class="lab-header">
+      <a class="lab-brand" href="workflow-practice.html#cases" aria-label="返回四案例研究页">
+        <span class="brand-index">08</span>
+        <span><strong>GAME CAPABILITY LAB</strong><small>四游戏能力拆解实验室</small></span>
+      </a>
+      <nav class="top-nav" aria-label="实验室导航">
+        <a href="#workspace">运行实验</a>
+        <a href="#visual-routes">视觉路线</a>
+        <a href="#matrix">能力矩阵</a>
+        <a href="island-systems-slice.html">统一生存链</a>
+        <a href="arrival-beach-visual-slice.html">出生海滩视觉</a>
+        <a href="tidewatch-game.html">潮汐守望</a>
+      </nav>
+      <span class="lab-status"><i></i> ARRIVAL BEACH VISUAL · R7</span>
+    </header>
+
+    <main id="lab-main">
+      <section class="lab-intro" aria-labelledby="lab-title">
+        <div>
+          <p class="eyebrow">SOURCE → REPRODUCE → VERIFY → TRANSFER</p>
+          <h1 id="lab-title">不再研究提示词，<em>直接研究四个游戏为何有效。</em></h1>
+          <p class="intro-copy">每个案例同时拆解产品机制与视觉生产能力。左侧选择原作，中间操作原创微型场景，右侧查看资产、构图、渲染、验证边界和对海岛游戏的迁移价值。</p>
+        </div>
+        <dl class="intro-metrics" aria-label="实验室指标">
+          <div><dt>公开案例</dt><dd>4</dd></div>
+          <div><dt>交互实验</dt><dd>4</dd></div>
+          <div><dt>技术路线</dt><dd>2D / 3D</dd></div>
+          <div><dt>当前原则</dt><dd>机制 + 视觉证据</dd></div>
+        </dl>
+      </section>
+
+      <section id="workspace" class="workspace" aria-label="四游戏能力工作台">
+        <nav class="case-rail" aria-label="选择需要验证的游戏能力">
+          <div class="rail-heading"><span>CASE INDEX</span><strong>选择案例</strong></div>
+          <button class="case-button is-active" type="button" data-case="adventure" aria-pressed="true">
+            <span class="case-no">01</span><span><strong>Adventure</strong><small>动作与反馈</small></span><i></i>
+          </button>
+          <button class="case-button" type="button" data-case="online" aria-pressed="false">
+            <span class="case-no">02</span><span><strong>Online</strong><small>状态与成长</small></span><i></i>
+          </button>
+          <button class="case-button" type="button" data-case="backroom" aria-pressed="false">
+            <span class="case-no">03</span><span><strong>Backroom</strong><small>3D与氛围</small></span><i></i>
+          </button>
+          <button class="case-button" type="button" data-case="minitown" aria-pressed="false">
+            <span class="case-no">04</span><span><strong>MiniTown</strong><small>建造与昼夜</small></span><i></i>
+          </button>
+          <div class="rail-note"><span>研究边界</span><p>复现能力，不复制原作素材、地图和内容。</p></div>
+        </nav>
+
+        <div class="demo-stage">
+          <header class="demo-stage-head">
+            <div><span id="stage-kicker">01 · 2D ACTION FEEDBACK</span><h2 id="stage-title">动作是否真的产生反馈？</h2></div>
+            <div class="stage-proof"><i></i><span>LIVE PROTOTYPE</span></div>
+          </header>
+
+          <section class="demo-panel is-active" data-demo-panel="adventure" aria-label="Adventure 动作反馈实验">
+            <div class="canvas-shell pixel-shell">
+              <canvas id="adventure-canvas" width="960" height="540" aria-label="可移动和攻击的二维动作实验"></canvas>
+              <div class="world-mark" aria-hidden="true"><span>COASTAL RUNE FOREST</span><strong>潮痕林地 · 黄昏</strong></div>
+              <div class="pixel-hud" aria-hidden="true">
+                <div><small>HERO</small><strong id="adv-hp">100 / 100</strong></div>
+                <div><small>COMBO</small><strong id="adv-combo">0</strong></div>
+                <div><small>ENEMY</small><strong id="adv-enemy-hp">100%</strong></div>
+              </div>
+              <div class="combat-state-bar" aria-live="polite">
+                <span id="adv-phase">PLAYER · 待机</span>
+                <i><b id="adv-phase-meter"></b></i>
+                <span id="adv-enemy-state">ENEMY · 观察 / 追击</span>
+              </div>
+              <div class="canvas-caption"><span>原创动作图集 + 三阶段攻击时序 + 程序化 VFX</span><span>准成品战斗切片 R5 · 非原作素材</span></div>
+            </div>
+            <div class="demo-controls action-controls" aria-label="动作实验控制">
+              <div class="dpad" aria-label="移动方向">
+                <button type="button" data-adv-key="ArrowUp" aria-label="向上移动">↑</button>
+                <button type="button" data-adv-key="ArrowLeft" aria-label="向左移动">←</button>
+                <button type="button" data-adv-key="ArrowDown" aria-label="向下移动">↓</button>
+                <button type="button" data-adv-key="ArrowRight" aria-label="向右移动">→</button>
+              </div>
+              <button class="primary-control" id="adv-attack" type="button"><span>SPACE</span><strong>攻击 / 连击</strong></button>
+              <button class="secondary-control" id="adv-audio" type="button" aria-pressed="false">声音：开</button>
+              <button class="secondary-control" id="adv-visual-mode" type="button">查看机制基线</button>
+              <button class="secondary-control" id="adv-reset" type="button">重置战斗</button>
+              <p id="adv-feedback" class="control-feedback" role="status">靠近敌人，观察预警，再用三段攻击击退它。</p>
+            </div>
+          </section>
+
+          <section class="demo-panel" data-demo-panel="online" aria-label="Online 背包与成长实验" hidden>
+            <div class="inventory-shell">
+              <section class="loadout" aria-labelledby="loadout-title">
+                <p>CHARACTER LOADOUT</p><h3 id="loadout-title">漂流者装备</h3>
+                <div class="character-silhouette">
+                  <div class="character-aura" aria-hidden="true"></div>
+                  <img src="assets/visual-production/castaway-guardian-v1.png" alt="身穿深绿色斗篷、携带漂流斧的原创漂流者角色">
+                  <div class="character-rank"><span>COASTBOUND</span><strong>林潮守望者</strong></div>
+                </div>
+                <figure class="shared-asset-proof">
+                  <div><span>SHARED RUNTIME ASSET</span><strong>同一角色 · 16 帧动作图集</strong></div>
+                  <img src="assets/visual-production/castaway-guardian-atlas-v1.png" alt="漂流者待机、行走、攻击和受击动作图集缩略图">
+                  <figcaption>Adventure 用于实时动作；Online 复用为角色身份与后续装备预览基础。</figcaption>
+                </figure>
+                <div class="equipment-slots">
+                  <button type="button" data-slot="tool"><small>工具</small><strong id="slot-tool">空</strong></button>
+                  <button type="button" data-slot="body"><small>服装</small><strong id="slot-body">旧衬衫</strong></button>
+                </div>
+                <dl class="character-stats"><div><dt>采集</dt><dd id="stat-gather">10</dd></div><div><dt>耐久</dt><dd id="stat-guard">8</dd></div><div><dt>材料</dt><dd id="stat-essence">0</dd></div></dl>
+              </section>
+              <section class="inventory" aria-labelledby="inventory-title">
+                <div class="inventory-head"><div><p>LOCAL INVENTORY</p><h3 id="inventory-title">资源背包</h3></div><span id="save-indicator">本地保存开启</span></div>
+                <div id="inventory-grid" class="inventory-grid" role="listbox" aria-label="选择物品"></div>
+                <article class="item-detail" aria-live="polite">
+                  <div><small id="item-kind">TOOL</small><h4 id="item-name">石制小刀</h4><p id="item-copy">选择一件物品，观察装备和拆解是否保持状态一致。</p></div>
+                  <dl><div><dt>采集</dt><dd id="item-gather">+2</dd></div><div><dt>耐久</dt><dd id="item-guard">+0</dd></div></dl>
+                </article>
+              </section>
+            </div>
+            <div class="demo-controls inventory-controls">
+              <button class="primary-control" id="equip-item" type="button"><strong>装备所选物品</strong></button>
+              <button class="secondary-control" id="salvage-item" type="button">拆解为材料</button>
+              <button class="secondary-control" id="reset-inventory" type="button">清除存档</button>
+              <p id="inventory-feedback" class="control-feedback" role="status">状态变化会自动写入本地存档。</p>
+            </div>
+          </section>
+
+          <section class="demo-panel" data-demo-panel="backroom" aria-label="Backroom 第一人称氛围实验" hidden>
+            <div class="canvas-shell three-shell backroom-shell">
+              <canvas id="backroom-canvas" aria-label="可观察和移动的第一人称3D走廊"></canvas>
+              <div class="tape-layer" aria-hidden="true"></div><div class="crosshair" aria-hidden="true"></div>
+              <div class="three-hud"><span>REC ●</span><span id="backroom-position">SECTOR A-01</span><span id="backroom-fps">WEBGL</span></div>
+              <div class="three-fallback"><strong>3D增强层不可用</strong><p>文字证据与控制说明仍可阅读；请在支持WebGL的浏览器中重试。</p></div>
+            </div>
+            <div class="demo-controls action-controls">
+              <div class="dpad" aria-label="第一人称移动">
+                <button type="button" data-back-key="KeyW" aria-label="向前移动">↑</button>
+                <button type="button" data-back-key="KeyA" aria-label="向左移动">←</button>
+                <button type="button" data-back-key="KeyS" aria-label="向后移动">↓</button>
+                <button type="button" data-back-key="KeyD" aria-label="向右移动">→</button>
+              </div>
+              <button class="primary-control" data-backroom-action="ambience" type="button"><strong>切换氛围层</strong><span>LIGHT + FOG + TAPE</span></button>
+              <button class="secondary-control" data-backroom-action="structure" type="button">显示结构层</button>
+              <button class="secondary-control" data-backroom-action="reset" type="button">回到入口</button>
+              <p id="backroom-feedback" class="control-feedback" role="status">拖动舞台改变视角，使用WASD移动。</p>
+            </div>
+          </section>
+
+          <section class="demo-panel" data-demo-panel="minitown" aria-label="MiniTown 等距建造实验" hidden>
+            <div class="canvas-shell three-shell town-shell">
+              <canvas id="minitown-canvas" aria-label="可以点击网格建造并切换昼夜的等距3D小岛"></canvas>
+              <div class="town-hud"><div><small>TIME</small><strong id="town-time">09:00</strong></div><div><small>BUILDINGS</small><strong id="town-buildings">0</strong></div><div><small>POPULATION</small><strong id="town-population">0</strong></div></div>
+              <div class="three-fallback"><strong>3D增强层不可用</strong><p>建造规则说明仍然可读；请在支持WebGL的浏览器中重试。</p></div>
+            </div>
+            <div class="demo-controls town-controls">
+              <div class="tool-segment" role="group" aria-label="选择建造类型">
+                <button class="is-selected" type="button" data-town-tool="home">住宅</button>
+                <button type="button" data-town-tool="workshop">工坊</button>
+                <button type="button" data-town-tool="park">绿地</button>
+              </div>
+              <button class="primary-control" data-town-action="time" type="button"><strong>推进六小时</strong><span>观察光照与窗灯</span></button>
+              <button class="secondary-control" data-town-action="reset" type="button">清空小镇</button>
+              <p id="town-feedback" class="control-feedback" role="status">选择类型，然后点击空白网格建造。</p>
+            </div>
+          </section>
+        </div>
+
+        <aside class="evidence-panel" aria-labelledby="evidence-title">
+          <div class="evidence-index"><span id="evidence-number">01</span><i></i><small id="evidence-route">CUSTOM CANVAS 2D</small></div>
+          <p class="evidence-label">SOURCE EVIDENCE</p>
+          <h2 id="evidence-title">Phantasy Codex Adventure</h2>
+          <p id="evidence-summary" class="evidence-summary">像素图集、实时战斗状态和DOM HUD共同形成完整动作反馈。</p>
+          <a id="evidence-link" class="source-link" href="https://phantasy-codex-adventure.openai.chatgpt.site/" target="_blank" rel="noreferrer">打开原游戏 ↗</a>
+          <dl class="evidence-facts" id="evidence-facts"></dl>
+          <section class="proof-block verified"><span>本实验验证</span><p id="verified-copy"></p></section>
+          <section class="proof-block boundary"><span>本实验不证明</span><p id="boundary-copy"></p></section>
+          <section class="transfer-block"><span>迁移到海岛游戏</span><strong id="transfer-copy"></strong></section>
+        </aside>
+      </section>
+
+      <a class="unified-slice-launch" href="island-systems-slice.html">
+        <span>R6 · SYSTEM INTEGRATION</span>
+        <strong>四项能力已经进入同一个荒岛世界</strong>
+        <p>3D 探索 → 搜集资源 → 制作并装备石斧 → 战斗与掉落 → 建造篝火 → 统一保存</p>
+        <b>进入完整生存链 →</b>
+      </a>
+
+      <a class="unified-slice-launch visual-slice-launch" href="arrival-beach-visual-slice.html">
+        <span>R7 · VISUAL VERTICAL SLICE</span>
+        <strong>风暴后的出生海滩：不增加玩法，只验证目标画面</strong>
+        <p>月牙海湾 → 实时波浪与泡沫 → 湿沙与礁石 → 正常人物比例 → 风暴/天光状态 → 概念目标对照</p>
+        <b>进入实时视觉切片 →</b>
+      </a>
+
+      <section id="visual-routes" class="visual-routes" aria-labelledby="visual-routes-title">
+        <header class="visual-routes-head">
+          <div>
+            <p>WHY THE ORIGINALS LOOK FINISHED</p>
+            <h2 id="visual-routes-title">不是“2D 比 3D 高级”，<em>而是风格与生产方式匹配。</em></h2>
+          </div>
+          <p>四个案例并非都用图片伪装成游戏。Adventure 与 Online 主要用 2D 媒体承载人物和身份；Backroom 与 MiniTown 使用实时 3D，但主动选择了模块走廊、固定等距镜头和风格化几何，避开照片级人物与复杂自然生态的资产成本。</p>
+        </header>
+
+        <div class="visual-route-grid" aria-label="四游戏视觉实现路线">
+          <article data-route="2d">
+            <span>01 · ADVENTURE</span>
+            <h3>图片先完成角色和动作细节</h3>
+            <strong>2D Canvas · 背景 · 动作图集 · VFX</strong>
+            <p>森林、人物、敌人和动作帧已经画在媒体里；程序负责切帧、碰撞、伤害和 HUD 同步，因此固定视角下很快拥有完整游戏感。</p>
+            <small>代价：新增方向、动作和装备通常需要继续制作图片。</small>
+          </article>
+          <article data-route="2d">
+            <span>02 · ONLINE</span>
+            <h3>图片和界面表达身份与成长</h3>
+            <strong>DOM UI · 角色媒体 · 装备图标 · 状态面板</strong>
+            <p>视觉重点是人物身份、装备槽、物品稀有度和属性变化，不要求建立可以自由旋转的完整世界。</p>
+            <small>代价：它不能证明开放世界或多人空间已经实现。</small>
+          </article>
+          <article data-route="3d">
+            <span>03 · BACKROOM</span>
+            <h3>规则空间适合模块化实时 3D</h3>
+            <strong>Three.js · 模块资产 · 灯光 · 雾 · 后处理</strong>
+            <p>墙体、走廊和设备可以重复组合；压迫感来自尺度、重复、第一人称观察和光雾，而不是热带植物或真实人物。</p>
+            <small>代价：成品质量仍依赖模型库、材质与后处理链。</small>
+          </article>
+          <article data-route="3d">
+            <span>04 · MINITOWN</span>
+            <h3>固定等距镜头降低了 3D 成本</h3>
+            <strong>Three.js · 风格化模型 · 实例对象 · 昼夜</strong>
+            <p>固定镜头隐藏背面和近景细节，简化房屋、道路和植被可以反复复用，同时把建造数据直接映射为世界变化。</p>
+            <small>代价：它不等同于写实、自由镜头的开放世界。</small>
+          </article>
+        </div>
+
+        <div class="route-comparison" aria-label="二维混合与完整实时三维对照">
+          <article>
+            <span>2D / 2.5D HYBRID</span>
+            <h3>把细节预先画进图片</h3>
+            <p>固定或半固定镜头；人物、树叶、远景、泡沫和天气可以用图集、分层背景、透明特效或面向镜头的素材完成。</p>
+            <strong>资源有限时，更容易快速获得较高的表面完成度。</strong>
+          </article>
+          <div class="comparison-axis" aria-hidden="true"><b>视觉完成度</b><i></i><b>空间自由度</b></div>
+          <article>
+            <span>FULL REALTIME 3D</span>
+            <h3>让所有可见角度实时成立</h3>
+            <p>需要模型、UV、PBR 贴图、骨骼、动画、材质、灯光、LOD 与性能优化；自由镜头越强，资产生产范围越大。</p>
+            <strong>长期自由度更高，但没有生产资产时最容易暴露占位感。</strong>
+          </article>
+        </div>
+
+        <aside class="island-route-recommendation">
+          <div><span>RECOMMENDED NEXT EXPERIMENT</span><h3>当前海岛更适合先验证 2.5D 混合</h3></div>
+          <p>保留 3D 地形、碰撞、海水和天气；限制镜头；先用 2D 或预渲染人物、植被和远景替换一类程序化占位物。它是下一项对照实验，不是已经决定的最终引擎路线。</p>
+          <a href="FOUR_GAME_VISUAL_IMPLEMENTATION_SUMMARY.md">阅读完整中文总结 →</a>
+        </aside>
+      </section>
+
+      <section id="matrix" class="capability-matrix" aria-labelledby="matrix-title">
+        <div class="section-heading"><p>CAPABILITY MATRIX</p><h2 id="matrix-title">四个游戏不是四种风格，而是四组生产能力</h2><span>每项能力必须先有运行证据，再决定是否进入海岛项目。</span></div>
+        <div class="matrix-grid">
+          <article><span>01 · ACTION</span><h3>表现层</h3><p>图集动画、动作时序、打击反馈、HUD同步。</p><strong>适合验证人物与交互手感</strong></article>
+          <article><span>02 · PROGRESSION</span><h3>状态层</h3><p>物品模型、装备规则、原子交换、持久化。</p><strong>适合验证资源与长期成长</strong></article>
+          <article><span>03 · ATMOSPHERE</span><h3>空间层</h3><p>3D资产、LOD、实例化、灯光、雾和后处理。</p><strong>适合验证真实空间可信度</strong></article>
+          <article><span>04 · SIMULATION</span><h3>世界层</h3><p>网格状态、批量对象、昼夜和世界反馈。</p><strong>适合验证营地从无到有</strong></article>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>Research 08 · Product evidence before reusable conclusions</span><a href="workflow-practice.html#cases">返回流程研究</a></footer>
+    <script src="adventure-combat-core.js" defer></script>
+    <script src="capability-lab.js" defer></script>
+    <script type="module" src="capability-lab-3d.mjs"></script>
+  </body>
+</html>

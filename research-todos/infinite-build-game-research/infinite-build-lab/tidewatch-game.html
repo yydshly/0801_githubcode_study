@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07161d">
+  <meta name="description" content="《潮汐守望》首个 Three.js 可玩切片：阅读潮汐、收集漂流木并点亮信号火。">
+  <title>潮汐守望 · 首个可玩切片</title>
+  <link rel="stylesheet" href="tidewatch-game.css">
+</head>
+<body>
+  <main class="game-shell">
+    <canvas id="tidewatch-scene" aria-label="潮汐守望三维游戏场景"></canvas>
+
+    <header class="topbar">
+      <a class="brand" href="workflow-practice.html" aria-label="返回工作流研究页">
+        <span class="brand-mark">◒</span>
+        <span><strong>潮汐守望</strong><small>PLAYABLE SLICE · 0.1</small></span>
+      </a>
+      <div class="top-actions">
+        <button id="help-button" type="button" aria-expanded="false" aria-controls="help-panel">操作</button>
+        <button id="pause-button" type="button">暂停</button>
+        <button id="restart-button" type="button">重置</button>
+      </div>
+    </header>
+
+    <section class="objective-card" aria-live="polite">
+      <span class="eyebrow">当前任务</span>
+      <h1 id="objective-title">检查海湾边的潮尺</h1>
+      <p id="objective-copy">靠近蓝色潮尺，按 E 或“行动”，先弄清海水还会给你多少时间。</p>
+      <div class="objective-steps" aria-label="任务进度">
+        <div id="step-observe" class="active"><b>01</b><span>读潮</span></div>
+        <div id="step-gather"><b>02</b><span>集木</span></div>
+        <div id="step-light"><b>03</b><span>点火</span></div>
+      </div>
+    </section>
+
+    <section class="status-cluster" aria-label="游戏状态">
+      <article>
+        <span>漂流木</span>
+        <strong id="wood-count">0 / 4</strong>
+        <div class="meter wood"><i id="wood-meter"></i></div>
+      </article>
+      <article>
+        <span>距离高潮</span>
+        <strong id="tide-time">未读潮</strong>
+        <div class="meter tide"><i id="tide-meter"></i></div>
+      </article>
+      <article>
+        <span>意志</span>
+        <strong id="resolve-count">100%</strong>
+        <div class="meter resolve"><i id="resolve-meter"></i></div>
+      </article>
+    </section>
+
+    <div id="world-message" class="world-message" role="status" aria-live="polite">先找到海湾边的潮尺</div>
+
+    <aside id="help-panel" class="help-panel" hidden>
+      <span class="eyebrow">操作方式</span>
+      <dl>
+        <div><dt>移动</dt><dd>WASD / 方向键 / 点击地面</dd></div>
+        <div><dt>行动</dt><dd>E / 屏幕“行动”按钮</dd></div>
+        <div><dt>加速</dt><dd>Shift / 屏幕“疾行”按钮</dd></div>
+      </dl>
+      <p>海面发亮的浅滩是捷径。涨潮后继续停留会被浪冲回检查点，并丢失一根木材。</p>
+    </aside>
+
+    <div class="touch-controls" aria-label="触摸操作">
+      <div class="dpad">
+        <button type="button" data-key="ArrowUp" aria-label="向前">▲</button>
+        <button type="button" data-key="ArrowLeft" aria-label="向左">◀</button>
+        <button type="button" data-key="ArrowDown" aria-label="向后">▼</button>
+        <button type="button" data-key="ArrowRight" aria-label="向右">▶</button>
+      </div>
+      <div class="touch-actions">
+        <button id="sprint-touch" type="button" data-key="ShiftLeft">疾行</button>
+        <button id="action-touch" class="primary" type="button">行动</button>
+      </div>
+    </div>
+
+    <section id="start-overlay" class="screen-overlay">
+      <div class="start-card">
+        <div class="start-copy">
+          <span class="eyebrow">RESEARCH 08 · FIRST PLAYABLE SLICE</span>
+          <h2>风暴已经远去，<br><em>海水仍在逼近。</em></h2>
+          <p>你没有完整的生存系统，只有一次清楚的现实判断：先读懂潮汐，再决定走正在消失的捷径，还是绕行安全海岸。</p>
+          <div class="start-actions">
+            <button id="new-game-button" class="button-primary" type="button">从搁浅点开始</button>
+            <button id="continue-button" type="button" hidden>继续上次进度</button>
+          </div>
+        </div>
+        <figure>
+          <img src="assets/concepts/tidewatch-three-states-v1.png" alt="潮汐守望概念图：到达、理解潮汐和点亮信号火三个阶段">
+          <figcaption>概念图只规定镜头、地形语言和状态变化；真正碰撞、潮汐与交互由当前实时场景实现。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="result-overlay" class="screen-overlay" hidden>
+      <div class="result-card">
+        <span id="result-kicker" class="eyebrow">CHECKPOINT COMPLETE</span>
+        <h2 id="result-title">海面回应了火光</h2>
+        <p id="result-copy"></p>
+        <dl>
+          <div><dt>用时</dt><dd id="result-time">—</dd></div>
+          <div><dt>路线证据</dt><dd id="result-route">—</dd></div>
+          <div><dt>剩余意志</dt><dd id="result-resolve">—</dd></div>
+        </dl>
+        <div class="result-actions">
+          <button id="play-again-button" class="button-primary" type="button">重新体验</button>
+          <a href="workflow-practice.html#reflection">返回研究页复盘</a>
+        </div>
+      </div>
+    </section>
+
+    <div id="paused-label" class="paused-label" hidden>已暂停</div>
+    <div class="quality-note">程序化 3D · 单一平面碰撞 · 自动保存</div>
+  </main>
+
+  <script src="tidewatch-level.js"></script>
+  <script src="tidewatch-core.js"></script>
+  <script>
+    document.documentElement.dataset.runtimeState = "waiting";
+    window.addEventListener("error", function (event) {
+      document.documentElement.dataset.runtimeState = "error";
+      document.documentElement.dataset.runtimeError = event.message || "unknown runtime error";
+    });
+    window.addEventListener("unhandledrejection", function (event) {
+      document.documentElement.dataset.runtimeState = "error";
+      document.documentElement.dataset.runtimeError = String(event.reason || "unhandled rejection");
+    });
+  </script>
+  <script defer src="tidewatch-scene.js"></script>
+</body>
+</html>

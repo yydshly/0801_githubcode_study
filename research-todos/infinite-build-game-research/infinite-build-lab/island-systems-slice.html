@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07161d">
+  <meta name="description" content="荒岛统一垂直切片：在一个连续 3D 世界中完成采集、制作、装备、战斗、掉落、建造和保存。">
+  <title>荒岛生存链 · 统一垂直切片</title>
+  <link rel="stylesheet" href="island-systems-slice.css">
+</head>
+<body>
+  <main class="game-shell island-systems-shell">
+    <canvas id="island-systems-scene" aria-label="荒岛生存链三维游戏场景"></canvas>
+
+    <header class="topbar">
+      <a class="brand" href="capability-lab.html" aria-label="返回四游戏能力拆解实验室">
+        <span class="brand-mark">◇</span>
+        <span><strong>荒岛生存链</strong><small>UNIFIED SLICE · R6</small></span>
+      </a>
+      <div class="top-actions">
+        <a class="visual-slice-link" href="arrival-beach-visual-slice.html">视觉切片</a>
+        <button id="help-button" type="button" aria-expanded="false" aria-controls="help-panel">操作</button>
+        <button id="pause-button" type="button">暂停</button>
+        <button id="restart-button" type="button">重置</button>
+      </div>
+    </header>
+
+    <section class="objective-card" aria-live="polite">
+      <span class="eyebrow">当前任务</span>
+      <h1 id="objective-title">搜集制作材料</h1>
+      <p id="objective-copy">在海滩找到 1 木材和 1 石块；靠近资源按 E 拾取。</p>
+      <div class="objective-steps" aria-label="生存链进度">
+        <div id="step-gather" class="active"><b>01</b><span>采集</span></div>
+        <div id="step-craft"><b>02</b><span>装备</span></div>
+        <div id="step-fight"><b>03</b><span>战斗</span></div>
+        <div id="step-loot"><b>04</b><span>掉落</span></div>
+        <div id="step-build"><b>05</b><span>建造</span></div>
+      </div>
+    </section>
+
+    <section class="status-cluster" aria-label="角色与世界状态">
+      <article>
+        <span>生命</span>
+        <strong id="hp-count">100%</strong>
+        <div class="meter health"><i id="hp-meter"></i></div>
+      </article>
+      <article>
+        <span>潮位压力</span>
+        <strong id="tide-time">2:40</strong>
+        <div class="meter tide"><i id="tide-meter"></i></div>
+      </article>
+      <article>
+        <span>潮木兽</span>
+        <strong id="enemy-status">未发现</strong>
+        <div class="meter enemy"><i id="enemy-meter"></i></div>
+      </article>
+    </section>
+
+    <section class="inventory-bar" aria-label="背包与装备">
+      <div class="inventory-label"><span class="eyebrow">背包</span><strong>同一份世界状态</strong></div>
+      <div class="item-slot" data-item="wood"><i>木</i><span>木材</span><strong id="wood-count">0</strong></div>
+      <div class="item-slot" data-item="stone"><i>石</i><span>石块</span><strong id="stone-count">0</strong></div>
+      <div class="item-slot" data-item="resin"><i>脂</i><span>树脂</span><strong id="resin-count">0</strong></div>
+      <div id="tool-slot" class="item-slot tool-slot empty"><i>斧</i><span>工具槽</span><strong id="tool-name">空</strong></div>
+    </section>
+
+    <div id="context-prompt" class="context-prompt" role="status" aria-live="polite" hidden></div>
+    <div id="world-message" class="world-message" role="status" aria-live="polite">先在搁浅点附近寻找木材和石块</div>
+
+    <aside id="help-panel" class="help-panel" hidden>
+      <span class="eyebrow">操作方式</span>
+      <dl>
+        <div><dt>移动</dt><dd>WASD / 方向键 / 点击地面</dd></div>
+        <div><dt>交互</dt><dd>E / 屏幕“交互”按钮</dd></div>
+        <div><dt>攻击</dt><dd>Space / 屏幕“攻击”按钮</dd></div>
+        <div><dt>冲刺</dt><dd>Shift / 屏幕“冲刺”按钮</dd></div>
+      </dl>
+      <p>靠近资源后需要主动拾取。敌人身体变红且地面出现红圈时，代表攻击即将生效；离开范围或在收招后反击。</p>
+    </aside>
+
+    <div class="touch-controls" aria-label="触摸操作">
+      <div class="dpad">
+        <button type="button" data-key="ArrowUp" aria-label="向前">▲</button>
+        <button type="button" data-key="ArrowLeft" aria-label="向左">◀</button>
+        <button type="button" data-key="ArrowDown" aria-label="向后">▼</button>
+        <button type="button" data-key="ArrowRight" aria-label="向右">▶</button>
+      </div>
+      <div class="touch-actions survival-actions">
+        <button id="sprint-touch" type="button" data-key="ShiftLeft">冲刺</button>
+        <button id="attack-touch" class="danger" type="button">攻击</button>
+        <button id="action-touch" class="primary" type="button">交互</button>
+      </div>
+    </div>
+
+    <section id="start-overlay" class="screen-overlay">
+      <div class="start-card unified-start-card">
+        <div class="start-copy">
+          <span class="eyebrow">RESEARCH 08 · UNIFIED PLAYABLE SLICE</span>
+          <h2>风暴把你留在海滩，<br><em>天黑前必须点起第一束火。</em></h2>
+          <p>这一版不再分别展示四项能力。你获得的每根木材、制作的石斧、击败的生物和点燃的篝火，都属于同一个可保存的 3D 世界。</p>
+          <ol class="loop-preview">
+            <li>搜集木材与石块</li>
+            <li>制作并装备石斧</li>
+            <li>击退潮木兽，拾取树脂</li>
+            <li>在高地建造篝火</li>
+          </ol>
+          <div class="start-actions">
+            <button id="new-game-button" class="button-primary" type="button">从搁浅点开始</button>
+            <button id="continue-button" type="button" hidden>继续上次进度</button>
+          </div>
+        </div>
+        <figure class="system-chain-figure" aria-label="统一生存链示意">
+          <div class="system-chain">
+            <span>探索</span><b>→</b><span>资源</span><b>→</b><span>石斧</span><b>→</b><span>战斗</span><b>→</b><span>篝火</span>
+          </div>
+          <figcaption>这次验证的重点不是内容数量，而是每一步是否能可靠改变下一步。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="result-overlay" class="screen-overlay" hidden>
+      <div class="result-card">
+        <span id="result-kicker" class="eyebrow">SURVIVAL CHAIN COMPLETE</span>
+        <h2 id="result-title">第一束火照亮了高地</h2>
+        <p id="result-copy">你不是完成了五个按钮，而是让五套规则在同一个世界中首尾相接。</p>
+        <dl>
+          <div><dt>生存用时</dt><dd id="result-time">—</dd></div>
+          <div><dt>装备结果</dt><dd id="result-tool">石斧</dd></div>
+          <div><dt>世界变化</dt><dd id="result-world">篝火已点燃</dd></div>
+        </dl>
+        <div class="result-actions">
+          <button id="play-again-button" class="button-primary" type="button">重新体验</button>
+          <a href="capability-lab.html#summary">返回能力实验室复盘</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="fallback-panel" class="fallback-panel" hidden>
+      <span class="eyebrow">3D 场景未能启动</span>
+      <h2>当前设备仍可阅读这条游戏链</h2>
+      <p>探索海滩 → 搜集木材与石块 → 制作石斧 → 击退潮木兽 → 拾取树脂 → 建造篝火。请启用硬件加速或更换支持 WebGL 的浏览器后再进行实机操作。</p>
+      <a href="capability-lab.html">返回能力实验室</a>
+    </section>
+
+    <div id="paused-label" class="paused-label" hidden>已暂停</div>
+    <div class="quality-note">程序化 3D · 统一状态 · 自动保存</div>
+  </main>
+
+  <script src="island-systems-level.js"></script>
+  <script src="island-systems-core.js"></script>
+  <script>
+    document.documentElement.dataset.runtimeState = "waiting";
+    function showRuntimeFallback(message) {
+      document.documentElement.dataset.runtimeState = "error";
+      document.documentElement.dataset.runtimeError = message || "unknown runtime error";
+      var fallback = document.querySelector("#fallback-panel");
+      var start = document.querySelector("#start-overlay");
+      if (fallback) fallback.hidden = false;
+      if (start) start.hidden = true;
+    }
+    window.addEventListener("error", function (event) { showRuntimeFallback(event.message); });
+    window.addEventListener("unhandledrejection", function (event) { showRuntimeFallback(String(event.reason || "unhandled rejection")); });
+  </script>
+  <script defer src="island-systems-scene.js"></script>
+</body>
+</html>
