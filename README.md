@@ -25,6 +25,21 @@
 
 “原始项目 / 参考来源”列会明确区分上游代码仓库、公开视觉参考和本仓库原创研究；没有可验证外部仓库的项目不会补写推测性链接。
 
+### 子项目 08：Infinite Build 游戏能力与视觉路线研究
+
+**[打开四游戏视觉路线总结](https://yydshly.github.io/0801_githubcode_study/projects/infinite-build-lab/capability-lab.html#visual-routes)** · [体验荒岛系统切片](https://yydshly.github.io/0801_githubcode_study/projects/infinite-build-lab/island-systems-slice.html) · [查看出生海滩视觉切片](https://yydshly.github.io/0801_githubcode_study/projects/infinite-build-lab/arrival-beach-visual-slice.html) · [阅读完整研究文档](./research-todos/infinite-build-game-research/infinite-build-lab/FOUR_GAME_VISUAL_IMPLEMENTATION_SUMMARY.md)
+
+这个项目最初研究 The Infinite Build 所描述的长期 AI 游戏开发流程，后续将研究重点从“提示词如何持续迭代”转向“真实游戏效果由哪些生产能力构成”。我们拆解了原网页中的 Adventure、Online、Backroom 和 MiniTown 四个案例，并分别建立动作反馈、装备成长、第一人称氛围和等距建造的可运行实验。
+
+四个案例不能简单概括为“都是 2D 游戏”：Adventure 与 Online 主要通过背景、角色图集、装备图标和界面媒体预先承载视觉细节；Backroom 与 MiniTown 使用实时 3D，但分别通过模块化硬表面空间和固定等距镜头控制模型、材质与观察角度的成本。它们共同说明，较高完成度首先来自视觉风格、镜头自由度和资产生产方式相互匹配。
+
+- **系统垂直切片**：将探索、采集、制作、装备、战斗、掉落、建造和保存接入同一个荒岛世界，证明玩法链能够连续运行。
+- **视觉垂直切片**：独立验证月牙海岸、海水、天气、人物尺度、救生艇、残骸、林缘和镜头构图，不把概念目标图冒充为实时游戏截图。
+- **当前视觉结论**：目标图可以在固定画面中直接画出真实人物、植物、岩石、湿沙和云层；自由实时 3D 则需要模型、UV、PBR 贴图、骨骼、动画、LOD 和性能优化。缺少生产资产时，继续增加代码不会自然得到照片级效果。
+- **下一项推荐实验**：保留 3D 地形、碰撞、海水和天气，限制镜头，只选择人物或近景植被中的一类，验证 2D/预渲染素材与实时 3D 组合的 2.5D 路线。
+
+当前推荐 2.5D 只是下一次最值得验证的低成本方案，不代表已经决定最终游戏引擎。购买第三方资产、迁移 Unreal 或追求自由写实 3D 仍需独立评估资源、授权、性能与长期内容生产成本。
+
 后续项目会继续追加到这张表中，保持“一个研究问题对应一个独立子项目”的边界。
 
 ### 子项目 04：Particle Flower Lab
