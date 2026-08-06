@@ -13,6 +13,11 @@ on:
       - "complete-shelf-study/**"
       - "particle-flower-lab/**"
       - "glass-worlds-gallery/**"
+      - "starfield-process-demo/**"
+      - "threejs-awesome-graphics-agent-skills-demo/**"
+      - "ocean-atlas-product-demo/**"
+      - "awesome-design-md-lab/**"
+      - "research-todos/infinite-build-game-research/**"
   workflow_dispatch:
 
 permissions:
